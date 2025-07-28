@@ -1,365 +1,329 @@
-├── .storybook/
-│   ├── main.ts
-│   └── preview.tsx
-│
+my-app-master/
+├── .gitignore
+├── README.md
+├── csv/
+│   ├── _FULLstructure.csv
+│   ├── assets.csv
+│   ├── common.csv
+│   ├── hooks.csv
+│   ├── pages.csv
+│   ├── requests.csv
+│   ├── sections.csv
+│   ├── services.csv
+│   ├── stories.csv
+│   ├── types.csv
+│   └── utils.csv
+├── package-lock.json
+├── package.json
 ├── public/
-│   └── index.html
-│
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
 ├── src/
+│   ├── App.css
+│   ├── App.js
+│   ├── App.module.css
+│   ├── App.styles.ts
+│   ├── App.test.js
+│   ├── App.test.tsx
+│   ├── App.tsx
 │   ├── assets/
-│   │   ├── fonts/
+│   │   ├── fonts/fonts.css
 │   │   ├── images/
+│   │   │   ├── README.md
+│   │   │   ├── icons/app-icon.svg
+│   │   │   └── illustrations/empty-state.svg
 │   │   └── styles/
 │   │       ├── global.css
 │   │       ├── reset.css
+│   │       ├── themeMixins.css
 │   │       └── variables.css
-│   │
 │   ├── components/
 │   │   ├── auth/
-│   │   │   ├── AuthModal.tsx
 │   │   │   ├── AuthModal.module.css
 │   │   │   ├── AuthModal.stories.tsx
 │   │   │   ├── AuthModal.test.tsx
-│   │   │   ├── UserInfo.tsx
+│   │   │   ├── AuthModal.tsx
 │   │   │   ├── UserInfo.module.css
 │   │   │   ├── UserInfo.stories.tsx
 │   │   │   ├── UserInfo.test.tsx
+│   │   │   ├── UserInfo.tsx
 │   │   │   └── index.ts
-│   │   │
 │   │   ├── common/
 │   │   │   ├── AppHeader/
-│   │   │   │   ├── AppHeader.tsx
 │   │   │   │   ├── AppHeader.module.css
 │   │   │   │   ├── AppHeader.stories.tsx
-│   │   │   │   └── AppHeader.test.tsx
+│   │   │   │   ├── AppHeader.test.tsx
+│   │   │   │   └── AppHeader.tsx
 │   │   │   ├── Button/
-│   │   │   │   ├── Button.tsx
 │   │   │   │   ├── Button.module.css
 │   │   │   │   ├── Button.stories.tsx
-│   │   │   │   └── Button.test.tsx
-│   │   │   │
+│   │   │   │   ├── Button.test.tsx
+│   │   │   │   └── Button.tsx
 │   │   │   ├── Card/
-│   │   │   │   ├── Card.tsx
 │   │   │   │   ├── Card.module.css
 │   │   │   │   ├── Card.stories.tsx
-│   │   │   │   └── Card.test.tsx
-│   │   │   │
-│   │   │   ├── Tab/
-│   │   │   │   ├── Tab.tsx
-│   │   │   │   ├── Tab.module.css
-│   │   │   │   ├── Tab.stories.tsx
-│   │   │   │   └── Tab.test.tsx
-│   │   │   │
-│   │   │   ├── TabsNavigation/
-│   │   │   │   ├── TabsNavigation.tsx
-│   │   │   │   ├── TabsNavigation.module.css
-│   │   │   │   ├── TabsNavigation.stories.tsx
-│   │   │   │   └── TabsNavigation.test.tsx
-│   │   │   │
-│   │   │   ├── Input/
-│   │   │   │   ├── Input.tsx
-│   │   │   │   ├── Input.module.css
-│   │   │   │   ├── Input.stories.tsx
-│   │   │   │   └── Input.test.tsx
-│   │   │   │
-│   │   │   ├── Select/
-│   │   │   │   ├── Select.tsx
-│   │   │   │   ├── Select.module.css
-│   │   │   │   ├── Select.stories.tsx
-│   │   │   │   └── Select.test.tsx
-│   │   │   │
+│   │   │   │   ├── Card.test.tsx
+│   │   │   │   └── Card.tsx
 │   │   │   ├── Checkbox/
-│   │   │   │   ├── Checkbox.tsx
 │   │   │   │   ├── Checkbox.module.css
 │   │   │   │   ├── Checkbox.stories.tsx
-│   │   │   │   └── Checkbox.test.tsx
-│   │   │   │
+│   │   │   │   ├── Checkbox.test.tsx
+│   │   │   │   └── Checkbox.tsx
+│   │   │   ├── Input/
+│   │   │   │   ├── Input.module.css
+│   │   │   │   ├── Input.stories.tsx
+│   │   │   │   ├── Input.test.tsx
+│   │   │   │   └── Input.tsx
+│   │   │   ├── MainContent/MainContent.tsx
+│   │   │   ├── Select/
+│   │   │   │   ├── Select.module.css
+│   │   │   │   ├── Select.stories.tsx
+│   │   │   │   ├── Select.test.tsx
+│   │   │   │   └── Select.tsx
+│   │   │   ├── Sidebar/Sidebar.tsx
+│   │   │   ├── Tab/
+│   │   │   │   ├── Tab.module.css
+│   │   │   │   ├── Tab.stories.tsx
+│   │   │   │   ├── Tab.test.tsx
+│   │   │   │   └── Tab.tsx
+│   │   │   ├── TabsNavigation/
+│   │   │   │   ├── TabsNavigation.module.css
+│   │   │   │   ├── TabsNavigation.stories.tsx
+│   │   │   │   ├── TabsNavigation.test.tsx
+│   │   │   │   └── TabsNavigation.tsx
 │   │   │   └── index.ts
-│   │   │
+│   │   ├── index.ts
+│   │   ├── layout/
+│   │   │   ├── AppLayout.tsx
+│   │   │   └── EmptyLayout.tsx
 │   │   ├── requests/
 │   │   │   ├── RequestCard/
-│   │   │   │   ├── RequestCard.tsx
 │   │   │   │   ├── RequestCard.module.css
-│   │   │   │   ├── RequestCard.stories.tsx
-│   │   │   │   └── RequestCard.test.tsx
-│   │   │   │
-│   │   │   ├── RequestTable/
-│   │   │   │   ├── RequestTable.tsx
-│   │   │   │   ├── RequestTable.module.css
-│   │   │   │   ├── RequestTable.stories.tsx
-│   │   │   │   └── RequestTable.test.tsx
-│   │   │   │
+│   │   │   │   └── RequestCard.tsx
 │   │   │   ├── RequestForm/
-│   │   │   │   ├── RequestForm.tsx
 │   │   │   │   ├── RequestForm.module.css
-│   │   │   │   ├── RequestForm.stories.tsx
-│   │   │   │   └── RequestForm.test.tsx
-│   │   │   │
+│   │   │   │   └── RequestForm.tsx
+│   │   │   ├── RequestTable/
+│   │   │   │   ├── RequestTable.module.css
+│   │   │   │   └── RequestTable.tsx
 │   │   │   └── index.ts
-│   │   │
-│   │   ├── sections/
-│   │   │   ├── AdminPanel/
-│   │   │   │   ├── AdminPanel.tsx
-│   │   │   │   ├── AdminPanel.module.css
-│   │   │   │   ├── AdminPanel.stories.tsx
-│   │   │   │   └── AdminPanel.test.tsx
-│   │   │   │
-│   │   │   ├── CreateRequest/
-│   │   │   │   ├── CreateRequest.tsx
-│   │   │   │   ├── CreateRequest.module.css
-│   │   │   │   ├── CreateRequest.stories.tsx
-│   │   │   │   └── CreateRequest.test.tsx
-│   │   │   │
-│   │   │   ├── HelpSection/
-│   │   │   │   ├── HelpSection.tsx
-│   │   │   │   ├── HelpSection.module.css
-│   │   │   │   ├── HelpSection.stories.tsx
-│   │   │   │   └── HelpSection.test.tsx
-│   │   │   │
-│   │   │   ├── ModerationPanel/
-│   │   │   │   ├── ModerationPanel.tsx
-│   │   │   │   ├── ModerationPanel.module.css
-│   │   │   │   ├── ModerationPanel.stories.tsx
-│   │   │   │   └── ModerationPanel.test.tsx
-│   │   │   │
-│   │   │   ├── ProfileSection/
-│   │   │   │   ├── ProfileSection.tsx
-│   │   │   │   ├── ProfileSection.module.css
-│   │   │   │   ├── ProfileSection.stories.tsx
-│   │   │   │   └── ProfileSection.test.tsx
-│   │   │   │
-│   │   │   └── index.ts
-│   │   │
-│   │   └── index.ts
-│   │
+│   │   └── sections/
+│   │       ├── AdminPanel/AdminPanel.tsx
+│   │       ├── CreateRequest/
+│   │       │   ├── CreateRequest.module.css
+│   │       │   └── CreateRequest.tsx
+│   │       ├── HelpSection/HelpSection.tsx
+│   │       ├── ModerationPanel/ModerationPanel.tsx
+│   │       ├── ProfileSection/ProfileSection.tsx
+│   │       └── index.ts
 │   ├── contexts/
 │   │   ├── AppContext.tsx
+│   │   ├── AuthContext.tsx
 │   │   └── index.ts
-│   │
 │   ├── hooks/
 │   │   ├── useAuth.ts
 │   │   ├── useFilters.ts
 │   │   ├── useLocalStorage.ts
-│   │   ├── usePagination.ts
 │   │   ├── useMediaQuery.ts
+│   │   ├── usePagination.ts
 │   │   └── index.ts
-│   │
+│   ├── index.css
+│   ├── index.js
+│   ├── index.tsx
+│   ├── logo.svg
 │   ├── pages/
-│   │   ├── MainPage.tsx
-│   │   ├── MainPage.module.css
-│   │   ├── LoginPage.tsx
-│   │   ├── LoginPage.module.css
-│   │   ├── ProfilePage.tsx
-│   │   ├── ProfilePage.module.css
-│   │   ├── AdminPage.tsx
 │   │   ├── AdminPage.module.css
-│   │   ├── NotFoundPage.tsx
+│   │   ├── AdminPage.tsx
+│   │   ├── HelpPage.tsx
+│   │   ├── LoginPage.module.css
+│   │   ├── LoginPage.tsx
+│   │   ├── MainPage.module.css
+│   │   ├── MainPage.tsx
+│   │   ├── ModerationPage.tsx
 │   │   ├── NotFoundPage.module.css
+│   │   ├── NotFoundPage.tsx
+│   │   ├── ProfilePage.module.css
+│   │   ├── ProfilePage.tsx
 │   │   └── index.ts
-│   │
+│   ├── react-app-env.d.ts
+│   ├── reportWebVitals.js
+│   ├── reportWebVitals.ts
 │   ├── routes/
-│   │   ├── Router.tsx
-│   │   ├── PrivateRoute.tsx
 │   │   ├── GuestRoute.tsx
-│   │   ├── routesConfig.ts
-│   │   └── index.ts
-│   │
+│   │   ├── PrivateRoute.tsx
+│   │   ├── Router.tsx
+│   │   ├── index.ts
+│   │   ├── routes.d.ts
+│   │   └── routesConfig.tsx
 │   ├── services/
 │   │   ├── api/
-│   │   │   ├── axios.ts
 │   │   │   ├── authAPI.ts
+│   │   │   ├── axios.ts
+│   │   │   ├── index.ts
 │   │   │   ├── requestsAPI.ts
-│   │   │   ├── usersAPI.ts
-│   │   │   └── index.ts
-│   │   │
+│   │   │   └── usersAPI.ts
+│   │   ├── index.ts
 │   │   ├── mock/
 │   │   │   ├── authMock.ts
 │   │   │   ├── requestsMock.ts
 │   │   │   └── usersMock.ts
-│   │   │
 │   │   ├── storage/
 │   │   │   ├── localStorage.ts
 │   │   │   └── sessionStorage.ts
-│   │   │
-│   │   └── index.ts
-│   │
+│   │   └── types/index.ts
+│   ├── setupTests.js
+│   ├── setupTests.ts
 │   ├── store/
 │   │   ├── authStore.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
 │   │   ├── requestsStore.ts
-│   │   ├── uiStore.ts
 │   │   ├── store.ts
-│   │   └── index.ts
-│   │
+│   │   └── uiStore.ts
 │   ├── test/
-│   │   ├── setupTests.ts
 │   │   ├── jest.setup.ts
-│   │   └── mocks/
-│   │       ├── handlers.ts
-│   │       ├── server.ts
-│   │       └── browser.ts
-│   │
+│   │   ├── mocks/
+│   │   │   ├── browser.ts
+│   │   │   ├── handlers.ts
+│   │   │   ├── index.ts
+│   │   │   ├── mockData.ts
+│   │   │   └── server.ts
+│   │   └── setupTests.ts
 │   ├── themes/
-│   │   ├── lightTheme.ts
-│   │   ├── darkTheme.ts
 │   │   ├── ThemeProvider.tsx
+│   │   ├── darkTheme.ts
+│   │   ├── lightTheme.ts
 │   │   └── themeTypes.ts
-│   │
 │   ├── types/
+│   │   ├── api.d.ts
 │   │   ├── app.d.ts
 │   │   ├── components.d.ts
-│   │   ├── api.d.ts
-│   │   ├── store.d.ts
+│   │   ├── index.ts
 │   │   ├── routes.d.ts
+│   │   ├── store.d.ts
+│   │   ├── styled.d.ts
 │   │   └── theme.d.ts
-│   │
-│   ├── utils/
-│   │   ├── dateUtils.ts
-│   │   ├── formatters.ts
-│   │   ├── validation.ts
-│   │   ├── test-utils.tsx
-│   │   ├── domUtils.ts
-│   │   └── index.ts
-│   │
-│   ├── App.tsx
-│   ├── App.module.css
-│   ├── App.test.tsx
-│   ├── index.tsx
-│   ├── index.css
-│   └── react-app-env.d.ts
-│
-├── .eslintrc.json
-├── .prettierrc
-├── .babelrc
-├── jest.config.js
-├── tsconfig.json
-├── tsconfig.paths.json
-├── package.json
-├── package-lock.json
-├── README.md
-├── Dockerfile
-└── .dockerignore
+│   └── utils/
+│       ├── dateUtils.ts
+│       ├── domUtils.ts
+│       ├── formatters.ts
+│       ├── index.ts
+│       ├── test-utils.tsx
+│       └── validation.ts
+└── tsconfig.json
 
 
-🛠 Конфигурация
-Путь	                Имя компонента	        Тип	        Описание
-.storybook/main.ts	    main	            Конфигурация	Основная конфигурация Storybook
-.storybook/preview.tsx	preview	            Конфигурация	Глобальные настройки предпросмотра
-.eslintrc.json	-	                        Конфигурация	Настройки ESLint
-.prettierrc	-	                            Конфигурация	Настройки Prettier
-.babelrc	-	                            Конфигурация	Настройки Babel
-jest.config.js	-	                        Конфигурация	Конфигурация Jest
-tsconfig.json	-	                        Конфигурация	Настройки TypeScript
-tsconfig.paths.json	-	                    Конфигурация	Алиасы путей TypeScript
-package.json	-	                        Конфигурация	Зависимости проекта
-package-lock.json	-	                    Конфигурация	Фиксация версий пакетов
-Dockerfile	-	                            Конфигурация	Конфигурация Docker
-.dockerignore	-	                        Конфигурация	Исключения для Docker
 
-📁 Статические ресурсы
+📂 Atomic Design Structure Overview (Полная структура проекта)
 
-Путь	Имя компонента	Тип	Описание
-public/index.html	index	Шаблон	Основной HTML шаблон приложения
+🔹 Atoms
+Минимальные переиспользуемые UI-компоненты:
 
-🎨 Ресурсы
+    Button
+    Input
+    Checkbox
+    Select
+    Card
+    Tab
 
-Путь	Имя компонента	Тип	Описание
-src/assets/fonts/	-	Папка	Шрифты приложения
-src/assets/images/	-	Папка	Изображения
-src/assets/styles/global.css	global	Стили	Глобальные CSS стили
-src/assets/styles/reset.css	reset	Стили	Сброс CSS стилей
-src/assets/styles/variables.css	variables	Стили	CSS переменные
+🌿 Molecules
+Комбинации атомов, которые реализуют небольшую логику:
 
-🔐 Компоненты - Аутентификация
+    AppHeader
+    Sidebar
+    TabsNavigation
+    MainContent
+    AuthModal
+    UserInfo
 
-Путь	Имя компонента	Тип	Описание
-src/components/auth/AuthModal.tsx	AuthModal	Компонент	Модальное окно авторизации
-src/components/auth/UserInfo.tsx	UserInfo	Компонент	Информация о пользователе
-src/components/auth/index.ts	auth	Barrel	Экспорт компонентов auth
+🧳 Organisms
+Крупные блоки, включающие молекулы и атомы:
 
-🧩 Компоненты - Общие UI
+    RequestCard
+    RequestForm
+    RequestTable
+    AdminPanel
+    ModerationPanel
+    CreateRequest
 
-Путь	Имя компонента	Тип	Описание
-src/components/common/Button/Button.tsx	Button	Компонент	Базовая кнопка
-src/components/common/Card/Card.tsx	Card	Компонент	Карточка для контента
-src/components/common/Tab/Tab.tsx	Tab	Компонент	Компонент вкладки
-src/components/common/Input/Input.tsx	Input	Компонент	Поле ввода
-src/components/common/Select/Select.tsx	Select	Компонент	Выпадающий список
-src/components/common/Checkbox/Checkbox.tsx	Checkbox	Компонент	Чекбокс
-src/components/common/index.ts	common	Barrel	Экспорт общих компонентов
+🌐 Templates
+Макеты полноэкранных страниц:
 
-📬 Компоненты - Запросы
+    HelpSection
+    ProfileSection
+    AppLayout
+    EmptyLayout
 
-Путь	Имя компонента	Тип	Описание
-src/components/requests/RequestCard/RequestCard.tsx	RequestCard	Компонент	Карточка запроса
-src/components/requests/RequestTable/RequestTable.tsx	RequestTable	Компонент	Таблица запросов
-src/components/requests/RequestForm/RequestForm.tsx	RequestForm	Компонент	Форма создания запроса
-src/components/requests/index.ts	requests	Barrel	Экспорт компонентов запросов
+📄 Pages
+Раздел src/pages:
 
-🧱 Компоненты - Секции
+    MainPage.tsx, MainPage.module.css
+    LoginPage.tsx, LoginPage.module.css
+    AdminPage.tsx, AdminPage.module.css
+    ModerationPage.tsx
+    HelpPage.tsx
+    ProfilePage.tsx, ProfilePage.module.css
+    NotFoundPage.tsx, NotFoundPage.module.css
 
-Путь	Имя компонента	Тип	Описание
-src/components/sections/AdminPanel/AdminPanel.tsx	AdminPanel	Компонент	Панель администратора
-src/components/sections/CreateRequest/CreateRequest.tsx	CreateRequest	Компонент	Создание запроса
-src/components/sections/HelpSection/HelpSection.tsx	HelpSection	Компонент	Раздел помощи
-src/components/sections/ModerationPanel/ModerationPanel.tsx	ModerationPanel	Компонент	Панель модерации
-src/components/sections/ProfileSection/ProfileSection.tsx	ProfileSection	Компонент	Профиль пользователя
-src/components/sections/index.ts	sections	Barrel	Экспорт секций приложения
+🔁 Routing (src/routes/)
 
-🧭 Другие ключевые разделы
+    Router.tsx — основной маршрутизатор
+    GuestRoute.tsx / PrivateRoute.tsx — доступность маршрутов
+    routesConfig.tsx — объект конфигурации маршрутов
+    routes.d.ts — типизация маршрутов
 
-### 🚦 Маршрутизация
-src/routes/Router.tsx        → Router
-src/routes/PrivateRoute.tsx  → PrivateRoute
-src/routes/GuestRoute.tsx    → GuestRoute
-src/routes/routesConfig.ts   → routesConfig
+🎨 Themes (src/themes/)
 
-### 🌐 API сервисы
-src/services/api/axios.ts     → axios (HTTP клиент)
-src/services/api/authAPI.ts   → authAPI
-src/services/api/requestsAPI.ts → requestsAPI
-src/services/api/usersAPI.ts  → usersAPI
+    ThemeProvider.tsx — обёртка темизации
+    lightTheme.ts / darkTheme.ts — цветовые схемы
+    themeTypes.ts — типы тем
 
-### 🧪 Тестирование
-src/test/setupTests.ts        → setupTests (Настройка тестов)
-src/test/jest.setup.ts        → jest.setup (Конфиг Jest)
-src/test/mocks/handlers.ts    → handlers (Обработчики MSW)
+🧪 Tests (src/test/ и *.test.tsx)
 
-### 🎨 Темы
-src/themes/lightTheme.ts      → lightTheme
-src/themes/darkTheme.ts       → darkTheme
-src/themes/ThemeProvider.tsx  → ThemeProvider
+    setupTests.ts, jest.setup.ts — глобальные настройки
+    mocks/ — MSW-сервер, заглушки, обработчики
+    *.test.tsx — компонентные и юнит-тесты
 
-### 📦 Ядро приложения
-src/App.tsx                   → App (Корневой компонент)
-src/index.tsx                 → index (Точка входа)
-src/react-app-env.d.ts        → react-app-env (Глобальные типы)
+📁 Contexts (src/contexts/)
 
-🗂 Дополнительные разделы
+    AuthContext.tsx — авторизация, роли
+    AppContext.tsx — состояние UI, фильтры и вкладки
 
-### 🧠 Контексты
-src/contexts/AppContext.tsx   → AppContext (Главный контекст)
+🪝 Hooks (src/hooks/)
 
-### 🪝 Хуки
-src/hooks/useAuth.ts          → useAuth
-src/hooks/useFilters.ts       → useFilters
-src/hooks/useLocalStorage.ts  → useLocalStorage
+    useAuth, useFilters, usePagination, useLocalStorage, useMediaQuery
 
-### 📂 Страницы
-src/pages/MainPage.tsx        → MainPage
-src/pages/LoginPage.tsx       → LoginPage
-src/pages/ProfilePage.tsx     → ProfilePage
+🔧 Utils (src/utils/)
 
-### 🗃 Состояние
-src/store/authStore.ts        → authStore
-src/store/requestsStore.ts    → requestsStore
-src/store/uiStore.ts          → uiStore
+    dateUtils.ts, formatters.ts, validation.ts, domUtils.ts, test-utils.tsx
 
-### 📝 Типы
-src/types/app.d.ts            → app (Основные типы)
-src/types/components.d.ts     → components (Типы компонентов)
-src/types/api.d.ts            → api (Типы API)
+🧾 Types (src/types/)
 
-### 🛠️ Утилиты
-src/utils/dateUtils.ts        → dateUtils
-src/utils/formatters.ts       → formatters
-src/utils/validation.ts       → validation
+    api.d.ts, store.d.ts, theme.d.ts, components.d.ts, routes.d.ts, styled.d.ts
+
+🗂 Store (src/store/)
+
+    authStore.ts, requestsStore.ts, uiStore.ts, store.ts, hooks.ts
+
+🔌 Services (src/services/)
+
+    api/ — authAPI.ts, requestsAPI.ts, usersAPI.ts, axios.ts
+    mock/ — мок-данные для разработки
+    storage/ — localStorage.ts, sessionStorage.ts
+
+📊 CSV (csv/)
+Документация и структура проекта:
+
+    _FULLstructure.csv — дерево проекта
+    assets.csv, hooks.csv, pages.csv, sections.csv, utils.csv и др.
+
+🗂 Assets
+Ресурсы UI:
+
+    fonts/fonts.css
+    images/icons/, images/illustrations/
+    styles/global.css, reset.css, themeMixins.css, variables.css
