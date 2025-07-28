@@ -1,0 +1,173 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 500;
+  color: #e6f1ff;
+  font-size: 14px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 15px;
+  background: rgba(30, 58, 95, 0.7);
+  border: 1px solid rgba(74, 140, 255, 0.4);
+  border-radius: 12px;
+  color: #e6f1ff;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4a8cff;
+}
+
+.textarea {
+  width: 100%;
+  padding: 12px 15px;
+  background: rgba(30, 58, 95, 0.7);
+  border: 1px solid rgba(74, 140, 255, 0.4);
+  border-radius: 12px;
+  color: #e6f1ff;
+  font-size: 15px;
+  min-height: 200px;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #4a8cff;
+}
+
+.fileUploadArea {
+  border: 2px dashed rgba(74, 140, 255, 0.4);
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.fileUploadArea:hover {
+  border-color: #4a8cff;
+}
+
+.fileUploadArea i {
+  font-size: 40px;
+  color: #4a8cff;
+}
+
+.fileInput {
+  display: none;
+}
+
+.attachmentsPreview {
+  margin-top: 10px;
+}
+
+.fileList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.fileItem {
+  background: rgba(30, 58, 95, 0.5);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fileItem i {
+  color: #4a8cff;
+}
+
+.removeFile {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.templateButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.templateButton {
+  background: rgba(74, 140, 255, 0.15);
+  border: 1px solid rgba(74, 140, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #e6f1ff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.templateButton:hover {
+  background: rgba(74, 140, 255, 0.25);
+}
+
+.formActions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.submitButton {
+  padding: 12px 20px;
+  background: #4a8cff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submitButton:hover {
+  background: #3a7cff;
+}
+
+.cancelButton {
+  padding: 12px 20px;
+  background: rgba(30, 58, 95, 0.7);
+  color: #e6f1ff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancelButton:hover {
+  background: rgba(74, 140, 255, 0.3);
+}

@@ -1,0 +1,52 @@
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.userRole {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.roleAdmin {
+  background: rgba(107, 77, 255, 0.25);
+  color: #b19cff;
+}
+
+.roleSupport {
+  background: rgba(74, 140, 255, 0.25);
+  color: #a5c7ff;
+}
+
+.roleUser {
+  background: rgba(74, 222, 128, 0.25);
+  color: #a1e8bb;
+}
+
+.roleManager {
+  background: rgba(155, 93, 229, 0.25);
+  color: #d0b5f5;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}

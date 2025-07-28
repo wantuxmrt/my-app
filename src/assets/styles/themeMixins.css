@@ -1,0 +1,26 @@
+/* src/assets/styles/themeMixins.css */
+:root {
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+[data-theme='light'] {
+  --color-primary: #4361ee;
+  --color-background: #f8f9fa;
+  --color-text: #212529;
+  /* ... остальные цвета light темы */
+}
+
+[data-theme='dark'] {
+  --color-primary: #4895ef;
+  --color-background: #121212;
+  --color-text: #e9ecef;
+  /* ... остальные цвета dark темы */
+}

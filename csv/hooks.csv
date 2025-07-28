@@ -1,0 +1,22 @@
+Имя;Тип;Описание;Свойства;Возвращаемое значение
+useAuth;Хук аутентификации;Управление состоянием аутентификации пользователя, включая вход, выход, регистрацию и проверку авторизации.;;{ user, loading, login, logout, register }
+useTickets;Хук управления заявками;Загрузка, создание, обновление и удаление заявок. Управление списком заявок.;;{ tickets, addTicket, updateTicket, deleteTicket, loading, error }
+useFilters;Хук фильтрации;Управление состоянием фильтров (система, статус, приоритет, поиск) и применение фильтров к списку заявок.;tickets: Ticket[];{ filteredTickets, setSystemFilter, setStatusFilter, setPriorityFilter, setSearchFilter }
+useModal;Хук модальных окон;Управление видимостью модальных окон (логин, регистрация).;;{ isLoginModalOpen, isRegisterModalOpen, openLoginModal, openRegisterModal, closeModals }
+useNewRequest;Хук создания новой заявки;Управление состоянием многошаговой формы создания заявки.;;{ step, formData, setFormData, nextStep, prevStep, submitRequest }
+useAdmin;Хук администрирования;Управление состоянием админ-панели (пользователи, заявки). Включает загрузку пользователей, управление их состоянием (блокировка), просмотр заявок пользователей.;;{ users, loading, error, blockUser, unblockUser, editUser, userTickets }
+useProfile;Хук профиля пользователя;Управление состоянием профиля: загрузка данных пользователя, обновление данных (имя, отдел, пароль).;;{ userData, updateProfile }
+useLocalStorage;Хук для работы с localStorage;Синхронизация состояния с localStorage.;key: string, initialValue: any;[value, setValue]
+
+Каждый хук решает конкретную задачу:
+
+useAuth - централизованное управление аутентификацией
+useTickets - CRUD операции с заявками
+useFilters - динамическая фильтрация данных
+useModal - управление видимостью модальных окон
+useNewRequest - состояние многошаговой формы
+useAdmin - функции административной панели
+useProfile - управление данными профиля
+useLocalStorage - синхронизация состояния с localStorage
+
+Все хуки следуют принципу единой ответственности и могут быть переиспользованы в разных компонентах приложения.

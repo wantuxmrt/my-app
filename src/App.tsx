@@ -1,25 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Router from './routes/Router';
+import AppHeader from './components/common/AppHeader/AppHeader';
+import { Sidebar } from './components/common/Sidebar/Sidebar';
+import { MainContent } from './components/common/MainContent/MainContent';
+import { useAuthStore } from './store/authStore';
+import { AppContainer, ContentWrapper } from './App.styles';
+
+// Define minimal type for auth store state
+type AuthStoreState = {
+  isAuthenticated: boolean;
+};
 
 function App() {
+  // Apply type to the state parameter
+  const isAuthenticated = useAuthStore((state: AuthStoreState) => state.isAuthenticated);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <AppHeader />
+      <ContentWrapper>
+        {isAuthenticated && <Sidebar />}
+        <MainContent>
+          <Router />
+        </MainContent>
+      </ContentWrapper>
+    </AppContainer>
   );
 }
 

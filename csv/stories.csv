@@ -1,0 +1,127 @@
+1. Кнопки (Button) - несколько видов: обычные, с иконками, иконка-кнопка (IconButton), группа кнопок (ButtonGroup). Мы можем сделать:
+    - Button.stories.tsx (основная кнопка, включая варианты: обычная, с иконкой, разные типы)
+    - IconButton.stories.tsx (кнопка, которая состоит только из иконки)
+    - ButtonGroup.stories.tsx (группа кнопок)
+ 2. Карточки (Card) - несколько специализированных, но мы можем сделать общий компонент Card, а затем специализированные как примеры использования. Или отдельные stories для каждого типа? 
+    Лучше сделать:
+    - Card.stories.tsx - общая карточка, а внутри stories показать варианты: request-card, system-choice-card и т.д.
+ 3. Элементы форм:
+    - Input, Textarea, Select, FileUpload - отдельные файлы.
+    - Также PasswordInput (как вариант Input)
+ 4. Модальные окна: Modal.stories.tsx
+ 5. Вкладки: Tabs.stories.tsx
+ 6. Таблицы: Table.stories.tsx (включая TableHeader, TableRow, TableCell, но как подкомпоненты)
+ 7. Аккордеон: Accordion.stories.tsx
+ 8. Информационные карточки: InfoCard.stories.tsx (общий), но также можно выделить HelpCard, ContactItem? 
+    Решение: сделать общий InfoCard, а варианты (meta-item, help-card, contact-item) как stories.
+ 9. Элементы списка: ListItem.stories.tsx (для comment-item, file-item)
+ 10. Шапка: Header.stories.tsx
+ 11. Боковая панель: Sidebar.stories.tsx
+ 12. Основная область контента: MainContent.stories.tsx? (но это, скорее, layout) - можно включить в Layout.stories.tsx
+ 13. Хлебные крошки: Breadcrumbs.stories.tsx
+ 14. Панель инструментов редактора: Toolbar.stories.tsx (но это специфичный компонент) - можно сделать EditorToolbar.stories.tsx? 
+     Но в списке есть общий Toolbar (пункт 69) и EditorToolbar (пункт 14). Объединим под Toolbar.stories.tsx.
+ 15. Секции: Section.stories.tsx
+ 16. Аватар: Avatar.stories.tsx
+ 17. Бейджи: Badge.stories.tsx
+ 18. Иконки: не создаем отдельный stories, так как это иконки из библиотеки.
+ 19. Прогресс: Progress.stories.tsx (если понадобится, но пока нет) - все равно создаем, возможно, для будущего.
+ 20. Алерты: Alert.stories.tsx
+ 21. Панель статистики: Stats.stories.tsx (stat-item)
+ 22. Навигация: Navigation.stories.tsx (flow-navigation)
+ 23. Комментарии: Comment.stories.tsx (comment-item) - но у нас уже есть ListItem? 
+     Решение: Comment может быть сложным компонентом, поэтому выделим отдельно.
+ 24. Прелоадер: Spinner.stories.tsx
+ 25. Пустое состояние: EmptyState.stories.tsx
+ 26. Тултипы: Tooltip.stories.tsx
+ 27. Переключатели: Toggle.stories.tsx (view-toggle)
+ 28. Чекбоксы и радио: Checkbox.stories.tsx, Radio.stories.tsx
+ 29. Слайдер: Slider.stories.tsx (пока не видно, но создаем для будущего)
+ 30. Выпадающее меню: Dropdown.stories.tsx
+ 31. Вкладки (Tabs) - уже есть.
+ 32. Степпер: Stepper.stories.tsx (flow-header)
+ 33. Теги: Tag.stories.tsx (request-id, request-system, request-status)
+ 34. Карточка пользователя: UserCard.stories.tsx
+ 35. Карточка предпросмотра запроса: RequestPreview.stories.tsx
+ 36. Список (GridList): GridList.stories.tsx
+ 37. Поиск: SearchInput.stories.tsx
+ 38. Фильтры: FilterPanel.stories.tsx
+ 39. Пагинация: Pagination.stories.tsx (пока не видно, но создаем)
+ 40. Хедер таблицы: TableHeader.stories.tsx? (но лучше в Table.stories)
+ 41. Строка таблицы: TableRow.stories.tsx? (лучше в Table.stories)
+ 42. Ячейка таблицы: TableCell.stories.tsx? (лучше в Table.stories)
+ 43. Меню: Menu.stories.tsx
+ 44. Навбар: Navbar.stories.tsx (app-header) - но у нас уже есть Header? 
+     Решение: переименуем Header.stories в Navbar.stories? Или оставим Header. Но в списке пункт 44 - Navbar. Сделаем Navbar.stories.
+ 45. Футер: Footer.stories.tsx
+ 46. Лейаут: Layout.stories.tsx
+ 47. Разделитель: Divider.stories.tsx
+ 48. Иконка: не создаем.
+ 49. Текст: Text.stories.tsx
+ 50. Заголовки: Heading.stories.tsx
+ 51. Ссылка: Link.stories.tsx
+ 52. Изображение: Image.stories.tsx
+ 53. Видео: Video.stories.tsx (пока не видно, но создаем)
+ 54. Аудио: Audio.stories.tsx (пока не видно)
+ 55. Карта: Map.stories.tsx (пока не видно)
+ 56. Календарь: Calendar.stories.tsx (пока не видно)
+ 57. Время: Time.stories.tsx (пока не видно)
+ 58. Датапикер: DatePicker.stories.tsx (пока не видно)
+ 59. Рейтинг: Rating.stories.tsx (пока не видно)
+ 60. Прогресс бар: ProgressBar.stories.tsx (пока не видно) - но у нас есть Progress (п.19), объединим.
+ 61. Спиннер: Spinner.stories.tsx (уже есть в п.24)
+ 62. Скелетон: Skeleton.stories.tsx (пока не видно)
+ 63. Уведомление: Notification.stories.tsx (пока не видно)
+ 64. Поповер: Popover.stories.tsx (пока не видно)
+ 65. Модальное окно: уже есть.
+ 66. Диалог: Dialog.stories.tsx? (похоже на модальное, но если будет отличаться, то отдельно) - пока не видно.
+ 67. Боковая панель (Drawer): Drawer.stories.tsx (пока не видно, но если у нас sidebar не выдвижной, то Drawer может быть отдельным)
+ 68. Тост: Toast.stories.tsx (пока не видно)
+ 69. Тулбар: Toolbar.stories.tsx (уже есть)
+ 70. Баннер: Banner.stories.tsx (пока не видно)
+ 71. Лейбл: Label.stories.tsx
+ 72. Плейсхолдер: Placeholder.stories.tsx (пока не видно)
+ 73. Панель: Panel.stories.tsx (admin-section и др.) - но у нас есть Section? 
+     Решение: если Panel отличается от Section, то отдельно, но пока объединим с Section.
+ 74. Аватар: уже есть.
+ 75. Бейдж: уже есть.
+ 76. Карточка: уже есть.
+ 77. Список: List.stories.tsx (общий список, но у нас GridList и обычный List? - сделаем List.stories для обычного списка, GridList.stories для сетки)
+ 78. Сетка: Grid.stories.tsx? (но у нас GridList, который, возможно, объединяет) - оставим GridList.
+ 79. Контейнер: Container.stories.tsx (profile-container)
+ 80. Обертка: Wrapper.stories.tsx? (не очень понятно, что там) - пропустим, так как это слишком общее.
+ 81. Раскрывающийся список: Collapse.stories.tsx? (но у нас Accordion) - Collapse может быть примитивом для Accordion. Пока не видно.
+ 82. Табы: уже есть.
+ 83. Тултип: уже есть.
+ 84. Прогресс: уже есть.
+ 85. Карусель: Carousel.stories.tsx (пока не видно)
+ 86. Дропзона: FileUpload.stories.tsx (уже есть)
+ 87. Редактор: RichTextEditor.stories.tsx (text-editor)
+ 88. Слайдер: уже есть (п.29)
+ 89. Переключатель: Switch.stories.tsx? (Toggle у нас есть в п.27) - но Toggle и Switch могут быть синонимами. Оставим Toggle.
+ 90. Радиогруппа: RadioGroup.stories.tsx (пока не видно)
+ 91. Чекбокс группа: CheckboxGroup.stories.tsx (пока не видно)
+ 92. Селект: уже есть.
+ 93. Мультиселект: MultiSelect.stories.tsx (пока не видно)
+ 94. Автокомплит: Autocomplete.stories.tsx (пока не видно)
+ 95. NumberInput: Input.stories.tsx (как вариант)
+ 96. DateInput: DatePicker.stories.tsx (включая DateInput)
+ 97. TimeInput: TimePicker.stories.tsx? (пока не видно) - но можно объединить в Time.stories? или отдельно.
+ 98. DateTimeInput: DateTimePicker.stories.tsx (пока не видно)
+ 99. DateRangeInput: DateRangePicker.stories.tsx (пока не видно)
+ 100. RangeInput: Range.stories.tsx? (пока не видно) - или Slider?
+ 101. ColorInput: ColorPicker.stories.tsx (пока не видно)
+ 102. FileInput: уже есть.
+ 103. PasswordInput: Input.stories.tsx (как вариант)
+ 104. TextInput: Input.stories.tsx
+ 105. Textarea: Textarea.stories.tsx
+ 106. Form: Form.stories.tsx
+ 107. FormField: FormField.stories.tsx
+ 108. ButtonGroup: ButtonGroup.stories.tsx
+ 109. IconButton: IconButton.stories.tsx
+ 110. Бургер меню: BurgerMenu.stories.tsx (пока не видно)
+ Также добавлены в пример, но не в списке 1-110:
+    - MainContent: Layout.stories.tsx
+    - Text: Text.stories.tsx
+    - HelpCard, ContactItem: в InfoCard
+

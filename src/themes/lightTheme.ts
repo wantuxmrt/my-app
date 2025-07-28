@@ -1,0 +1,41 @@
+import { Theme } from './themeTypes';
+
+export const lightTheme: Theme = {
+  name: 'light',
+  colors: {
+    background: '#ffffff',
+    bgColor: '#f5f5f5',
+    panelBg: '#ffffff',
+    primary: '#1976d2',
+    secondary: '#dc004e',
+    accent: '#4caf50',
+    text: '#333333',
+    success: '#4caf50',
+    warning: '#ff9800',
+    error: '#f44336',
+    bubbleUser: '#e0e0e0',
+    bubbleBot: '#d1e7ff',
+    editColor: '#ffeb3b',
+    shadowColor: 'rgba(0,0,0,0.1)',
+    borderColor: '#e0e0e0',
+    placeholder: '#9e9e9e',
+    disabled: '#bdbdbd',
+    hover: '#f1f1f1',
+    focus: '#e3f2fd',
+    adminColor: '#ff4081',
+    supportColor: '#651fff',
+    userColor: '#00bcd4',
+    managerColor: '#64dd17',
+  },
+  shadows: {
+    small: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+    medium: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+    large: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+  },
+  breakpoints: {
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px',
+  },
+};

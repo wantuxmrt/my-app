@@ -1,0 +1,45 @@
+`pages`, создадим следующие файлы:
+- `LoginPage.tsx`
+- `RegisterPage.tsx`
+- `MyRequestsPage.tsx`
+- `ModerationPage.tsx`
+- `AdminPage.tsx`
+- `NewRequestPage.tsx`
+- `ProfilePage.tsx`
+- `HelpPage.tsx`
+- `TicketDetailsPage.tsx`
+
+LoginPage,Page,Страница входа в систему,,,
+RegisterPage,Page,Страница регистрации пользователя,,,
+MyRequestsPage,Page,Страница с списком запросов текущего пользователя,,,
+ModerationPage,Page,Страница модерации запросов (для менеджеров),,, 
+AdminPage,Page,Страница администрирования (для администраторов),,, 
+NewRequestPage,Page,Страница создания нового запроса,,,
+ProfilePage,Page,Страница профиля пользователя,,,
+HelpPage,Page,Страница помощи и контактов,,,
+TicketDetailsPage,Page,Страница просмотра деталей запроса,,,
+
+Примечание: 
+- В колонках Props, State, Styling мы оставили пустые значения, так как в задании не требуется их детализация для страниц. Однако, если бы у страниц были обязательные пропсы (например, ID запроса для TicketDetailsPage), мы бы указали их. В данном случае, мы предполагаем, что маршрутизация будет через параметры (например, /ticket/:id) и поэтому в пропсах TicketDetailsPage будет `match` или `params` из роутера. Но в задании не требуется углубляться.
+
+Пример структуры роутов (предположительно):
+- `/login` -> LoginPage
+- `/register` -> RegisterPage
+- `/requests` -> MyRequestsPage
+- `/moderation` -> ModerationPage
+- `/admin` -> AdminPage
+- `/new-request` -> NewRequestPage
+- `/profile` -> ProfilePage
+- `/help` -> HelpPage
+- `/ticket/:id` -> TicketDetailsPage
+
+ComponentName,ComponentType,ComponentDescription,Props,State,Styling
+LoginPage,Page,Страница авторизации пользователей,onSubmit: функция обработки входа,email: string, password: string,Форма с полями ввода и кнопкой
+RegisterPage,Page,Страница регистрации новых пользователей,onSubmit: функция обработки регистрации,email: string, password: string, role: string, organization: string, department: string,Форма регистрации с выпадающими списками
+MyRequestsPage,Page,Страница списка запросов пользователя,requests: массив запросов, viewMode: 'grid' | 'list', filters: объект фильтров,Таблица/плитки запросов с фильтрами
+ModerationPage,Page,Страница модерации запросов (для менеджеров),requests: массив запросов отдела,,Таблица запросов сотрудников отдела
+AdminPage,Page,Административная панель управления,users: массив пользователей, requests: все запросы, selectedUser: User | null,Интерфейс управления пользователями и запросами
+NewRequestPage,Page,Страница создания нового запроса,onSubmit: функция отправки запроса,step: number, requestData: объект данных запроса,Многошаговая форма создания запроса
+ProfilePage,Page,Страница профиля пользователя,user: данные пользователя, stats: статистика запросов,formData: объект данных формы,Форма редактирования профиля с статистикой
+HelpPage,Page,Страница помощи и контактов,,,Информационные блоки с контактами и FAQ
+TicketDetailsPage,Page,Страница детального просмотра запроса,ticket: объект запроса, isModeration: boolean,comments: массив комментариев, newComment: string,Детали запроса с комментариями и управлением

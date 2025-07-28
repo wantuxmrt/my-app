@@ -1,0 +1,18 @@
+/* Стили для оберток карточек */
+.systemCardWrapper,
+.priorityCardWrapper {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.systemCardWrapper.active,
+.priorityCardWrapper.active {
+  box-shadow: 0 0 0 2px var(--primary-color);
+  border-radius: 8px;
+}
+
+/* Стиль для кнопки на всю ширину */
+.fullWidthButton {
+  width: 100%;
+  margin-top: 20px;
+}

@@ -1,0 +1,96 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Variants */
+.variant-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.variant-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.variant-secondary {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.variant-secondary:hover {
+  background-color: var(--secondary-dark);
+}
+
+.variant-success {
+  background-color: var(--success);
+  color: white;
+}
+
+.variant-success:hover {
+  background-color: var(--success-dark);
+}
+
+.variant-warning {
+  background-color: var(--warning);
+  color: black;
+}
+
+.variant-warning:hover {
+  background-color: var(--warning-dark);
+}
+
+.variant-error {
+  background-color: var(--error);
+  color: white;
+}
+
+.variant-error:hover {
+  background-color: var(--error-dark);
+}
+
+.variant-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.variant-outline:hover {
+  background-color: var(--primary-light);
+}
+
+/* Sizes */
+.size-small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.size-medium {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.size-large {
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+/* Disabled */
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Icon */
+.icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}

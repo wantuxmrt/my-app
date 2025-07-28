@@ -1,0 +1,20 @@
+.select {
+  width: 100%;
+  background: var(--search-bg);
+  border: 1px solid rgba(74, 140, 255, 0.4);
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.select:hover {
+  border-color: var(--primary);
+}
+
+.select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

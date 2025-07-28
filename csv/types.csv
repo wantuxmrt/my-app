@@ -1,0 +1,116 @@
+FileName,Description
+app.d.ts,Глобальные типы приложения
+user.d.ts,Типы данных пользователя
+ticket.d.ts,Типы данных запросов/тикетов
+filter.d.ts,Типы для системы фильтрации
+category.d.ts,Типы категорий проблем
+organization.d.ts,Типы организаций и отделов
+ui.d.ts,Типы UI-компонентов
+api.d.ts,Типы API-ответов и запросов
+store.d.ts,Типы состояния приложения (Redux)
+
+Перечень типов (файлов в папке types):
+ 1. user.d.ts - типы, связанные с пользователем
+ 2. ticket.d.ts - типы, связанные с запросами
+ 3. app.d.ts - общие типы приложения (например, RootState, AppDispatch)
+ 4. filters.d.ts - типы для фильтров
+ 5. category.d.ts - типы для категорий проблем (если они будут использоваться в нескольких местах)
+ Теперь дадим содержимое для каждого из этих файлов в папке types.
+
+ user.d.ts:
+```typescript
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+    role: 'admin' | 'support' | 'user' | 'manager';
+    avatar: string;
+    password: string;
+    active: boolean;
+    organization: string;
+    department: string;
+}
+```
+ ticket.d.ts:
+```typescript
+export interface Comment {
+    author: string;
+    time: string; // ISO string
+    text: string;
+}
+export interface Ticket {
+    id: number;
+    system: '1c' | 'mis';
+    category: string;
+    title: string;
+    description: string;
+    status: 'new' | 'in-progress' | 'resolved' | 'reopened';
+    priority: 'critical' | 'high' | 'medium' | 'low';
+    created: string; // ISO string
+    userId: number;
+    assignedTo: number | null;
+    comments: Comment[];
+    attachments: string[]; // имена файлов
+}
+```
+ app.d.ts:
+```typescript
+import { RootState, AppDispatch } from '../store/store';
+// Типы для RootState и AppDispatch, если они используются в компонентах
+// Обычно они определяются в store.ts, но если нужны глобально, можно здесь
+// Но в данном случае, возможно, они не нужны в этом файле.
+// Можем определить здесь общие типы, которые не относятся к конкретной предметной области.
+```
+ filters.d.ts:
+```typescript
+export interface Filters {
+    system: 'all' | '1c' | 'mis';
+    status: 'all' | 'new' | 'in-progress' | 'resolved' | 'reopened';
+    priority: 'all' | 'low' | 'medium' | 'high' | 'critical';
+    search: string;
+}
+```
+ category.d.ts:
+```typescript
+export interface ProblemCategoryItem {
+    name: string;
+    icon: string;
+    templateDescription?: string;
+    autoTitle?: string;
+    subItems?: ProblemSubItem[];
+}
+export interface ProblemSubItem {
+    name: string;
+    autoTitle?: string;
+    templateDescription?: string;
+}
+export interface ProblemCategories {
+    [key: string]: {
+        name: string;
+        icon: string;
+        items: ProblemCategoryItem[];
+    };
+}
+```
+ Также, возможно, понадобятся типы для организаций и отделов.
+ organization.d.ts:
+```typescript
+export interface Organization {
+    id: string;
+    name: string;
+}
+export interface Department {
+    id: string;
+    name: string;
+}
+```
+ В файле store/store.ts мы определим RootState и AppDispatch, но если они нужны в других типах, то их можно экспортировать.
+ Однако, чтобы не дублировать, обычно RootState и AppDispatch определяют в store.ts, а потом импортируют.
+ Таким образом, в папке types у нас будут:
+ types/
+   user.d.ts
+   ticket.d.ts
+   app.d.ts
+   filters.d.ts
+   category.d.ts
+   organization.d.ts

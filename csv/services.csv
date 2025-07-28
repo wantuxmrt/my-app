@@ -1,0 +1,47 @@
+Файл: api.ts
+   - get: function, Выполняет GET запрос к API
+   - post: function, Выполняет POST запрос к API
+   - ApiConfig: interface, Конфигурация API (базовый URL, заголовки и т.д.)
+ Файл: mockData.ts
+   - mockUsers: constant, Массив мок-данных пользователей
+   - mockTickets: constant, Массив мок-данных запросов (тикетов)
+ Файл: storage.ts
+   - saveToLocalStorage: function, Сохраняет данные в localStorage
+   - getFromLocalStorage: function, Читает данные из localStorage
+   - removeFromLocalStorage: function, Удаляет данные из localStorage
+
+Пояснения к структуре:
+
+api.ts - содержит методы для работы с бэкендом
+mockData.ts - содержит фиктивные данные для разработки и тестирования
+storage.ts - предоставляет методы для работы с локальным хранилищем
+
+Каждый компонент включает:
+
+Имя файла
+Название компонента
+Тип (function, class, constant)
+Краткое описание функционала
+
+filename,component_name,component_type,description
+api.ts,apiClient,class,"Основной клиент для работы с API (с обработкой ошибок и настройкой заголовков)"
+api.ts,sendRequest,function,"Универсальная функция для выполнения HTTP-запросов"
+api.ts,getTickets,function,"Получение списка заявок с сервера"
+api.ts,getTicketById,function,"Получение деталей заявки по ID"
+api.ts,createTicket,function,"Создание новой заявки"
+api.ts,updateTicket,function,"Обновление данных заявки"
+api.ts,getUsers,function,"Получение списка пользователей"
+api.ts,login,function,"Аутентификация пользователя"
+api.ts,register,function,"Регистрация нового пользователя"
+mockData.ts,mockUsers,constant,"Моки данных пользователей"
+mockData.ts,mockTickets,constant,"Моки данных заявок"
+mockData.ts,mockOrganizations,constant,"Моки организаций"
+mockData.ts,mockDepartments,constant,"Моки отделов"
+mockData.ts,mockProblemCategories,constant,"Моки категорий проблем"
+storage.ts,loadState,function,"Загрузка состояния из localStorage"
+storage.ts,saveState,function,"Сохранение состояния в localStorage"
+storage.ts,clearStorage,function,"Очистка данных в localStorage"
+storage.ts,getAuthToken,function,"Получение токена аутентификации из хранилища"
+storage.ts,setAuthToken,function,"Сохранение токена аутентификации"
+storage.ts,removeAuthToken,function,"Удаление токена аутентификации"
+

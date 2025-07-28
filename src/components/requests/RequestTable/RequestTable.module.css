@@ -1,0 +1,122 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(30, 58, 95, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  background: #1a2e4a;
+  text-align: left;
+  padding: 12px 15px;
+  font-weight: 600;
+  color: #4a8cff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(74, 140, 255, 0.2);
+  color: #e6f1ff;
+}
+
+.table tr {
+  background: rgba(30, 58, 95, 0.3);
+  transition: background 0.2s;
+}
+
+.table tr:hover {
+  background: rgba(74, 140, 255, 0.1);
+  cursor: pointer;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.system {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.system1c {
+  background: rgba(74, 140, 255, 0.2);
+  color: #4a8cff;
+}
+
+.systemMis {
+  background: rgba(255, 107, 139, 0.2);
+  color: #ff6b8b;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.statusnew {
+  background: rgba(74, 140, 255, 0.2);
+  color: #4a8cff;
+}
+
+.statusin-progress {
+  background: rgba(250, 204, 21, 0.2);
+  color: #facc15;
+}
+
+.statusresolved {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+.statusreopened {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
+.priority {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.prioritylow {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.15);
+}
+
+.prioritymedium {
+  color: #facc15;
+  background: rgba(250, 204, 21, 0.15);
+}
+
+.priorityhigh {
+  color: #ff9e6b;
+  background: rgba(255, 158, 107, 0.15);
+}
+
+.prioritycritical {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.15);
+}
