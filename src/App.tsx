@@ -1,10 +1,11 @@
 import React from 'react';
 import Router from './routes/Router';
-import AppHeader from './components/common/AppHeader/AppHeader';
+import AppHeader from './components/layout/AppHeader/AppHeader';
 import { Sidebar } from './components/common/Sidebar/Sidebar';
 import { MainContent } from './components/common/MainContent/MainContent';
 import { useAuthStore } from './store/authStore';
 import { AppContainer, ContentWrapper } from './App.styles';
+import ThemeToggle from './components/common/ThemeToggle/ThemeToggle';
 
 // Define minimal type for auth store state
 type AuthStoreState = {
@@ -15,7 +16,7 @@ function App() {
   // Apply type to the state parameter
   const isAuthenticated = useAuthStore((state: AuthStoreState) => state.isAuthenticated);
   
-  return (
+    return (
     <AppContainer>
       <AppHeader />
       <ContentWrapper>
@@ -24,6 +25,7 @@ function App() {
           <Router />
         </MainContent>
       </ContentWrapper>
+      <ThemeToggle />
     </AppContainer>
   );
 }

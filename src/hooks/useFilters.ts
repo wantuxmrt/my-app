@@ -1,3 +1,4 @@
+// src/hooks/useFilters.ts
 import { useState, useCallback, useMemo } from 'react';
 
 export type FilterType = {
@@ -13,7 +14,7 @@ export const useFilters = (initialFilters: FilterType) => {
 
   const updateFilter = useCallback(
     (key: keyof FilterType, value: string) => {
-      setFilters((prev) => ({
+      setFilters(prev => ({
         ...prev,
         [key]: value,
       }));

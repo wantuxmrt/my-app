@@ -1,7 +1,7 @@
-// Файл: src/components/layout/AppLayout.tsx
 import React from 'react';
-import AppHeader from '../common/AppHeader/AppHeader'; // Исправленный путь
-import TabsNavigation from '../common/TabsNavigation/TabsNavigation'; // Исправленный путь
+import AppHeader from './AppHeader/AppHeader';
+import Sidebar from './Sidebar/Sidebar';
+import TabsNavigation from '../common/TabsNavigation/TabsNavigation';
 import { useLocation } from 'react-router-dom';
 
 interface AppLayoutProps {
@@ -13,12 +13,24 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const hideTabs = ['/admin', '/moderation'].includes(location.pathname);
 
   return (
-    <div className="app-layout">
+    <div id="wrapper" className="white">
       <AppHeader />
+
       {!hideTabs && <TabsNavigation />}
-      <main className="main-content">
-        {children}
-      </main>
+
+      <div id="main" className="clearfix">
+        <div id="left-column">
+          <Sidebar />
+          {/* Сюда можно рендерить Sidebar */}
+        </div>
+        <div id="content">
+          {children}
+        </div>
+      </div>
+
+      <div id="footer">
+        <p>&copy; 2025 My App</p>
+      </div>
     </div>
   );
 };

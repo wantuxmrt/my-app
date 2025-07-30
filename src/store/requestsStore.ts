@@ -1,88 +1,123 @@
+// src/store/requestsStore.ts
 import { create } from 'zustand';
-import { Ticket, TicketStatus, Priority, TicketSystem } from '../types/app.d';
+import { Ticket, TicketStatus, Priority } from '../types/app.d';
+
+interface Stats {
+  total: number;
+  open: number;
+  resolved: number;
+  overdue: number;
+}
 
 interface RequestsState {
   tickets: Ticket[];
-  selectedTicket: Ticket | null;
-  filters: {
-    system: TicketSystem | 'all';
-    status: TicketStatus | 'all';
-    priority: Priority | 'all';
-    search: string;
-  };
-  viewMode: 'grid' | 'list';
-  
-  fetchTickets: () => Promise<void>;
-  createTicket: (ticket: Omit<Ticket, 'id' | 'created'>) => Promise<Ticket>;
-  updateTicket: (id: number, updates: Partial<Ticket>) => Promise<void>;
-  deleteTicket: (id: number) => Promise<void>;
-  selectTicket: (ticket: Ticket | null) => void;
-  setFilters: (filters: Partial<RequestsState['filters']>) => void;
-  setViewMode: (mode: 'grid' | 'list') => void;
-  addComment: (ticketId: number, text: string, author: string) => void;
+  filteredTickets: Ticket[];
+  currentTicket: Ticket | null;
+  stats: Stats;
+  fetchTickets: () => void;
+  filterTickets: () => void;
+  setCurrentTicket: (ticket: Ticket | null) => void;
+  createTicket: (ticket: Omit<Ticket, 'id'>) => void;
+  updateTicket: (id: number, updates: Partial<Ticket>) => void;
+  calculateStats: () => void;
 }
 
-export const useRequestsStore = create<RequestsState>((set) => ({
+export const useRequestsStore = create<RequestsState>((set, get) => ({
   tickets: [],
-  selectedTicket: null,
-  filters: {
-    system: 'all',
-    status: 'all',
-    priority: 'all',
-    search: ''
-  },
-  viewMode: 'grid',
-  
-  fetchTickets: async () => {
-    const mockTickets: Ticket[] = [/* ... */];
-    set({ tickets: mockTickets });
+  filteredTickets: [],
+  currentTicket: null,
+  stats: {
+    total: 0,
+    open: 0,
+    resolved: 0,
+    overdue: 0
   },
   
-  createTicket: async (ticket: Omit<Ticket, 'id' | 'created'>) => {
+  fetchTickets: () => {
+    // Заглушка - в реальном приложении здесь будет вызов API
+    const mockTickets: Ticket[] = [
+      {
+        id: 1,
+        system: '1c',
+        category: 'Ошибка',
+        title: 'Не работает печать документов',
+        description: 'При попытке печати возникает ошибка',
+        status: 'new' as TicketStatus,
+        priority: 'high' as Priority,
+        created: '2023-05-12T14:30:00',
+        userId: 1,
+        organization: 'org1',
+        department: 'dep1',
+        comments: [],
+        attachments: []
+      },
+      {
+        id: 2,
+        system: 'mis',
+        category: 'Вопрос',
+        title: 'Консультация по настройке',
+        description: 'Нужна помощь в настройке модуля',
+        status: 'in-progress' as TicketStatus,
+        priority: 'medium' as Priority,
+        created: '2023-05-11T09:15:00',
+        userId: 2,
+        organization: 'org1',
+        department: 'dep2',
+        comments: [],
+        attachments: []
+      }
+    ];
+    
+    set({ 
+      tickets: mockTickets,
+      filteredTickets: mockTickets
+    });
+    get().calculateStats();
+  },
+  
+  filterTickets: () => {
+    // Фильтрация будет реализована позже
+    set({ filteredTickets: get().tickets });
+  },
+  
+  setCurrentTicket: (ticket) => set({ currentTicket: ticket }),
+  
+  createTicket: (ticket) => {
     const newTicket: Ticket = {
       ...ticket,
       id: Date.now(),
       created: new Date().toISOString(),
-      status: 'new'
+      status: 'new' as TicketStatus
     };
     
-    set(state => ({ tickets: [...state.tickets, newTicket] }));
-    return newTicket;
+    set(state => ({
+      tickets: [...state.tickets, newTicket],
+      filteredTickets: [...state.filteredTickets, newTicket]
+    }));
+    get().calculateStats();
   },
   
-  updateTicket: async (id: number, updates: Partial<Ticket>) => {
+  updateTicket: (id, updates) => {
     set(state => ({
-      tickets: state.tickets.map(ticket => 
-        ticket.id === id ? { ...ticket, ...updates } : ticket
+      tickets: state.tickets.map(t => 
+        t.id === id ? { ...t, ...updates } : t
+      ),
+      filteredTickets: state.filteredTickets.map(t => 
+        t.id === id ? { ...t, ...updates } : t
       )
     }));
+    get().calculateStats();
   },
   
-  deleteTicket: async (id: number) => {
-    set(state => ({ tickets: state.tickets.filter(ticket => ticket.id !== id) }));
-  },
-  
-  selectTicket: (ticket: Ticket | null) => set({ selectedTicket: ticket }),
-  
-  setFilters: (filters: Partial<RequestsState['filters']>) => 
-    set(state => ({ filters: { ...state.filters, ...filters } })),
-  
-  setViewMode: (mode: 'grid' | 'list') => set({ viewMode: mode }),
-  
-  addComment: (ticketId: number, text: string, author: string) => {
-    set(state => ({
-      tickets: state.tickets.map(ticket => {
-        if (ticket.id === ticketId) {
-          return {
-            ...ticket,
-            comments: [
-              ...ticket.comments, 
-              { author, text, time: new Date().toISOString() }
-            ]
-          };
-        }
-        return ticket;
-      })
-    }));
+  calculateStats: () => {
+    const tickets = get().tickets;
+    set({
+      stats: {
+        total: tickets.length,
+        open: tickets.filter(t => t.status !== 'resolved').length,
+        resolved: tickets.filter(t => t.status === 'resolved').length,
+        overdue: tickets.filter(t => t.status === 'reopened').length
+      }
+    });
   }
 }));

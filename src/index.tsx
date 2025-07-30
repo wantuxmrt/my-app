@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import store from './store/store';
 import App from './App';
 import './assets/styles/global.css';
+import './assets/styles/AppLayout.css';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './themes/ThemeProvider';
 

@@ -11,11 +11,11 @@ export interface RouteConfig {
 }
 
 // Импорт страниц
-import MainPage from '../pages/MainPage';
-import LoginPage from '../pages/LoginPage';
+import MainPage from '../components/common/sections/MainPage/MainPage';
+import LoginPage from '../components/common/sections/LoginPage/LoginPage';
 import ProfilePage from '../pages/ProfilePage';
 import AdminPage from '../pages/AdminPage';
-import NotFoundPage from '../pages/NotFoundPage';
+import NotFoundPage from '../components/common/sections/NotFoundPage/NotFoundPage';
 
 // Создадим заглушки для недостающих страниц
 const ModerationPage = () => <div>Moderation Page</div>;

@@ -1,4 +1,4 @@
-// Обновленный app.d.ts
+// src/types/app.d.ts
 export type Role = 'admin' | 'support' | 'user' | 'manager';
 export type Priority = 'low' | 'medium' | 'high' | 'critical';
 export type TicketStatus = 'new' | 'in-progress' | 'resolved' | 'reopened' | 'closed';
@@ -14,7 +14,7 @@ export interface User {
   active: boolean;
   organization: string;
   department: string;
-  position?: string; // Добавлено новое поле
+  position?: string;
 }
 
 export interface Ticket {
@@ -27,7 +27,7 @@ export interface Ticket {
   priority: Priority;
   created: string;
   userId: number;
-  assignedTo?: number | null; // Разрешено undefined и null
+  assignedTo?: number | null;
   comments: Comment[];
   attachments: string[];
 }
@@ -36,4 +36,38 @@ export interface Comment {
   author: string;
   time: string;
   text: string;
+}
+
+export interface ProblemCategory {
+  name: string;
+  icon: string;
+  items: {
+    name: string;
+    icon: string;
+    templateDescription?: string;
+    subItems?: {
+      name: string;
+      autoTitle?: string;
+      templateDescription?: string;
+    }[];
+  }[];
+}
+
+export interface HelpData {
+  about: string;
+  contacts: Contact[];
+  faq: FAQItem[];
+}
+
+export interface Contact {
+  type: string;
+  icon: string;
+  phone: string;
+  email: string;
+  workingHours: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
 }

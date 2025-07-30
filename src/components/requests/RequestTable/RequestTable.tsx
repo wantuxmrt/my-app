@@ -1,46 +1,39 @@
+// src/components/requests/RequestTable.tsx
 import React from 'react';
+import { Ticket, Priority, TicketSystem } from '@/types/app';
 import styles from './RequestTable.module.css';
-import { Ticket } from '@/types/app';
 
-interface RequestTableProps {
-  requests: Ticket[];
-  onRowClick: (request: Ticket) => void;
-}
+const RequestTable = ({ tickets }: { tickets: Ticket[] }) => {
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'new': return styles.statusNew;
+      case 'in-progress': return styles.statusInProgress;
+      case 'resolved': return styles.statusResolved;
+      case 'reopened': return styles.statusReopened;
+      default: return '';
+    }
+  };
 
-const RequestTable: React.FC<RequestTableProps> = ({ requests, onRowClick }) => {
+  const getPriorityClass = (priority: Priority) => {
+    switch (priority) {
+      case 'low': return styles.priorityLow;
+      case 'medium': return styles.priorityMedium;
+      case 'high': return styles.priorityHigh;
+      case 'critical': return styles.priorityCritical;
+      default: return '';
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('ru-RU', {
       day: '2-digit',
       month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+      year: 'numeric'
     });
   };
 
-  const getStatusText = (status: Ticket['status']) => {
-    switch (status) {
-      case 'new': return 'Новый';
-      case 'in-progress': return 'В работе';
-      case 'resolved': return 'Решен';
-      case 'reopened': return 'Возвращен';
-      case 'closed': return 'Закрыт';
-      default: return status;
-    }
-  };
-
-  const getPriorityText = (priority: Ticket['priority']) => {
-    switch (priority) {
-      case 'critical': return 'Критический';
-      case 'high': return 'Высокий';
-      case 'medium': return 'Средний';
-      case 'low': return 'Низкий';
-      default: return priority;
-    }
-  };
-
   return (
-    <table className={styles.table}>
+    <table className={styles.requestsTable}>
       <thead>
         <tr>
           <th>ID</th>
@@ -52,30 +45,32 @@ const RequestTable: React.FC<RequestTableProps> = ({ requests, onRowClick }) => 
         </tr>
       </thead>
       <tbody>
-        {requests.map(request => (
-          <tr 
-            key={request.id} 
-            className={styles.row}
-            onClick={() => onRowClick(request)}
-          >
-            <td>#TS-{request.id.toString().padStart(4, '0')}</td>
-            <td>{request.title}</td>
+        {tickets.map(ticket => (
+          <tr key={ticket.id}>
+            <td>#TS-{ticket.id.toString().padStart(4, '0')}</td>
+            <td>{ticket.title}</td>
             <td>
-              <span className={`${styles.system} ${request.system === '1c' ? styles.system1c : styles.systemMis}`}>
-                {request.system === '1c' ? '1С' : 'МИС'}
+              <span className={`${styles.requestSystem} ${ticket.system === '1c' ? styles.system1c : styles.systemMis}`}>
+                {ticket.system === '1c' ? '1С' : 'МИС'}
               </span>
             </td>
             <td>
-              <span className={`${styles.status} ${styles[`status${request.status}`]}`}>
-                {getStatusText(request.status)}
+              <span className={`${styles.tableStatus} ${getStatusClass(ticket.status)}`}>
+                {ticket.status === 'new' && 'Новый'}
+                {ticket.status === 'in-progress' && 'В работе'}
+                {ticket.status === 'resolved' && 'Решен'}
+                {ticket.status === 'reopened' && 'Возвращен'}
               </span>
             </td>
             <td>
-              <span className={`${styles.priority} ${styles[`priority${request.priority}`]}`}>
-                {getPriorityText(request.priority)}
+              <span className={`${styles.tableStatus} ${getPriorityClass(ticket.priority)}`}>
+                {ticket.priority === 'low' && 'Низкий'}
+                {ticket.priority === 'medium' && 'Средний'}
+                {ticket.priority === 'high' && 'Высокий'}
+                {ticket.priority === 'critical' && 'Критический'}
               </span>
             </td>
-            <td>{formatDate(request.created)}</td>
+            <td>{formatDate(ticket.created)}</td>
           </tr>
         ))}
       </tbody>

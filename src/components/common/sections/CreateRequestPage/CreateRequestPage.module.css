@@ -1,0 +1,236 @@
+.createRequest {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--divider);
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.stepNumber {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--panel-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 2px solid var(--divider);
+  margin-bottom: 10px;
+}
+
+.stepTitle {
+  font-size: 14px;
+  text-align: center;
+  max-width: 100px;
+}
+
+.step.active .stepNumber {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.stepContent {
+  padding: 20px 0;
+}
+
+.systemSelection h3,
+.prioritySelection h3,
+.detailsForm h3 {
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.systemGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.systemCard {
+  background: var(--panel-bg);
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  padding: 25px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.systemCard:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+}
+
+.systemCard.active {
+  border-color: var(--primary);
+  box-shadow: 0 5px 15px rgba(74, 140, 255, 0.2);
+  background: rgba(74, 140, 255, 0.05);
+}
+
+.systemCard i {
+  font-size: 48px;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.systemName {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.systemDescription {
+  color: var(--text);
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.priorityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.priorityCard {
+  background: var(--panel-bg);
+  border-left: 4px solid;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.priorityCard:hover {
+  transform: translateY(-5px);
+}
+
+.priorityCard.active {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.priorityHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.priorityCard:nth-child(1) {
+  border-left-color: var(--critical);
+}
+.priorityCard:nth-child(2) {
+  border-left-color: var(--high);
+}
+.priorityCard:nth-child(3) {
+  border-left-color: var(--medium);
+}
+.priorityCard:nth-child(4) {
+  border-left-color: var(--low);
+}
+
+.detailsForm .formGroup {
+  margin-bottom: 20px;
+}
+
+.detailsForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.detailsForm input,
+.detailsForm textarea {
+  width: 100%;
+  padding: 12px 15px;
+  background: var(--panel-bg);
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.detailsForm textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.fileUpload {
+  border: 2px dashed var(--divider);
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.fileUpload i {
+  font-size: 40px;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.fileUpload p {
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.backButton {
+  background: rgba(74, 140, 255, 0.1);
+  color: var(--primary);
+  padding: 12px 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submitButton {
+  background: var(--primary);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

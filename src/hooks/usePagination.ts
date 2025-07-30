@@ -1,3 +1,4 @@
+// src/hooks/usePagination.ts
 import { useState, useCallback } from 'react';
 
 export const usePagination = (initialPage = 1, initialPageSize = 10) => {
@@ -30,5 +31,3 @@ export const usePagination = (initialPage = 1, initialPageSize = 10) => {
     changePageSize
   };
 };
-
-export {}; // Add empty export to fix module error

@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "name": "Иван Петров",
+    "email": "admin@mrtexpert.ru",
+    "role": "admin",
+    "avatar": "ИП",
+    "password": "admin123",
+    "active": true,
+    "organization": "org1",
+    "department": "dep1"
+  },
+  {
+    "id": 2,
+    "name": "Мария Сидорова",
+    "email": "support@mrtexpert.ru",
+    "role": "support",
+    "avatar": "МС",
+    "password": "support123",
+    "active": true,
+    "organization": "org1",
+    "department": "dep1"
+  },
+  {
+    "id": 3,
+    "name": "Алексей Иванов",
+    "email": "user@mrtexpert.ru",
+    "role": "user",
+    "avatar": "АИ",
+    "password": "user123",
+    "active": true,
+    "organization": "org1",
+    "department": "dep2"
+  },
+  {
+    "id": 4,
+    "name": "Ольга Николаева",
+    "email": "manager@mrtexpert.ru",
+    "role": "manager",
+    "avatar": "ОН",
+    "password": "manager123",
+    "active": true,
+    "organization": "org1",
+    "department": "dep3"
+  }
+]

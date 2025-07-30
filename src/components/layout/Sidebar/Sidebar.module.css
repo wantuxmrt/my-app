@@ -1,0 +1,58 @@
+/* src/components/common/Sidebar/Sidebar.module.css */
+.sidebar {
+  width: 280px;
+  background: var(--panel-bg);
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(74, 140, 255, 0.1);
+}
+
+.filtersSection {
+  background: var(--filter-bg);
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid var(--divider);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.statValue {
+  font-weight: bold;
+}
+
+.success {
+  color: var(--success);
+}
+
+.warning {
+  color: var(--warning);
+}
+
+.error {
+  color: var(--error);
+}

@@ -1,0 +1,100 @@
+.adminPanel {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userTableContainer {
+  overflow-x: auto;
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel-bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.userTable th, 
+.userTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--divider);
+}
+
+.userTable th {
+  background-color: var(--table-header);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.userTable tr:hover {
+  background-color: rgba(74, 140, 255, 0.05);
+}
+
+.roleBadge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.roleBadge.admin {
+  background: rgba(107, 77, 255, 0.15);
+  color: #b19cff;
+}
+
+.roleBadge.support {
+  background: rgba(74, 140, 255, 0.15);
+  color: #a5c7ff;
+}
+
+.roleBadge.user {
+  background: rgba(74, 222, 128, 0.15);
+  color: #a1e8bb;
+}
+
+.roleBadge.manager {
+  background: rgba(155, 93, 229, 0.15);
+  color: #d0b5f5;
+}
+
+.statusActive {
+  color: var(--success);
+}
+
+.statusInactive {
+  color: var(--error);
+}
+
+.editButton, 
+.toggleButton {
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.editButton {
+  background: rgba(74, 140, 255, 0.1);
+  color: var(--primary);
+}
+
+.blockButton {
+  background: rgba(255, 107, 107, 0.1);
+  color: var(--error);
+}
+
+.unblockButton {
+  background: rgba(74, 222, 128, 0.1);
+  color: var(--success);
+}
