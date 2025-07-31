@@ -26,3 +26,36 @@ export const isValidPassword = (password: string): boolean => {
 export const isRequired = (value: string): boolean => {
   return value.trim() !== '';
 };
+
+/**
+ * Проверяет номер телефона на валидность
+ * @param phone - Номер телефона
+ * @returns true, если номер валиден
+ */
+export const isValidPhone = (phone: string): boolean => {
+  const cleaned = phone.replace(/\D/g, '');
+  return cleaned.length === 11;
+};
+
+/**
+ * Проверяет сложность пароля
+ * @param password - Пароль для проверки
+ * @returns Уровень сложности (0-3)
+ */
+export const checkPasswordStrength = (password: string): number => {
+  let strength = 0;
+  
+  // Длина пароля
+  if (password.length >= 8) strength += 1;
+  
+  // Наличие цифр
+  if (/\d/.test(password)) strength += 1;
+  
+  // Наличие спецсимволов
+  if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 1;
+  
+  // Наличие букв в разных регистрах
+  if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 1;
+  
+  return strength;
+};

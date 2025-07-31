@@ -1,12 +1,20 @@
-// src/components/layout/AppHeader.tsx
 import React from 'react';
-import { useAppContext } from '@/contexts/AppContext';
 import styles from './AppHeader.module.css';
 import { User } from '@/types/app';
 
-const AppHeader = () => {
-  const { currentUser, login, logout } = useAppContext();
+interface AppHeaderProps {
+  user: User | null;
+  onLogin: () => void;
+  onRegister: () => void;
+  onLogout: () => void;
+}
 
+const AppHeader: React.FC<AppHeaderProps> = ({ 
+  user, 
+  onLogin, 
+  onRegister, 
+  onLogout 
+}) => {
   const getRoleClass = (role: string) => {
     switch (role) {
       case 'admin': return styles.roleAdmin;
@@ -27,20 +35,20 @@ const AppHeader = () => {
 
   return (
     <header className={styles.appHeader}>
-      <div className={styles.logo}>Поддержка 1С/МИС</div>
+      <div className={styles.logo}>Ассистент</div>
       
-      {currentUser ? (
+      {user ? (
         <div className={styles.userInfo}>
-          <div className={styles.userName}>{currentUser.name}</div>
-          <div className={`${styles.userRole} ${getRoleClass(currentUser.role)}`}>
-            {getRoleText(currentUser.role)}
+          <div className={styles.userName}>{user.name}</div>
+          <div className={`${styles.userRole} ${getRoleClass(user.role)}`}>
+            {getRoleText(user.role)}
           </div>
           <div className={styles.userAvatar}>
-            {currentUser.avatar}
+            {user.avatar}
           </div>
           <button 
             className={styles.logoutButton}
-            onClick={logout}
+            onClick={onLogout}
           >
             <i className="fas fa-sign-out-alt"></i>
           </button>
@@ -49,13 +57,13 @@ const AppHeader = () => {
         <div className={styles.authButtons}>
           <button 
             className={styles.authButton}
-            onClick={() => login('demo@example.com', 'demo123')}
+            onClick={onLogin}
           >
             <i className="fas fa-sign-in-alt"></i> Вход
           </button>
           <button 
             className={styles.authButton}
-            onClick={() => login('demo@example.com', 'demo123')}
+            onClick={onRegister}
           >
             <i className="fas fa-user-plus"></i> Регистрация
           </button>

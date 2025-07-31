@@ -1,19 +1,15 @@
-// Файл: src/routes/GuestRoute.tsx
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useAuthStore } from '@/store/authStore';
 
-interface GuestRouteProps {
+const GuestRoute: React.FC<{
   children: React.ReactElement;
-}
-
-const GuestRoute: React.FC<GuestRouteProps> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+}> = ({ children }) => {
+  const { isAuthenticated } = useAuthStore();
   const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
-  // Если пользователь аутентифицирован, перенаправляем на главную
   if (isAuthenticated) {
-    const from = location.state?.from?.pathname || '/';
     return <Navigate to={from} replace />;
   }
 

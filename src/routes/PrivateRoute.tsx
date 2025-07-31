@@ -1,26 +1,24 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { UserRole } from './routesConfig';
+import { useAuthStore } from '@/store/authStore';
+import { Role } from '@/types/app';
 
-interface PrivateRouteProps {
+const PrivateRoute: React.FC<{
+  roles?: Role[];
   children: React.ReactElement;
-  allowedRoles?: UserRole[];
-}
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ 
-  children, 
-  allowedRoles = [] 
-}) => {
-  const { isAuthenticated, userRole } = useAuth();
+}> = ({ children, roles }) => {
+  const { isAuthenticated, user } = useAuthStore();
   const location = useLocation();
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (allowedRoles.length > 0 && userRole && !allowedRoles.includes(userRole as UserRole)) {
-    return <Navigate to="/" replace />;
+  if (roles && roles.length > 0 && user?.role) {
+    const hasRole = roles.includes(user.role);
+    if (!hasRole) {
+      return <Navigate to="/" replace />;
+    }
   }
 
   return children;

@@ -1,4 +1,3 @@
-// src/types/app.d.ts
 export type Role = 'admin' | 'support' | 'user' | 'manager';
 export type Priority = 'low' | 'medium' | 'high' | 'critical';
 export type TicketStatus = 'new' | 'in-progress' | 'resolved' | 'reopened' | 'closed';
@@ -8,13 +7,12 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  role: Role;
+  role: string;
   avatar: string;
   password?: string;
   active: boolean;
   organization: string;
   department: string;
-  position?: string;
 }
 
 export interface Ticket {
@@ -24,50 +22,59 @@ export interface Ticket {
   title: string;
   description: string;
   status: TicketStatus;
-  priority: Priority;
+  priority: TicketPriority;
   created: string;
   userId: number;
-  assignedTo?: number | null;
-  comments: Comment[];
+  assignedTo: number | null;
+  organization: string;
+  department: string;
+  comments: {
+    author: string;
+    time: string;
+    text: string;
+  }[];
   attachments: string[];
 }
 
+
 export interface Comment {
+  id?: number;
   author: string;
-  time: string;
+  userId?: number;
   text: string;
+  time: string;
+}
+
+export interface Stats {
+  total: number;
+  open: number;
+  resolved: number;
+  overdue: number;
+}
+
+// API типы
+export interface RequestFormData {
+  title: string;
+  description: string;
+  attachments: string[];
+  files?: File[];
+}
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+export interface RegistrationFormData {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  organization: string;
+  department: string;
 }
 
 export interface ProblemCategory {
+  id: string;
   name: string;
-  icon: string;
-  items: {
-    name: string;
-    icon: string;
-    templateDescription?: string;
-    subItems?: {
-      name: string;
-      autoTitle?: string;
-      templateDescription?: string;
-    }[];
-  }[];
-}
-
-export interface HelpData {
-  about: string;
-  contacts: Contact[];
-  faq: FAQItem[];
-}
-
-export interface Contact {
-  type: string;
-  icon: string;
-  phone: string;
-  email: string;
-  workingHours: string;
-}
-
-export interface FAQItem {
-  question: string;
-  answer: string;
 }

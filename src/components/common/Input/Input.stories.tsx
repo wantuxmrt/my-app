@@ -1,6 +1,9 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import Input, { InputProps } from './Input';
+import Input from './Input';
+
+// Определяем тип пропсов динамически
+type InputProps = React.ComponentProps<typeof Input>;
 
 export default {
   title: 'Common/Input',

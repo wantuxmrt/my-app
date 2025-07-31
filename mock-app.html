@@ -1,0 +1,3974 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система поддержки 1С и МИС</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+
+        :root {
+            --bg-color: #0f1b2d;
+            --panel-bg: #1a2b40;
+            --primary: #4a8cff;
+            --secondary: #6b4dff;
+            --accent: #ff6b8b;
+            --text: #e6f1ff;
+            --success: #4ade80;
+            --warning: #facc15;
+            --error: #ff6b6b;
+            --bubble-user: #2a4365;
+            --bubble-bot: #1e3a5f;
+            --edit-color: #facc15;
+            --search-bg: rgba(30, 58, 95, 0.7);
+            --card-bg: rgba(30, 58, 95, 0.5);
+            --filter-bg: rgba(23, 43, 69, 0.8);
+            --divider: rgba(74, 140, 255, 0.2);
+            --critical: #ff6b6b;
+            --high: #ff9e6b;
+            --medium: #facc15;
+            --low: #4ade80;
+            --table-header: #1a2e4a;
+            --table-row: rgba(30, 58, 95, 0.3);
+            --manager-color: #9b5de5;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 15px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(23, 43, 69, 0.5) 0%, transparent 30%),
+                              radial-gradient(circle at 90% 80%, rgba(74, 140, 255, 0.1) 0%, transparent 40%);
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--panel-bg);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(74, 140, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--text);
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .role-admin {
+            background: rgba(107, 77, 255, 0.25);
+            color: #b19cff;
+        }
+
+        .role-support {
+            background: rgba(74, 140, 255, 0.25);
+            color: #a5c7ff;
+        }
+
+        .role-user {
+            background: rgba(74, 222, 128, 0.25);
+            color: #a1e8bb;
+        }
+
+        .role-manager {
+            background: rgba(155, 93, 229, 0.25);
+            color: #d0b5f5;
+        }
+
+        .auth-btn {
+            background: rgba(74, 140, 255, 0.2);
+            color: var(--text);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 5px;
+            background: var(--panel-bg);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(74, 140, 255, 0.3);
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(74, 140, 255, 0.2);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .content-container {
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 170px);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--panel-bg);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(74, 140, 255, 0.1);
+        }
+
+        .main-content {
+            flex: 1;
+            background: var(--panel-bg);
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(74, 140, 255, 0.1);
+            position: relative;
+        }
+
+        /* ===== FILTERS SECTION ===== */
+        .filters-section {
+            background: var(--filter-bg);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--divider);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-group { 
+            margin-bottom: 15px; 
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: rgba(230, 241, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .filter-select, .search-input {
+            width: 100%;
+            background: var(--search-bg);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 12px;
+            padding: 8px 12px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .filter-select:hover, .search-input:hover {
+            border-color: var(--primary);
+        }
+
+        .search-box {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(230, 241, 255, 0.7);
+        }
+
+        .search-input {
+            padding-left: 35px;
+        }
+
+        .filter-button {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+            box-shadow: 0 2px 5px rgba(74, 140, 255, 0.3);
+        }
+
+        .filter-button:hover { 
+            background: #3a7cff; 
+        }
+
+        .stat-item {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .stat-item strong {
+            float: right;
+        }
+
+        .status-in-progress {
+            color: var(--warning);
+        }
+
+        .status-resolved {
+            color: var(--success);
+        }
+
+        .status-reopened {
+            color: var(--error);
+        }
+
+        /* ===== VIEW TOGGLE BUTTONS ===== */
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .view-button {
+            flex: 1;
+            background: var(--search-bg);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 8px;
+            padding: 8px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .view-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .view-button:hover:not(.active) {
+            background: rgba(74, 140, 255, 0.2);
+        }
+
+        /* ===== TICKETS GRID VIEW ===== */
+        .requests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .request-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--divider);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: rgba(74, 140, 255, 0.5);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .request-id {
+            font-size: 12px;
+            color: var(--primary);
+            background: rgba(74, 140, 255, 0.15);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .request-system {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .system-1c {
+            background: rgba(74, 140, 255, 0.2);
+            color: var(--primary);
+        }
+
+        .system-mis {
+            background: rgba(255, 107, 139, 0.2);
+            color: var(--accent);
+        }
+
+        .request-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: var(--text);
+        }
+
+        .request-description {
+            font-size: 13px;
+            color: rgba(230, 241, 255, 0.7);
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: rgba(230, 241, 255, 0.6);
+        }
+
+        .request-date {
+            color: rgba(230, 241, 255, 0.6);
+        }
+
+        .request-status {
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .status-new {
+            background: rgba(74, 140, 255, 0.2);
+            color: var(--primary);
+        }
+
+        .status-in-progress {
+            background: rgba(250, 204, 21, 0.2);
+            color: var(--warning);
+        }
+
+        .status-resolved {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--success);
+        }
+
+        .status-reopened {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--error);
+        }
+
+        .priority-low { 
+            color: var(--low); 
+            background: rgba(74, 222, 128, 0.15); 
+        }
+
+        .priority-medium { 
+            color: var(--medium); 
+            background: rgba(250, 204, 21, 0.15); 
+        }
+
+        .priority-high { 
+            color: var(--high); 
+            background: rgba(255, 158, 107, 0.15); 
+        }
+
+        .priority-critical { 
+            color: var(--critical); 
+            background: rgba(255, 107, 107, 0.15); 
+        }
+
+        /* ===== TICKETS TABLE VIEW ===== */
+        .requests-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .requests-table th {
+            background: var(--table-header);
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 600;
+            color: var(--primary);
+            position: sticky;
+            top: 0;
+        }
+
+        .requests-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--divider);
+            color: var(--text);
+        }
+
+        .requests-table tr {
+            background: var(--table-row);
+            transition: background 0.2s;
+        }
+
+        .requests-table tr:hover {
+            background: rgba(74, 140, 255, 0.1);
+        }
+
+        .requests-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-row-link {
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .table-row-link:hover {
+            color: var(--primary);
+        }
+
+        .table-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* ===== MODAL WINDOWS ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--panel-bg);
+            border-radius: 15px;
+            padding: 30px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 1px solid rgba(74, 140, 255, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .auth-input-group {
+            margin-bottom: 15px;
+        }
+
+        .auth-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--search-bg);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .auth-button:hover {
+            background: #3a7cff;
+        }
+
+        .auth-error {
+            color: var(--error);
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* ===== TICKET DETAILS ===== */
+        .ticket-details {
+            padding: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .ticket-title {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+
+        .edit-button {
+            background: var(--edit-color);
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+
+        .edit-button:hover {
+            background: #e6b800;
+        }
+
+        .ticket-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .meta-item {
+            background: var(--card-bg);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: rgba(230, 241, 255, 0.7);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .meta-value {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .ticket-description {
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            color: var(--text);
+        }
+
+        .ticket-description h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ticket-description h3 i {
+            font-size: 20px;
+        }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .admin-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--divider);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-section h3 i {
+            font-size: 20px;
+        }
+
+        .user-search-box {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .user-search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(230, 241, 255, 0.7);
+        }
+
+        .user-search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            background: var(--search-bg);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .user-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-table th, .user-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--divider);
+            color: var(--text);
+        }
+
+        .user-table th {
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--table-header);
+        }
+
+        .user-table tr:hover {
+            background: rgba(74, 140, 255, 0.1);
+        }
+
+        .user-status {
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .user-status.active {
+            color: var(--success);
+        }
+
+        .user-status.inactive {
+            color: var(--error);
+        }
+
+        .user-action-button {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-right: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: background 0.2s;
+            margin-bottom: 5px;
+        }
+
+        .user-action-button:hover {
+            background: #3a7cff;
+        }
+
+        .user-action-button.block {
+            background: var(--error);
+        }
+
+        .user-action-button.unblock {
+            background: var(--success);
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .no-auth-message {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .no-auth-message i {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .no-auth-message p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: var(--text);
+        }
+
+        .admin-denied {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+        }
+
+        .admin-denied i {
+            font-size: 60px;
+            color: var(--error);
+            margin-bottom: 20px;
+        }
+
+        .admin-denied h3 {
+            color: var(--error);
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            background: rgba(30, 58, 95, 0.7);
+            color: var(--text);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            background: rgba(74, 140, 255, 0.3);
+        }
+
+        .no-tickets {
+            text-align: center;
+            padding: 40px;
+            color: rgba(230, 241, 255, 0.7);
+            font-size: 18px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1100px) {
+            .content-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .requests-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .tabs-container {
+                flex-direction: column;
+            }
+            
+            .ticket-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .card-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .requests-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== PROFILE PAGE ===== */
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(30, 58, 95, 0.5);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-card-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .stat-card-label {
+            font-size: 14px;
+            color: rgba(230, 241, 255, 0.7);
+        }
+
+        .profile-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--search-bg);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .form-button {
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .form-button:hover {
+            background: #3a7cff;
+        }
+
+        .form-button.secondary {
+            background: rgba(30, 58, 95, 0.7);
+        }
+
+        .form-button.secondary:hover {
+            background: rgba(74, 140, 255, 0.3);
+        }
+
+        /* ===== QUICK ACTIONS ===== */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-button {
+            background: rgba(74, 140, 255, 0.2);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-button:hover {
+            background: rgba(74, 140, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .action-button i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .action-button span {
+            font-size: 13px;
+            display: block;
+            color: var(--text);
+        }
+
+        /* ===== TEMPLATE BUTTONS ===== */
+        .template-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .template-button {
+            background: rgba(74, 140, 255, 0.15);
+            border: 1px solid rgba(74, 140, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text);
+        }
+
+        .template-button:hover {
+            background: rgba(74, 140, 255, 0.25);
+        }
+
+        .template-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* ===== SYSTEM CHOICE BUTTONS ===== */
+        .system-choice-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(30, 58, 95, 0.5);
+            border: 1px solid rgba(74, 140, 255, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 180px;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .system-choice-card:hover {
+            background: rgba(74, 140, 255, 0.2);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .system-choice-card.active {
+            background: rgba(74, 140, 255, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(74, 140, 255, 0.2);
+        }
+
+        .system-choice-card i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .system-choice-card .system-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .system-choice-card .system-description {
+            font-size: 14px;
+            color: rgba(230, 241, 255, 0.7);
+        }
+
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* ===== MODERATION VIEW ===== */
+        .moderation-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .moderation-section h3 {
+            color: var(--manager-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--divider);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .moderation-section h3 i {
+            font-size: 20px;
+        }
+
+        /* ===== EDITABLE TICKET ===== */
+        .editable-field {
+            background: rgba(30, 58, 95, 0.3);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+            color: var(--text);
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: border-color 0.2s;
+        }
+
+        .editable-field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .edit-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* ===== TEXT EDITOR ===== */
+        .text-editor {
+            background: rgba(30, 58, 95, 0.3);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 200px;
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .text-editor:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .editor-btn {
+            background: rgba(74, 140, 255, 0.15);
+            border: 1px solid rgba(74, 140, 255, 0.3);
+            border-radius: 6px;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .editor-btn:hover {
+            background: rgba(74, 140, 255, 0.25);
+        }
+
+        /* ===== NEW STYLES FOR UPDATED FEATURES ===== */
+        
+        /* Priority blocks in step 1 */
+        .priority-blocks {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .priority-block {
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid rgba(74, 140, 255, 0.4);
+        }
+        
+        .priority-block:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+        
+        .priority-block.critical {
+            background: rgba(255, 107, 107, 0.15);
+            border-left: 4px solid var(--critical);
+        }
+        
+        .priority-block.high {
+            background: rgba(255, 158, 107, 0.15);
+            border-left: 4px solid var(--high);
+        }
+        
+        .priority-block.medium {
+            background: rgba(250, 204, 21, 0.15);
+            border-left: 4px solid var(--medium);
+        }
+        
+        .priority-block.low {
+            background: rgba(74, 222, 128, 0.15);
+            border-left: 4px solid var(--low);
+        }
+        
+        .priority-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .priority-items {
+            font-size: 14px;
+            color: rgba(230, 241, 255, 0.7);
+        }
+        
+        /* File upload area */
+        .file-upload-area {
+            border: 2px dashed rgba(74, 140, 255, 0.4);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: border-color 0.2s;
+        }
+        
+        .file-upload-area:hover {
+            border-color: var(--primary);
+        }
+        
+        .file-upload-area i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .file-upload-area p {
+            margin: 0;
+            color: var(--text);
+        }
+        
+        .attachments-preview {
+            margin-top: 10px;
+        }
+        
+        .file-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .file-item i {
+            color: var(--primary);
+        }
+        
+        /* Accordion improvements */
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+        
+        .accordion-header {
+            background: rgba(30, 58, 95, 0.5);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(74, 140, 255, 0.4);
+        }
+        
+        .accordion-header:hover {
+            background: rgba(74, 140, 255, 0.2);
+        }
+        
+        .accordion-content {
+            padding: 10px 0;
+        }
+        
+        .subitems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .subitem-card {
+            background: rgba(30, 58, 95, 0.3);
+            border: 1px solid rgba(74, 140, 255, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .subitem-card:hover {
+            background: rgba(74, 140, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .subitem-name {
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        /* Form input improvements */
+        .form-input, .text-editor {
+            border-radius: 12px;
+            padding: 12px;
+            background: var(--search-bg);
+            border: 1px solid rgba(74, 140, 255, 0.4);
+            color: var(--text);
+            width: 100%;
+            font-size: 15px;
+        }
+        
+        .text-editor {
+            min-height: 200px;
+        }
+        
+        /* Fix for table header alignment */
+        .requests-table th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        /* ===== HELP AND CONTACTS ===== */
+        .help-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(74, 140, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .help-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--divider);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .help-section h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .help-card {
+            background: rgba(30, 58, 95, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(74, 140, 255, 0.3);
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .help-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 15px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(74, 140, 255, 0.3);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            font-size: 20px;
+            color: var(--accent);
+            min-width: 30px;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 13px;
+            color: rgba(230, 241, 255, 0.7);
+            margin-bottom: 3px;
+        }
+
+        .contact-value {
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        .hours-list {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .hours-list li {
+            margin-bottom: 5px;
+        }
+
+        .qa-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .qa-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qa-answer {
+            padding-left: 30px;
+            color: rgba(230, 241, 255, 0.9);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка приложения -->
+    <header class="app-header">
+        <div class="logo">Поддержка 1С/МИС</div>
+        <div class="user-info" id="user-info" style="display: none;">
+            <div class="user-name" id="user-display-name"></div>
+            <div class="user-role" id="user-display-role"></div>
+            <div class="user-avatar" id="user-avatar"></div>
+            <button id="logout-btn" style="background: none; border: none; color: #ff6b6b; cursor: pointer; margin-left: 10px;">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+        <div id="auth-buttons">
+            <button class="auth-btn" id="login-btn"><i class="fas fa-sign-in-alt"></i> Вход</button>
+            <button class="auth-btn" id="register-btn"><i class="fas fa-user-plus"></i> Регистрация</button>
+        </div>
+    </header>
+    
+    <!-- Модальные окна для авторизации -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Вход в систему</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="auth-input-group">
+                <label class="auth-label">Email</label>
+                <input type="email" class="auth-input" id="login-email" placeholder="user@mrtexpert.ru">
+            </div>
+            <div class="auth-input-group">
+                <label class="auth-label">Пароль</label>
+                <input type="password" class="auth-input" id="login-password" placeholder="Ваш пароль">
+            </div>
+            <div id="login-error" class="auth-error"></div>
+            <button class="auth-button" id="do-login">Войти</button>
+        </div>
+    </div>
+    
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Регистрация</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="auth-input-group">
+                <label class="auth-label">Корпоративная почта</label>
+                <input type="email" class="auth-input" id="register-email" placeholder="user@mrtexpert.ru">
+            </div>
+            <div class="auth-input-group">
+                <label class="auth-label">Пароль</label>
+                <input type="password" class="auth-input" id="register-password" placeholder="Придумайте пароль">
+            </div>
+            <div class="auth-input-group">
+                <label class="auth-label">Роль</label>
+                <select class="auth-input" id="register-role">
+                    <option value="user">Пользователь</option>
+                    <option value="support">Поддержка</option>
+                    <option value="admin">Администратор</option>
+                    <option value="manager">Менеджер</option>
+                </select>
+            </div>
+            <div class="auth-input-group">
+                <label class="auth-label">Организация</label>
+                <select class="auth-input" id="register-organization">
+                    <option value="org1">Организация 1</option>
+                    <option value="org2">Организация 2</option>
+                    <option value="org3">Организация 3</option>
+                </select>
+            </div>
+            <div class="auth-input-group">
+                <label class="auth-label">Отдел</label>
+                <select class="auth-input" id="register-department">
+                    <option value="dep1">Отдел поддержки</option>
+                    <option value="dep2">Бухгалтерия</option>
+                    <option value="dep3">ИТ отдел</option>
+                    <option value="dep4">Отдел продаж</option>
+                </select>
+            </div>
+            <div id="register-error" class="auth-error"></div>
+            <button class="auth-button" id="do-register">Зарегистрироваться</button>
+        </div>
+    </div>
+    
+    <!-- Навигация -->
+    <div class="tabs-container">
+        <div class="tab active" data-tab="my-requests"><i class="fas fa-ticket-alt"></i> Мои запросы</div>
+        <div class="tab" data-tab="moderation"><i class="fas fa-user-tie"></i> Модерирование</div>
+        <div class="tab" data-tab="admin"><i class="fas fa-cog"></i> Администрирование</div>
+        <div class="tab" data-tab="new-request"><i class="fas fa-plus-circle"></i> Создать запрос</div>
+        <div class="tab" data-tab="profile"><i class="fas fa-user"></i> Профиль</div>
+        <div class="tab" data-tab="help"><i class="fas fa-question-circle"></i> Помощь</div>
+    </div>
+    
+    <!-- Основной контент -->
+    <div class="content-container">
+        <!-- Боковая панель (фильтры) -->
+        <aside class="sidebar">
+            <div class="filters-section">
+                <div class="section-title">
+                    <i class="fas fa-filter"></i> Фильтры
+                </div>
+                
+                <!-- Фильтр по автору (виден только менеджерам и администраторам) -->
+                <div class="filter-group" id="author-filter-container" style="display: none;">
+                    <label class="filter-label">Автор</label>
+                    <select class="filter-select" id="author-filter">
+                        <option value="all">Все авторы</option>
+                        <option value="me">Мои запросы</option>
+                        <!-- Опции пользователей будут добавлены динамически -->
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Система</label>
+                    <select class="filter-select" id="system-filter">
+                        <option value="all">Все системы</option>
+                        <option value="1c">1С</option>
+                        <option value="mis">МИС</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Статус</label>
+                    <select class="filter-select" id="status-filter">
+                        <option value="all">Все статусы</option>
+                        <option value="new">Новый</option>
+                        <option value="in-progress">В работе</option>
+                        <option value="resolved">Решен</option>
+                        <option value="reopened">Возвращен</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Приоритет</label>
+                    <select class="filter-select" id="priority-filter">
+                        <option value="all">Все приоритеты</option>
+                        <option value="low">Низкий</option>
+                        <option value="medium">Средний</option>
+                        <option value="high">Высокий</option>
+                        <option value="critical">Критический</option>
+                    </select>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Поиск по запросам..." id="search-input">
+                </div>
+                
+                <button class="filter-button" id="apply-filters">Применить фильтры</button>
+                
+                <!-- Кнопка переключения вида -->
+                <div class="view-toggle" style="margin-top: 15px; display: flex; gap: 5px;">
+                    <button id="view-grid" class="view-button active" title="Плитки">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button id="view-list" class="view-button" title="Список">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="filters-section">
+                <div class="section-title">
+                    <i class="fas fa-chart-pie"></i> Статистика
+                </div>
+                
+                <div class="stat-item">
+                    <div>Всего запросов: <strong id="stat-total">0</strong></div>
+                    <div>Открытые: <strong class="status-in-progress" id="stat-open">0</strong></div>
+                    <div>Решенные: <strong class="status-resolved" id="stat-resolved">0</strong></div>
+                    <div>Просроченные: <strong class="status-reopened" id="stat-overdue">0</strong></div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Основной контент -->
+        <main class="main-content"></main>
+    </div>
+
+    <script>
+        // ==== BACKEND/STATE ====
+        const appState = {
+            currentTab: 'my-requests',
+            currentTicket: null,
+            tickets: [],
+            users: [
+                { 
+                    id: 1, 
+                    name: "Иван Петров", 
+                    email: "admin@mrtexpert.ru", 
+                    role: "admin", 
+                    avatar: "ИП", 
+                    password: "admin123", 
+                    active: true,
+                    organization: "org1",
+                    department: "dep1"
+                },
+                { 
+                    id: 2, 
+                    name: "Мария Сидорова", 
+                    email: "support@mrtexpert.ru", 
+                    role: "support", 
+                    avatar: "МС", 
+                    password: "support123", 
+                    active: true,
+                    organization: "org1",
+                    department: "dep1"
+                },
+                { 
+                    id: 3, 
+                    name: "Алексей Иванов", 
+                    email: "user@mrtexpert.ru", 
+                    role: "user", 
+                    avatar: "АИ", 
+                    password: "user123", 
+                    active: true,
+                    organization: "org1",
+                    department: "dep2"
+                },
+                { 
+                    id: 4, 
+                    name: "Ольга Николаева", 
+                    email: "manager@mrtexpert.ru", 
+                    role: "manager", 
+                    avatar: "ОН", 
+                    password: "manager123", 
+                    active: true,
+                    organization: "org1",
+                    department: "dep3"
+                }
+            ],
+            organizations: {
+                "org1": "Организация 1",
+                "org2": "Организация 2",
+                "org3": "Организация 3"
+            },
+            departments: {
+                "dep1": "Отдел поддержки",
+                "dep2": "Бухгалтерия",
+                "dep3": "ИТ отдел",
+                "dep4": "Отдел продаж"
+            },
+            currentUser: null,
+            viewMode: 'grid', // 'grid' или 'list'
+            filters: {
+                system: 'all',
+                status: 'all',
+                priority: 'all',
+                search: ''
+            },
+            newRequest: {
+                step: 0,
+                system: null,
+                priority: null,
+                category: null,
+                subcategory: null,
+                title: '',
+                description: '',
+                attachments: []
+            },
+            adminUserEdit: null,
+            adminViewUser: null,
+            editingTicketId: null
+        };
+
+        const problemCategories = {
+            critical: {
+                name: "Авария",
+                icon: "fire",
+                items: [
+                    { 
+                        name: "Не работает", 
+                        icon: "power-off", 
+                        subItems: [
+                            { 
+                                name: "Вся компания", 
+                                autoTitle: "Система не работает: Вся компания",
+                                templateDescription: "Система не работает у всех пользователей. Ошибка возникает при запуске программы. Подробности: ..." 
+                            },
+                            { 
+                                name: "Отдельные пользователи", 
+                                autoTitle: "Система не работает: Отдельные пользователи",
+                                templateDescription: "Система не работает у следующих пользователей: [перечислите]. Ошибка: [опишите ошибку]." 
+                            }
+                        ] 
+                    },
+                    { 
+                        name: "Нет лицензии", 
+                        icon: "key",
+                        templateDescription: "Отсутствует лицензия на использование программного обеспечения. Сообщение об ошибке: [приведите текст ошибки]." 
+                    },
+                    { 
+                        name: "Зависает/тормозит", 
+                        icon: "hourglass-half",
+                        templateDescription: "Программа зависает или работает очень медленно при выполнении следующих действий: [опишите действия]." 
+                    },
+                    { 
+                        name: "Сервер Базы не обнаружен", 
+                        icon: "server",
+                        templateDescription: "Не удается подключиться к серверу баз данных. Ошибка: [приведите текст ошибки]. Проблема возникает у следующих пользователей: [перечислите]." 
+                    },
+                    { 
+                        name: "Ошибка СУБД до подключения", 
+                        icon: "database",
+                        templateDescription: "Ошибка СУБД возникает при попытке подключения к базе данных. Сообщение: [приведите текст ошибки]." 
+                    },
+                    { 
+                        name: "Ошибка", 
+                        icon: "bug", 
+                        subItems: [
+                            { 
+                                name: "Записи", 
+                                autoTitle: "Ошибка при работе с записями",
+                                templateDescription: "Ошибка возникает при попытке [операция] в разделе [название раздела]. Сообщение об ошибке: [текст ошибки]." 
+                            },
+                            { 
+                                name: "Формирования", 
+                                autoTitle: "Ошибка при формировании документа",
+                                templateDescription: "При формировании документа [название документа] возникает ошибка: [текст ошибки]. Дополнительные детали: ..." 
+                            },
+                            { 
+                                name: "Создания", 
+                                autoTitle: "Ошибка при создании объекта",
+                                templateDescription: "Ошибка при создании нового объекта [тип объекта]. Сообщение: [текст ошибки]. Шаги воспроизведения: ..." 
+                            },
+                            { 
+                                name: "Проведения", 
+                                autoTitle: "Ошибка при проведении документа",
+                                templateDescription: "При проведении документа [название документа] возникает ошибка: [текст ошибки]. Документ: [реквизиты документа]." 
+                            },
+                            { 
+                                name: "Закрепления", 
+                                autoTitle: "Ошибка при закреплении данных",
+                                templateDescription: "Ошибка при попытке закрепить данные в разделе [название раздела]. Сообщение: [текст ошибки]." 
+                            },
+                            { 
+                                name: "Синхронизации", 
+                                autoTitle: "Ошибка синхронизации данных",
+                                templateDescription: "Ошибка синхронизации данных между [система 1] и [система 2]. Сообщение: [текст ошибки]. Время возникновения: ..." 
+                            },
+                            { 
+                                name: "Выгрузки", 
+                                autoTitle: "Ошибка при выгрузке данных",
+                                templateDescription: "При выгрузке данных в [формат/систему] возникает ошибка: [текст ошибки]. Дополнительные детали: ..." 
+                            },
+                            { 
+                                name: "Начисления", 
+                                autoTitle: "Ошибка при начислении",
+                                templateDescription: "Ошибка при выполнении начисления [вид начисления]. Сообщение: [текст ошибки]. Период: [указать период]." 
+                            },
+                            { 
+                                name: "Подписания", 
+                                autoTitle: "Ошибка при подписании документа",
+                                templateDescription: "Ошибка при попытке подписать документ [название документа]. Сообщение: [текст ошибки]. Используемая ЭЦП: [название]." 
+                            }
+                        ] 
+                    },
+                    { 
+                        name: "Параметр сеанса", 
+                        icon: "cogs",
+                        templateDescription: "Проблема с параметром сеанса [название параметра]. Текущее значение: [значение], ожидаемое значение: [значение]." 
+                    },
+                    { 
+                        name: "Ошибка СУБД при работе с платформой", 
+                        icon: "database",
+                        templateDescription: "Ошибка СУБД возникает при работе с платформой. Сообщение: [текст ошибки]. Действия, приводящие к ошибке: ..." 
+                    },
+                    { 
+                        name: "Свой (Восстановить нормальную работу)", 
+                        icon: "tools",
+                        templateDescription: "Опишите проблему, которую необходимо решить для восстановления нормальной работы системы:" 
+                    },
+                    { 
+                        name: "Не могу войти (Один пользователь)", 
+                        icon: "sign-in-alt",
+                        templateDescription: "Пользователь [логин] не может войти в систему. Сообщение об ошибке: [текст ошибки]." 
+                    }
+                ]
+            },
+            high: {
+                name: "Сбой",
+                icon: "exclamation-triangle",
+                items: [
+                    { 
+                        name: "Выполнять", 
+                        icon: "play-circle",
+                        templateDescription: "Не удается выполнить операцию [название операции]. Опишите проблему:" 
+                    },
+                    { 
+                        name: "Направить", 
+                        icon: "share",
+                        templateDescription: "Не удается направить документ/данные. Опишите проблему:" 
+                    },
+                    { 
+                        name: "Ошибки общего характера", 
+                        icon: "exclamation-circle", 
+                        subItems: [
+                            { 
+                                name: "Запись заявки", 
+                                autoTitle: "Ошибка при записи заявки",
+                                templateDescription: "Ошибка при попытке записать новую заявку. Сообщение: [текст ошибки]." 
+                            },
+                            { 
+                                name: "Изменение данных", 
+                                autoTitle: "Ошибка при изменении данных",
+                                templateDescription: "Ошибка при изменении данных в [раздел/документ]. Сообщение: [текст ошибки]." 
+                            },
+                            { 
+                                name: "Автоматическая рассылка/Письма с анализами", 
+                                autoTitle: "Ошибка автоматической рассылки",
+                                templateDescription: "Не работает автоматическая рассылка [тип рассылки]. Ожидаемое время отправки: [время], фактическое: [время]." 
+                            },
+                            { 
+                                name: "Запись пациента", 
+                                autoTitle: "Ошибка при записи пациента",
+                                templateDescription: "Ошибка при попытке записать пациента на прием. Сообщение: [текст ошибки]." 
+                            }
+                        ] 
+                    },
+                    { 
+                        name: "Система вылетает! Ошибки нет", 
+                        icon: "skull",
+                        templateDescription: "Система неожиданно завершает работу без сообщения об ошибке. Действия перед завершением: [опишите]." 
+                    }
+                ]
+            },
+            medium: {
+                name: "Обслуживание",
+                icon: "cogs",
+                items: [
+                    { 
+                        name: "1С Бухгалтерия / ЗУП / ERP", 
+                        icon: "building",
+                        templateDescription: "Требуется помощь с настройкой/обслуживанием модуля [название модуля]. Описание задачи:" 
+                    },
+                    { 
+                        name: "Добавить/Редактировать контрагента", 
+                        icon: "user-edit",
+                        templateDescription: "Требуется добавить/отредактировать контрагента [название]. Необходимые изменения: ..." 
+                    },
+                    { 
+                        name: "Добавить отчет", 
+                        icon: "file-medical",
+                        templateDescription: "Требуется добавить новый отчет. Требования к отчету: ..." 
+                    },
+                    { 
+                        name: "Реализовать", 
+                        icon: "magic",
+                        templateDescription: "Требуется реализовать новую функциональность. Описание требований:" 
+                    },
+                    { 
+                        name: "Изменить функционал", 
+                        icon: "sliders-h",
+                        templateDescription: "Требуется изменить существующий функционал [название]. Описание изменений:" 
+                    },
+                    { 
+                        name: "Доработать", 
+                        icon: "code",
+                        templateDescription: "Требуется доработка существующей функциональности [название]. Описание:" 
+                    },
+                    { 
+                        name: "Обслуживание (Настроить)", 
+                        icon: "wrench",
+                        templateDescription: "Требуется настройка [компонент системы]. Описание задачи:" 
+                    },
+                    { 
+                        name: "База 1С", 
+                        icon: "database", 
+                        subItems: [
+                            { 
+                                name: "Установить ПО", 
+                                autoTitle: "Установка ПО для базы 1С",
+                                templateDescription: "Требуется установка программного обеспечения для базы 1С. Версия: [указать версию]." 
+                            },
+                            { 
+                                name: "Путь к базе", 
+                                autoTitle: "Настройка пути к базе 1С",
+                                templateDescription: "Требуется настройка пути к базе данных 1С. Текущий путь: [путь], требуемый путь: [путь]." 
+                            },
+                            { 
+                                name: "Создать пользователя/Права", 
+                                autoTitle: "Создание пользователя и прав доступа",
+                                templateDescription: "Требуется создать нового пользователя с правами доступа [уровень прав]. Имя пользователя: [имя]." 
+                            },
+                            { 
+                                name: "Копия базы", 
+                                autoTitle: "Создание копии базы 1С",
+                                templateDescription: "Требуется создать резервную копию базы данных 1С [название базы]." 
+                            }
+                        ] 
+                    },
+                    { 
+                        name: "МИС (1G Больница)", 
+                        icon: "hospital",
+                        templateDescription: "Требуется помощь с настройкой/обслуживанием МИС 1G Больница. Описание задачи:" 
+                    },
+                    { 
+                        name: "Настроить печать", 
+                        icon: "print",
+                        templateDescription: "Требуется настройка печати для [документ/отчет]. Проблема: [описание]." 
+                    },
+                    { 
+                        name: "Консультировать/Обучить", 
+                        icon: "chalkboard-teacher",
+                        templateDescription: "Требуется консультация/обучение по работе с [модуль/функция]. Тема: ..." 
+                    },
+                    { 
+                        name: "Изменить отчет", 
+                        icon: "file-alt",
+                        templateDescription: "Требуется изменить существующий отчет [название отчета]. Описание изменений:" 
+                    },
+                    { 
+                        name: "Добавить кнопку", 
+                        icon: "plus-circle",
+                        templateDescription: "Требуется добавить новую кнопку в интерфейс [раздел]. Описание функционала:" 
+                    }
+                ]
+            },
+            low: {
+                name: "Дополнительно",
+                icon: "ellipsis-h",
+                items: [
+                    { 
+                        name: "Внести оплату/платеж/счет на ПК", 
+                        icon: "money-bill-wave",
+                        templateDescription: "Требуется внести оплату/платеж/счет на ПК. Детали: ..." 
+                    },
+                    { 
+                        name: "Обмен из 1С в МИС/МИАС", 
+                        icon: "exchange-alt",
+                        templateDescription: "Требуется настройка/проверка обмена данными из 1С в МИС/МИАС. Проблема: ..." 
+                    },
+                    { 
+                        name: "Превышение ставок при приеме переводе", 
+                        icon: "exclamation-circle",
+                        templateDescription: "Обнаружено превышение ставок при приеме/переводе. Детали: ..." 
+                    },
+                    { 
+                        name: "Открытие периода", 
+                        icon: "calendar-alt",
+                        templateDescription: "Требуется открыть период [месяц, год] для редактирования." 
+                    },
+                    { 
+                        name: "Заблокировать пользователя", 
+                        icon: "user-slash",
+                        templateDescription: "Требуется заблокировать пользователя [логин]. Причина: ..." 
+                    },
+                    { 
+                        name: "Удалить заявку/поступления", 
+                        icon: "trash-alt",
+                        templateDescription: "Требуется удалить ошибочную заявку/поступление. Номер: [номер]." 
+                    },
+                    { 
+                        name: "Закрыть счет", 
+                        icon: "window-close",
+                        templateDescription: "Требуется закрыть счет [номер счета]." 
+                    },
+                    { 
+                        name: "Сформировать отчет", 
+                        icon: "file-contract",
+                        templateDescription: "Требуется сформировать отчет [название отчета] вручную." 
+                    },
+                    { 
+                        name: "Номенклатура", 
+                        icon: "box",
+                        templateDescription: "Требуется помощь с номенклатурой. Описание задачи:" 
+                    },
+                    { 
+                        name: "Оплата пациента", 
+                        icon: "user-md",
+                        templateDescription: "Проблема с оплатой пациента [ФИО]. Детали: ..." 
+                    },
+                    { 
+                        name: "Важный вопрос", 
+                        icon: "exclamation-triangle", 
+                        priority: "high",
+                        templateDescription: "Важный вопрос, требующий оперативного решения. Описание:" 
+                    },
+                    { 
+                        name: "Задворные выгрузки/контрагента", 
+                        icon: "file-export",
+                        templateDescription: "Требуется выполнить выгрузку данных для контрагента [название]." 
+                    },
+                    { 
+                        name: "Смена ради согласования", 
+                        icon: "sync-alt",
+                        templateDescription: "Требуется смена ради согласования [документ/процесс]." 
+                    },
+                    { 
+                        name: "ИДС(прикрепить/заменить)", 
+                        icon: "link",
+                        templateDescription: "Требуется прикрепить/заменить ИДС для [объект]." 
+                    },
+                    { 
+                        name: "Период для редактирования", 
+                        icon: "calendar-check",
+                        templateDescription: "Требуется открыть период для редактирования [месяц, год]." 
+                    },
+                    { 
+                        name: "РКО/ПКО", 
+                        icon: "receipt",
+                        templateDescription: "Проблема с РКО/ПКО [номер документа]. Описание:" 
+                    }
+                ]
+            }
+        };
+
+        function loadSampleData() {
+            appState.tickets = [
+                {
+                    id: 1,
+                    system: '1c',
+                    category: 'Ошибки > Не работает',
+                    title: 'Ошибка при проведении документа',
+                    description: 'При попытке провести документ "Поступление товаров" возникает ошибка "Недостаточно прав". Проблема проявляется только у пользователя Иванова.',
+                    status: 'in-progress',
+                    priority: 'high',
+                    created: '2023-05-12T14:30:00',
+                    userId: 3,
+                    assignedTo: 2,
+                    comments: [
+                        {
+                            author: 'Алексей Иванов',
+                            time: '2023-05-12T14:35:00',
+                            text: 'Проблема возникает при попытке провести любой документ в разделе "Склад"'
+                        },
+                        {
+                            author: 'Мария Сидорова',
+                            time: '2023-05-12T15:20:00',
+                            text: 'Проверил права пользователя. Назначил дополнительные права. Попробуйте сейчас.'
+                        }
+                    ],
+                    attachments: []
+                },
+                {
+                    id: 2,
+                    system: 'mis',
+                    category: 'Производительность > Формирование отчетов',
+                    title: 'Медленное формирование отчетов',
+                    description: 'Формирование ежедневного отчета занимает более 20 минут. Необходимо оптимизировать запросы к базе данных.',
+                    status: 'resolved',
+                    priority: 'medium',
+                    created: '2023-05-11T09:15:00',
+                    userId: 1,
+                    assignedTo: 2,
+                    comments: [
+                        {
+                            author: 'Иван Петров',
+                            time: '2023-05-11T09:20:00',
+                            text: 'Отчет генерируется каждый день в 8:30 и тормозит всю систему'
+                        },
+                        {
+                            author: 'Мария Сидорова',
+                            time: '2023-05-11T11:45:00',
+                            text: 'Оптимизировал SQL-запросы. Время формирования сократилось до 3 минут.'
+                        }
+                    ],
+                    attachments: []
+                },
+                {
+                    id: 3,
+                    system: '1c',
+                    category: 'Настройки > Доступ к базе',
+                    title: 'Нет доступа к базе',
+                    description: 'После обновления платформы пользователи не могут подключиться к базе. Ошибка: "Сервер баз данных не обнаружен".',
+                    status: 'new',
+                    priority: 'critical',
+                    created: '2023-05-10T16:45:00',
+                    userId: 2,
+                    assignedTo: null,
+                    comments: [],
+                    attachments: []
+                }
+            ];
+        }
+
+        function setCurrentUser(user) {
+            appState.currentUser = user;
+            if (user) localStorage.setItem('currentUser', JSON.stringify(user));
+            else localStorage.removeItem('currentUser');
+        }
+
+        function getCurrentUser() { 
+            return appState.currentUser; 
+        }
+
+        function createNewRequest(ticket) {
+            ticket.id = appState.tickets.length + 1;
+            ticket.created = new Date().toISOString();
+            ticket.userId = appState.currentUser.id;
+            ticket.status = 'new';
+            ticket.comments = [];
+            appState.tickets.push(ticket);
+            return ticket;
+        }
+
+        function updateTicket(ticketId, updates) {
+            const ticketIndex = appState.tickets.findIndex(t => t.id === ticketId);
+            if (ticketIndex !== -1) {
+                appState.tickets[ticketIndex] = { ...appState.tickets[ticketIndex], ...updates };
+                return true;
+            }
+            return false;
+        }
+
+        function updateStats() {
+            return {
+                total: appState.tickets.length,
+                open: appState.tickets.filter(t => t.status !== 'resolved').length,
+                resolved: appState.tickets.filter(t => t.status === 'resolved').length,
+                overdue: appState.tickets.filter(t => t.status === 'reopened').length
+            };
+        }
+
+        function filterTickets() {
+            return appState.tickets.filter(ticket => {
+                if (appState.filters.system !== 'all' && ticket.system !== appState.filters.system) return false;
+                if (appState.filters.status !== 'all' && ticket.status !== appState.filters.status) return false;
+                if (appState.filters.priority !== 'all' && ticket.priority !== appState.filters.priority) return false;
+                if (appState.filters.search) {
+                    const searchText = appState.filters.search.toLowerCase();
+                    if (!ticket.title.toLowerCase().includes(searchText) &&
+                        !ticket.description.toLowerCase().includes(searchText)) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+
+        function getUserById(userId) {
+            return appState.users.find(u => u.id === userId);
+        }
+
+        function getSupportUsers() {
+            return appState.users.filter(u => u.role === 'support' || u.role === 'admin');
+        }
+
+        function getUsersInSameOrganization() {
+            if (!appState.currentUser) return [];
+            return appState.users.filter(u => 
+                u.organization === appState.currentUser.organization && 
+                u.department === appState.currentUser.department
+            );
+        }
+
+        function initApp() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                const foundUser = appState.users.find(u => u.email === user.email && u.password === user.password);
+                if (foundUser) setCurrentUser(foundUser);
+            }
+            loadSampleData();
+        }
+
+        // ==== UTILS ====
+        function formatDate(dt) {
+            if (!dt) return '';
+            const d = new Date(dt);
+            return d.toLocaleDateString('ru-RU', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        }
+
+        function getStatusText(status) {
+            switch (status) {
+                case 'new': return 'Новый';
+                case 'in-progress': return 'В работе';
+                case 'resolved': return 'Решен';
+                case 'reopened': return 'Возвращен';
+                default: return status;
+            }
+        }
+
+        function getPriorityText(priority) {
+            switch (priority) {
+                case 'critical': return 'Критический';
+                case 'high': return 'Высокий';
+                case 'medium': return 'Средний';
+                case 'low': return 'Низкий';
+                default: return priority;
+            }
+        }
+
+        function renderComments(comments) {
+            if (!comments?.length) return `<div style="color:#9ee; padding:10px;">Комментариев нет</div>`;
+            return comments.map(c => `
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author">${c.author}</span>
+                        <span class="comment-time">${formatDate(c.time)}</span>
+                    </div>
+                    <div class="comment-text">${c.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderAttachments(attachments) {
+            if (!attachments?.length) return '';
+            return `
+                <div class="attachments-section">
+                    <h3><i class="fas fa-paperclip"></i> Прикрепленные файлы</h3>
+                    <div class="attachments-grid">
+                        ${attachments.map((file, idx) => `
+                            <div class="attachment-item">
+                                <i class="fas fa-file"></i>
+                                <span>Файл ${idx + 1}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==== MAIN APP ====
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp();
+            initAuth();
+            initEventListeners();
+            updateUserUI();
+            updateContent();
+        });
+
+        // --- AUTH ---
+        function initAuth() {
+            document.getElementById('login-btn').addEventListener('click', showLoginModal);
+            document.getElementById('register-btn').addEventListener('click', showRegisterModal);
+            document.getElementById('do-login').addEventListener('click', handleLogin);
+            document.getElementById('do-register').addEventListener('click', handleRegistration);
+            document.getElementById('logout-btn').addEventListener('click', handleLogout);
+
+            // Закрытие модалок
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.onclick = function() {
+                    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+                };
+            });
+            
+            // Клик вне модального окна по фону
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e){
+                    if (e.target === modal) modal.style.display = 'none';
+                })
+            });
+        }
+
+        function showLoginModal() {
+            document.getElementById('login-modal').style.display = 'flex';
+            document.getElementById('login-error').textContent = '';
+        }
+
+        function showRegisterModal() {
+            document.getElementById('register-modal').style.display = 'flex';
+            document.getElementById('register-error').textContent = '';
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            const errorElement = document.getElementById('login-error');
+            
+            if (!email || !password) { 
+                errorElement.textContent = 'Пожалуйста, заполните все поля'; 
+                return; 
+            }
+            
+            const user = appState.users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                if (!user.active) {
+                    errorElement.textContent = 'Учетная запись заблокирована';
+                    return;
+                }
+                setCurrentUser(user);
+                document.getElementById('login-modal').style.display = 'none';
+                updateUserUI();
+                updateContent();
+            } else {
+                errorElement.textContent = 'Неверные учетные данные';
+            }
+        }
+
+        function handleRegistration() {
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value.trim();
+            const role = document.getElementById('register-role').value;
+            const organization = document.getElementById('register-organization').value;
+            const department = document.getElementById('register-department').value;
+            const errorElement = document.getElementById('register-error');
+            
+            if (!email || !password) { 
+                errorElement.textContent = 'Пожалуйста, заполните все поля'; 
+                return; 
+            }
+            
+            if (!email.endsWith('@mrtexpert.ru')) { 
+                errorElement.textContent = 'Только корпоративные email разрешены'; 
+                return; 
+            }
+            
+            if (appState.users.some(u => u.email === email)) { 
+                errorElement.textContent = 'Пользователь с таким email уже существует'; 
+                return; 
+            }
+            
+            const newUser = {
+                id: appState.users.length + 1,
+                name: email.split('@')[0],
+                email: email,
+                role: role,
+                avatar: email[0].toUpperCase(),
+                password: password,
+                active: true,
+                organization: organization,
+                department: department
+            };
+            
+            appState.users.push(newUser);
+            setCurrentUser(newUser);
+            document.getElementById('register-modal').style.display = 'none';
+            updateUserUI();
+            updateContent();
+        }
+
+        function handleLogout() {
+            setCurrentUser(null);
+            updateUserUI();
+            updateContent();
+        }
+
+        function updateUserUI() {
+            const userInfo = document.getElementById('user-info');
+            const authButtons = document.getElementById('auth-buttons');
+            const currentUser = getCurrentUser();
+            
+            if (currentUser) {
+                userInfo.style.display = 'flex';
+                authButtons.style.display = 'none';
+                document.getElementById('user-display-name').textContent = currentUser.name;
+                
+                let roleText = '';
+                let roleClass = '';
+                switch(currentUser.role) {
+                    case 'admin': 
+                        roleText = 'Администратор';
+                        roleClass = 'role-admin';
+                        break;
+                    case 'support': 
+                        roleText = 'Поддержка';
+                        roleClass = 'role-support';
+                        break;
+                    case 'manager': 
+                        roleText = 'Менеджер';
+                        roleClass = 'role-manager';
+                        break;
+                    default: 
+                        roleText = 'Пользователь';
+                        roleClass = 'role-user';
+                }
+                const roleElement = document.getElementById('user-display-role');
+                roleElement.textContent = roleText;
+                roleElement.className = `user-role ${roleClass}`;
+                
+                document.getElementById('user-avatar').textContent = currentUser.avatar;
+            } else {
+                userInfo.style.display = 'none';
+                authButtons.style.display = 'block';
+            }
+        }
+
+        // --- NAVIGATION & FILTERS ---
+        function initEventListeners() {
+            // Переключение вкладок
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    if (!getCurrentUser() && this.getAttribute('data-tab') !== 'profile') { 
+                        showLoginModal(); 
+                        return; 
+                    }
+                    
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    appState.currentTab = this.getAttribute('data-tab');
+                    appState.adminUserEdit = null;
+                    appState.editingTicketId = null;
+                    updateContent();
+                });
+            });
+            
+            // Фильтры
+            document.getElementById('system-filter').addEventListener('change', function() {
+                appState.filters.system = this.value; 
+                filterAndRenderTickets();
+            });
+            
+            document.getElementById('status-filter').addEventListener('change', function() {
+                appState.filters.status = this.value; 
+                filterAndRenderTickets();
+            });
+            
+            document.getElementById('priority-filter').addEventListener('change', function() {
+                appState.filters.priority = this.value; 
+                filterAndRenderTickets();
+            });
+            
+            document.getElementById('search-input').addEventListener('input', function() {
+                appState.filters.search = this.value.toLowerCase(); 
+                filterAndRenderTickets();
+            });
+            
+            document.getElementById('apply-filters').addEventListener('click', filterAndRenderTickets);
+            
+            // Переключение вида
+            document.getElementById('view-grid').addEventListener('click', function() {
+                appState.viewMode = 'grid';
+                document.getElementById('view-grid').classList.add('active');
+                document.getElementById('view-list').classList.remove('active');
+                filterAndRenderTickets();
+            });
+            
+            document.getElementById('view-list').addEventListener('click', function() {
+                appState.viewMode = 'list';
+                document.getElementById('view-list').classList.add('active');
+                document.getElementById('view-grid').classList.remove('active');
+                filterAndRenderTickets();
+            });
+        }
+
+        // --- CONTENT ---
+        function updateContent() {
+            const mainContent = document.querySelector('.main-content');
+            const currentUser = getCurrentUser();
+            
+            if (!currentUser && appState.currentTab !== 'profile') {
+                mainContent.innerHTML = `
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-circle"></i> Требуется авторизация
+                    </div>
+                    <div style="text-align:center; padding:40px 20px;">
+                        <p>Для доступа к системе необходимо войти в учетную запись</p>
+                        <button class="filter-button" style="width:200px; margin-top:20px;" id="login-prompt">
+                            Войти в систему
+                        </button>
+                    </div>
+                `;
+                document.getElementById('login-prompt').onclick = showLoginModal;
+                return;
+            }
+            
+            switch(appState.currentTab) {
+                case 'my-requests':
+                    renderMyRequests();
+                    break;
+                case 'moderation':
+                    renderModerationPanel();
+                    break;
+                case 'admin':
+                    renderAdminPanel();
+                    break;
+                case 'new-request':
+                    renderCreateRequest();
+                    break;
+                case 'profile':
+                    renderProfile();
+                    break;
+                case 'help':
+                    renderHelpAndContacts();
+                    break;
+            }
+            
+            updateStatsUI();
+        }
+
+        function renderMyRequests() {
+            const mainContent = document.querySelector('.main-content');
+            mainContent.innerHTML = `
+                <div class="section-title">
+                    <i class="fas fa-ticket-alt"></i> Мои запросы
+                </div>
+                <div id="requests-container"></div>
+            `;
+            
+            filterAndRenderTickets();
+        }
+
+        // --- TICKETS ---
+        function filterAndRenderTickets(forAdmin = false, forModeration = false, userId = null) {
+            let containerId;
+            if (forAdmin) {
+                containerId = 'admin-requests-container';
+            } else if (forModeration) {
+                containerId = 'moderation-requests-container';
+            } else {
+                containerId = 'requests-container';
+            }
+            
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            let filteredTickets = filterTickets();
+            
+            if (userId) {
+                filteredTickets = filteredTickets.filter(t => t.userId === userId);
+            } else if (!forAdmin && !forModeration) {
+                const currentUser = getCurrentUser();
+                filteredTickets = filteredTickets.filter(t => t.userId === currentUser.id);
+            } else if (forModeration) {
+                const currentUser = getCurrentUser();
+                const usersInDept = getUsersInSameOrganization();
+                const userIds = usersInDept.map(u => u.id);
+                filteredTickets = filteredTickets.filter(t => userIds.includes(t.userId));
+            }
+            
+            if (!filteredTickets.length) {
+                container.innerHTML = '<div style="text-align:center; padding:30px; color:#9ee;">Нет заявок по выбранным фильтрам</div>';
+                return;
+            }
+            
+            if (appState.viewMode === 'list') {
+                // Вид списка (таблица)
+                const table = document.createElement('table');
+                table.className = 'requests-table';
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Заголовок</th>
+                            <th>Система</th>
+                            <th>Статус</th>
+                            <th>Приоритет</th>
+                            <th>Дата создания</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filteredTickets.map(ticket => `
+                            <tr class="table-row-link">
+                                <td>#TS-${ticket.id.toString().padStart(4, '0')}</td>
+                                <td>${ticket.title}</td>
+                                <td><span class="request-system system-${ticket.system}">${ticket.system === '1c' ? '1С' : 'МИС'}</span></td>
+                                <td><span class="table-status status-${ticket.status}">${getStatusText(ticket.status)}</span></td>
+                                <td><span class="table-status priority-${ticket.priority}">${getPriorityText(ticket.priority)}</span></td>
+                                <td>${formatDate(ticket.created)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                `;
+                
+                // Добавляем обработчики кликов на строки таблицы
+                table.querySelectorAll('tbody tr').forEach((row, index) => {
+                    row.addEventListener('click', () => {
+                        showTicketDetails(filteredTickets[index].id, forModeration);
+                    });
+                });
+                
+                container.appendChild(table);
+            } else {
+                // Вид плиток
+                const grid = document.createElement('div');
+                grid.className = 'requests-grid';
+                grid.id = forAdmin ? 'admin-requests-container' : 'requests-container';
+                
+                filteredTickets.forEach(ticket => {
+                    const card = document.createElement('div');
+                    card.className = 'request-card fade-in';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <div class="request-id">#TS-${ticket.id.toString().padStart(4, '0')}</div>
+                            <div class="request-system system-${ticket.system}">${ticket.system === '1c' ? '1С' : 'МИС'}</div>
+                        </div>
+                        <div class="request-title">${ticket.title}</div>
+                        <div class="request-description">${ticket.description.substring(0, 100)}${ticket.description.length > 100 ? '...' : ''}</div>
+                        <div class="card-footer">
+                            <div class="request-date">${formatDate(ticket.created)}</div>
+                            <div class="request-status status-${ticket.status} priority-${ticket.priority}">${getStatusText(ticket.status)}</div>
+                        </div>
+                    `;
+                    card.onclick = () => showTicketDetails(ticket.id, forModeration);
+                    grid.appendChild(card);
+                });
+                
+                container.appendChild(grid);
+            }
+        }
+
+        function updateStatsUI() {
+            const stats = updateStats();
+            document.getElementById('stat-total').textContent = stats.total;
+            document.getElementById('stat-open').textContent = stats.open;
+            document.getElementById('stat-resolved').textContent = stats.resolved;
+            document.getElementById('stat-overdue').textContent = stats.overdue;
+        }
+
+        function showTicketDetails(ticketId, forModeration = false) {
+            const ticket = appState.tickets.find(t => t.id === ticketId);
+            if (!ticket) return;
+            
+            appState.currentTicket = ticket;
+            const currentUser = getCurrentUser();
+            const isAdmin = currentUser.role === 'admin' || currentUser.role === 'support';
+            const isAuthor = ticket.userId === currentUser.id;
+            const isManager = currentUser.role === 'manager';
+            
+            let editButton = '';
+            if (isAuthor && ticket.status === 'new') {
+                editButton = `<button class="edit-button" id="edit-ticket-btn"><i class="fas fa-edit"></i> Редактировать</button>`;
+            }
+            
+            let adminControls = '';
+            if (isAdmin) {
+                const supportUsers = getSupportUsers();
+                adminControls = `
+                    <div class="admin-ticket-actions">
+                        <h3><i class="fas fa-cog"></i> Управление запросом</h3>
+                        <div class="admin-controls-grid">
+                            <div class="control-group">
+                                <label>Статус</label>
+                                <select class="admin-control-select" id="ticket-status-control">
+                                    <option value="new" ${ticket.status === 'new' ? 'selected' : ''}>Новый</option>
+                                    <option value="in-progress" ${ticket.status === 'in-progress' ? 'selected' : ''}>В работе</option>
+                                    <option value="resolved" ${ticket.status === 'resolved' ? 'selected' : ''}>Решен</option>
+                                    <option value="reopened" ${ticket.status === 'reopened' ? 'selected' : ''}>Возвращен</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label>Приоритет</label>
+                                <select class="admin-control-select" id="ticket-priority-control">
+                                    <option value="low" ${ticket.priority === 'low' ? 'selected' : ''}>Низкий</option>
+                                    <option value="medium" ${ticket.priority === 'medium' ? 'selected' : ''}>Средний</option>
+                                    <option value="high" ${ticket.priority === 'high' ? 'selected' : ''}>Высокий</option>
+                                    <option value="critical" ${ticket.priority === 'critical' ? 'selected' : ''}>Критический</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label>Исполнитель</label>
+                                <select class="admin-control-select" id="ticket-assignee-control">
+                                    <option value="">Не назначен</option>
+                                    ${supportUsers.map(u => `<option value="${u.id}" ${ticket.assignedTo === u.id ? 'selected' : ''}>${u.name}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            const author = getUserById(ticket.userId);
+            const assignedTo = ticket.assignedTo ? getUserById(ticket.assignedTo) : null;
+            
+            const mainContent = document.querySelector('.main-content');
+            mainContent.innerHTML = `
+                <div class="ticket-details">
+                    <div class="ticket-header">
+                        <div class="ticket-title">${ticket.title} ${editButton}</div>
+                        <div class="request-id">#TS-${ticket.id.toString().padStart(4, '0')}</div>
+                    </div>
+                    <div class="ticket-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Система</span>
+                            <span class="meta-value">${ticket.system === '1c' ? '1С' : 'МИС'}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Категория</span>
+                            <span class="meta-value">${ticket.category}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Статус</span>
+                            <span class="meta-value request-status status-${ticket.status}">${getStatusText(ticket.status)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Приоритет</span>
+                            <span class="meta-value priority-${ticket.priority}">${getPriorityText(ticket.priority)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Создан</span>
+                            <span class="meta-value">${formatDate(ticket.created)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Автор</span>
+                            <span class="meta-value">${author.name}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Организация</span>
+                            <span class="meta-value">${appState.organizations[author.organization]}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Отдел</span>
+                            <span class="meta-value">${appState.departments[author.department]}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Исполнитель</span>
+                            <span class="meta-value">${assignedTo ? assignedTo.name : 'Не назначен'}</span>
+                        </div>
+                    </div>
+                    <div class="ticket-description">
+                        <h3>Описание проблемы</h3>
+                        <div id="description-content">${ticket.description}</div>
+                    </div>
+                    ${renderAttachments(ticket.attachments)}
+                    <div class="comments-section">
+                        <h3>Комментарии (${ticket.comments.length})</h3>
+                        <div class="comment-list" id="comments-container">
+                            ${renderComments(ticket.comments)}
+                        </div>
+                        <div class="comment-form">
+                            <input type="text" class="comment-input" id="comment-input" placeholder="Напишите комментарий...">
+                            <button class="send-button" id="send-comment">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    ${adminControls}
+                    <div class="back-button" id="back-to-list">
+                        <i class="fas fa-arrow-left"></i> Назад к списку
+                    </div>
+                </div>
+            `;
+            
+            if (isAdmin) {
+                document.getElementById('ticket-status-control').addEventListener('change', function() {
+                    updateTicket(ticket.id, { status: this.value });
+                    showTicketDetails(ticket.id, forModeration);
+                });
+                
+                document.getElementById('ticket-priority-control').addEventListener('change', function() {
+                    updateTicket(ticket.id, { priority: this.value });
+                    showTicketDetails(ticket.id, forModeration);
+                });
+                
+                document.getElementById('ticket-assignee-control').addEventListener('change', function() {
+                    updateTicket(ticket.id, { assignedTo: this.value ? parseInt(this.value) : null });
+                    showTicketDetails(ticket.id, forModeration);
+                });
+            }
+            
+            // Разрешаем комментарии для менеджеров и администраторов
+            if (isAdmin || isManager || isAuthor) {
+                document.getElementById('send-comment').addEventListener('click', addComment);
+                document.getElementById('comment-input').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') addComment();
+                });
+            } else {
+                document.getElementById('comment-input').disabled = true;
+                document.getElementById('send-comment').disabled = true;
+                document.getElementById('send-comment').style.opacity = '0.5';
+            }
+            
+            if (editButton) {
+                document.getElementById('edit-ticket-btn').addEventListener('click', function() {
+                    enableTicketEdit(ticket);
+                });
+            }
+            
+            document.getElementById('back-to-list').addEventListener('click', function() {
+                updateContent();
+            });
+            
+            function addComment() {
+                const input = document.getElementById('comment-input');
+                const text = input.value.trim();
+                if (!text) return;
+                
+                const newComment = {
+                    author: getCurrentUser().name,
+                    time: new Date().toISOString(),
+                    text: text
+                };
+                
+                const ticketIndex = appState.tickets.findIndex(t => t.id === appState.currentTicket.id);
+                if (ticketIndex !== -1) {
+                    appState.tickets[ticketIndex].comments.push(newComment);
+                    document.getElementById('comments-container').innerHTML = 
+                        renderComments(appState.tickets[ticketIndex].comments);
+                    input.value = '';
+                }
+            }
+        }
+
+        function enableTicketEdit(ticket) {
+            const titleContainer = document.querySelector('.ticket-title');
+            const descriptionContainer = document.getElementById('description-content');
+            
+            // Сохраняем оригинальные значения
+            const originalTitle = ticket.title;
+            const originalDescription = ticket.description;
+            
+            // Заменяем заголовок на input
+            titleContainer.innerHTML = `
+                <input type="text" class="editable-field" id="edit-ticket-title" value="${ticket.title}">
+                <div class="edit-controls">
+                    <button class="form-button" id="save-ticket-btn"><i class="fas fa-save"></i> Сохранить</button>
+                    <button class="back-button" id="cancel-edit-btn"><i class="fas fa-times"></i> Отмена</button>
+                </div>
+            `;
+            
+            // Заменяем описание на textarea
+            descriptionContainer.innerHTML = `
+                <div class="editor-toolbar">
+                    <button class="editor-btn" data-template="Не работает принтер"><i class="fas fa-print"></i> Принтер</button>
+                    <button class="editor-btn" data-template="Нет доступа к базе"><i class="fas fa-database"></i> Доступ</button>
+                    <button class="editor-btn" data-template="Ошибка при проведении документа"><i class="fas fa-file-alt"></i> Документ</button>
+                </div>
+                <textarea class="text-editor" id="edit-ticket-description">${ticket.description}</textarea>
+            `;
+            
+            // Добавляем обработчики для шаблонов
+            document.querySelectorAll('.editor-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const template = this.getAttribute('data-template');
+                    const textarea = document.getElementById('edit-ticket-description');
+                    textarea.value += template + '\n';
+                });
+            });
+            
+            // Обработчик сохранения
+            document.getElementById('save-ticket-btn').addEventListener('click', function() {
+                const newTitle = document.getElementById('edit-ticket-title').value.trim();
+                const newDescription = document.getElementById('edit-ticket-description').value.trim();
+                
+                if (!newTitle) {
+                    alert('Заголовок не может быть пустым');
+                    return;
+                }
+                
+                updateTicket(ticket.id, {
+                    title: newTitle,
+                    description: newDescription
+                });
+                
+                showTicketDetails(ticket.id);
+            });
+            
+            // Обработчик отмены
+            document.getElementById('cancel-edit-btn').addEventListener('click', function() {
+                showTicketDetails(ticket.id);
+            });
+        }
+
+        // --- MODERATION PANEL ---
+        function renderModerationPanel() {
+            const currentUser = getCurrentUser();
+            const mainContent = document.querySelector('.main-content');
+            
+            if (currentUser.role !== 'manager') {
+                mainContent.innerHTML = `
+                    <div class="section-title">
+                        <i class="fas fa-ban"></i> Доступ запрещен
+                    </div>
+                    <div style="text-align:center; padding:40px 20px;">
+                        <p>У вас недостаточно прав для доступа к этому разделу</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            mainContent.innerHTML = `
+                <div class="moderation-section">
+                    <h3><i class="fas fa-user-tie"></i> Запросы отдела</h3>
+                    <p>Просмотр заявок сотрудников вашего отдела: ${appState.departments[currentUser.department]}</p>
+                    <div id="moderation-requests-container"></div>
+                </div>
+            `;
+            
+            filterAndRenderTickets(false, true);
+        }
+
+        // --- ADMIN PANEL ---
+        function renderAdminPanel() {
+            const mainContent = document.querySelector('.main-content');
+            const currentUser = getCurrentUser();
+            
+            if (currentUser.role !== 'admin') {
+                mainContent.innerHTML = `
+                    <div class="section-title">
+                        <i class="fas fa-ban"></i> Доступ запрещен
+                    </div>
+                    <div style="text-align:center; padding:40px 20px;">
+                        <p>У вас недостаточно прав для доступа к этому разделу</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            mainContent.innerHTML = `
+                <div class="section-title">
+                    <i class="fas fa-cog"></i> Администрирование
+                </div>
+                <div class="admin-section">
+                    <h3>Управление запросами</h3>
+                    <div id="admin-requests-container"></div>
+                </div>
+                <div class="admin-section">
+                    <h3>Управление пользователями</h3>
+                    <div class="user-search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="user-search-input" placeholder="Поиск по пользователям...">
+                    </div>
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Имя</th>
+                                <th>Email</th>
+                                <th>Роль</th>
+                                <th>Организация</th>
+                                <th>Отдел</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-table-body">
+                            ${appState.users.map(user => `
+                                <tr>
+                                    <td>${user.name}</td>
+                                    <td>${user.email}</td>
+                                    <td>
+                                        ${user.role === 'admin' ? 'Администратор' : 
+                                          user.role === 'support' ? 'Поддержка' : 
+                                          user.role === 'manager' ? 'Менеджер' : 'Пользователь'}
+                                    </td>
+                                    <td>${appState.organizations[user.organization]}</td>
+                                    <td>${appState.departments[user.department]}</td>
+                                    <td class="user-status ${user.active ? 'active' : 'inactive'}">
+                                        ${user.active ? 'Активен' : 'Заблокирован'}
+                                    </td>
+                                    <td>
+                                        <button class="user-action-button" data-userid="${user.id}">
+                                            <i class="fas fa-pen"></i> Редактировать
+                                        </button>
+                                        <button class="user-action-button view-requests" data-userid="${user.id}">
+                                            <i class="fas fa-list"></i> Заявки
+                                        </button>
+                                        <button class="user-action-button ${user.active ? 'block' : 'unblock'}" data-userid="${user.id}">
+                                            <i class="fas fa-${user.active ? 'lock' : 'unlock'}"></i> ${user.active ? 'Заблокировать' : 'Разблокировать'}
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div id="admin-user-edit-container"></div>
+                    <div id="admin-user-requests-container"></div>
+                </div>
+            `;
+            
+            filterAndRenderTickets(true);
+            
+            document.getElementById('user-search-input').addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const rows = document.querySelectorAll('#user-table-body tr');
+                
+                rows.forEach(row => {
+                    const name = row.cells[0].textContent.toLowerCase();
+                    const email = row.cells[1].textContent.toLowerCase();
+                    if (name.includes(searchTerm) || email.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.user-action-button:not(.view-requests):not(.block):not(.unblock)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const uid = parseInt(this.getAttribute('data-userid'));
+                    renderAdminUserEdit(uid);
+                });
+            });
+            
+            document.querySelectorAll('.user-action-button.view-requests').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const uid = parseInt(this.getAttribute('data-userid'));
+                    renderAdminUserRequests(uid);
+                });
+            });
+            
+            document.querySelectorAll('.user-action-button.block').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const uid = parseInt(this.getAttribute('data-userid'));
+                    const user = appState.users.find(u => u.id === uid);
+                    if (user) {
+                        user.active = false;
+                        renderAdminPanel();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.user-action-button.unblock').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const uid = parseInt(this.getAttribute('data-userid'));
+                    const user = appState.users.find(u => u.id === uid);
+                    if (user) {
+                        user.active = true;
+                        renderAdminPanel();
+                    }
+                });
+            });
+        }
+
+        function renderAdminUserEdit(uid) {
+            const user = appState.users.find(u => u.id === uid);
+            if (!user) return;
+            
+            appState.adminUserEdit = user;
+            const container = document.getElementById('admin-user-edit-container');
+            container.innerHTML = `
+                <div class="admin-edit-title">Редактирование пользователя</div>
+                <form id="admin-edit-user-form" class="admin-user-edit-form">
+                    <label>Имя:
+                        <input type="text" name="name" value="${user.name}" required>
+                    </label>
+                    <label>Email:
+                        <input type="email" name="email" value="${user.email}" required>
+                    </label>
+                    <label>Роль:
+                        <select name="role">
+                            <option value="user" ${user.role === "user" ? "selected" : ""}>Пользователь</option>
+                            <option value="support" ${user.role === "support" ? "selected" : ""}>Поддержка</option>
+                            <option value="admin" ${user.role === "admin" ? "selected" : ""}>Администратор</option>
+                            <option value="manager" ${user.role === "manager" ? "selected" : ""}>Менеджер</option>
+                        </select>
+                    </label>
+                    <label>Организация:
+                        <select name="organization">
+                            ${Object.entries(appState.organizations).map(([key, value]) => 
+                                `<option value="${key}" ${user.organization === key ? "selected" : ""}>${value}</option>`
+                            ).join('')}
+                        </select>
+                    </label>
+                    <label>Отдел:
+                        <select name="department">
+                            ${Object.entries(appState.departments).map(([key, value]) => 
+                                `<option value="${key}" ${user.department === key ? "selected" : ""}>${value}</option>`
+                            ).join('')}
+                        </select>
+                    </label>
+                    <label>Статус:
+                        <select name="active">
+                            <option value="true" ${user.active ? "selected" : ""}>Активен</option>
+                            <option value="false" ${!user.active ? "selected" : ""}>Заблокирован</option>
+                        </select>
+                    </label>
+                    <label>Пароль:
+                        <input type="text" name="password" value="${user.password}">
+                    </label>
+                    <div class="form-actions">
+                        <button type="submit" class="form-button"><i class="fas fa-save"></i> Сохранить</button>
+                        <button type="button" id="admin-edit-cancel" class="form-button back-button">
+                            <i class="fas fa-times"></i> Отмена
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            document.getElementById('admin-edit-user-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const fd = new FormData(e.target);
+                
+                user.name = fd.get('name');
+                user.email = fd.get('email');
+                user.role = fd.get('role');
+                user.organization = fd.get('organization');
+                user.department = fd.get('department');
+                user.active = fd.get('active') === 'true';
+                user.password = fd.get('password');
+                user.avatar = user.name.length > 1 ? 
+                    user.name[0].toUpperCase() + user.name[1].toUpperCase() : 
+                    user.name[0].toUpperCase();
+                    
+                appState.adminUserEdit = null;
+                renderAdminPanel();
+            });
+            
+            document.getElementById('admin-edit-cancel').addEventListener('click', function() {
+                appState.adminUserEdit = null;
+                renderAdminPanel();
+            });
+        }
+
+        function renderAdminUserRequests(uid) {
+            const user = appState.users.find(u => u.id === uid);
+            if (!user) return;
+            
+            const container = document.getElementById('admin-user-requests-container');
+            container.innerHTML = `
+                <div class="admin-edit-title">Заявки пользователя "${user.name}"</div>
+                <div id="admin-user-tickets"></div>
+                <button class="form-button back-button" id="close-user-requests">
+                    <i class="fas fa-arrow-left"></i> Закрыть
+                </button>
+            `;
+
+            const userTickets = appState.tickets.filter(t => t.userId === uid);
+            const ticketsContainer = document.getElementById('admin-user-tickets');
+
+            if (!userTickets.length) {
+                ticketsContainer.innerHTML = '<div style="text-align:center; padding:30px; color:#9ee;">Нет заявок у этого пользователя</div>';
+            } else {
+                filterAndRenderTickets(true, false, uid);
+            }
+
+            document.getElementById('close-user-requests').addEventListener('click', function() {
+                container.innerHTML = "";
+            });
+        }
+
+        // --- PROFILE PAGE ---
+        function renderProfile() {
+            const currentUser = getCurrentUser();
+            const mainContent = document.querySelector('.main-content');
+            
+            if (!currentUser) {
+                mainContent.innerHTML = `
+                    <div class="section-title">
+                        <i class="fas fa-user"></i> Профиль
+                    </div>
+                    <div style="text-align:center; padding:40px 20px;">
+                        <p>Для просмотра профиля необходимо войти в систему</p>
+                        <button class="filter-button" style="width:200px; margin-top:20px;" id="profile-login-prompt">
+                            Войти в систему
+                        </button>
+                    </div>
+                `;
+                document.getElementById('profile-login-prompt').onclick = showLoginModal;
+                return;
+            }
+            
+            const userTickets = appState.tickets.filter(t => t.userId === currentUser.id);
+            const stats = {
+                total: userTickets.length,
+                open: userTickets.filter(t => t.status !== 'resolved').length,
+                resolved: userTickets.filter(t => t.status === 'resolved').length
+            };
+            
+            let roleText = '';
+            let roleClass = '';
+            switch(currentUser.role) {
+                case 'admin': 
+                    roleText = 'Администратор';
+                    roleClass = 'role-admin';
+                    break;
+                case 'support': 
+                    roleText = 'Поддержка';
+                    roleClass = 'role-support';
+                    break;
+                case 'manager': 
+                    roleText = 'Менеджер';
+                    roleClass = 'role-manager';
+                    break;
+                default: 
+                    roleText = 'Пользователь';
+                    roleClass = 'role-user';
+            }
+            
+            // Скрываем роль администратора для менеджеров
+            let roleDisplay = '';
+            if (currentUser.role !== 'manager' || currentUser.role === 'admin') {
+                roleDisplay = `<div class="user-role ${roleClass}">${roleText}</div>`;
+            }
+            
+            mainContent.innerHTML = `
+                <div class="section-title">
+                    <i class="fas fa-user"></i> Профиль
+                </div>
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">${currentUser.avatar}</div>
+                        <h2>${currentUser.name}</h2>
+                        ${roleDisplay}
+                        <div>${appState.organizations[currentUser.organization]} / ${appState.departments[currentUser.department]}</div>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-card">
+                            <div class="stat-card-value">${stats.total}</div>
+                            <div class="stat-card-label">Всего запросов</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-value">${stats.open}</div>
+                            <div class="stat-card-label">Открытых</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-value">${stats.resolved}</div>
+                            <div class="stat-card-label">Решенных</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-value">${currentUser.active ? 'Активен' : 'Заблокирован'}</div>
+                            <div class="stat-card-label">Статус аккаунта</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Личные данные</h3>
+                    <form id="profile-form" class="profile-form">
+                        <div class="form-group">
+                            <label class="form-label">Имя</label>
+                            <input type="text" class="form-input" id="profile-name" value="${currentUser.name}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" id="profile-email" value="${currentUser.email}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Организация</label>
+                            <select class="form-input" id="profile-organization">
+                                ${Object.entries(appState.organizations).map(([key, value]) => 
+                                    `<option value="${key}" ${currentUser.organization === key ? 'selected' : ''}>${value}</option>`
+                                ).join('')}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Отдел</label>
+                            <select class="form-input" id="profile-department">
+                                ${Object.entries(appState.departments).map(([key, value]) => 
+                                    `<option value="${key}" ${currentUser.department === key ? 'selected' : ''}>${value}</option>`
+                                ).join('')}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Новый пароль</label>
+                            <input type="password" class="form-input" id="profile-password" placeholder="Оставьте пустым, чтобы не менять">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="form-button"><i class="fas fa-save"></i> Сохранить изменения</button>
+                        </div>
+                    </form>
+                    
+                    <div class="quick-actions">
+                        <div class="action-button" id="create-request-btn">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Создать запрос</span>
+                        </div>
+                        <div class="action-button" id="view-requests-btn">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>Мои запросы</span>
+                        </div>
+                        <div class="action-button" id="logout-profile-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Выйти</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('create-request-btn').addEventListener('click', function() {
+                appState.newRequest = { 
+                    step: 0, 
+                    system: null, 
+                    priority: null, 
+                    category: null, 
+                    subcategory: null, 
+                    title: '', 
+                    description: '', 
+                    attachments: [] 
+                };
+                document.querySelector('[data-tab="new-request"]').click();
+            });
+            
+            document.getElementById('view-requests-btn').addEventListener('click', function() {
+                document.querySelector('[data-tab="my-requests"]').click();
+            });
+            
+            document.getElementById('logout-profile-btn').addEventListener('click', handleLogout);
+            
+            document.getElementById('profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('profile-name').value.trim();
+                const password = document.getElementById('profile-password').value.trim();
+                const organization = document.getElementById('profile-organization').value;
+                const department = document.getElementById('profile-department').value;
+                
+                if (!name) {
+                    alert('Имя не может быть пустым');
+                    return;
+                }
+                
+                currentUser.name = name;
+                currentUser.organization = organization;
+                currentUser.department = department;
+                if (password) {
+                    currentUser.password = password;
+                }
+                
+                // Обновляем аватар
+                currentUser.avatar = name.length > 1 ? 
+                    name[0].toUpperCase() + name[1].toUpperCase() : 
+                    name[0].toUpperCase();
+                
+                alert('Данные успешно обновлены');
+                updateUserUI();
+                renderProfile();
+            });
+        }
+
+        // --- REQUEST CREATION ---
+        function renderCreateRequest() {
+            if (!getCurrentUser()) { 
+                showLoginModal(); 
+                return; 
+            }
+            
+            const mainContent = document.querySelector('.main-content');
+            let content = '';
+            const steps = [
+                { title: "Выбор системы", icon: "server" },
+                { title: "Тип проблемы", icon: "bug" },
+                { title: "Категория", icon: "folder" },
+                { title: "Детали", icon: "info-circle" }
+            ];
+            
+            const isEditing = appState.editingTicketId !== null;
+            const breadcrumbs = `
+                <div class="flow-header">
+                    ${steps.map((step, index) => `
+                        <div class="flow-step ${appState.newRequest.step === index ? 'active' : ''}">
+                            <i class="fas fa-${step.icon}"></i> ${step.title}
+                            ${index < steps.length - 1 ? '<i class="fas fa-chevron-right"></i>' : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="flow-content">
+            `;
+            
+            switch(appState.newRequest.step) {
+                case 0:
+                    content = `
+                        <h3>Выберите систему, в которой возникла проблема</h3>
+                        <div class="system-grid">
+                            <div class="system-choice-card ${appState.newRequest.system === '1c' ? 'active' : ''}" data-system="1c">
+                                <i class="fas fa-building"></i>
+                                <div class="system-name">1С</div>
+                                <div class="system-description">Бухгалтерия, ЗУП, ERP и другие</div>
+                            </div>
+                            <div class="system-choice-card ${appState.newRequest.system === 'mis' ? 'active' : ''}" data-system="mis">
+                                <i class="fas fa-hospital"></i>
+                                <div class="system-name">МИС</div>
+                                <div class="system-description">1G Больница и другие медицинские системы</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 1:
+                    content = `
+                        <h3>Выберите тип проблемы</h3>
+                        <div class="priority-blocks">
+                            ${Object.entries(problemCategories).map(([priority, data]) => `
+                                <div class="priority-block ${priority}" data-priority="${priority}">
+                                    <div class="priority-title"><i class="fas fa-${data.icon}"></i> ${data.name}</div>
+                                    <div class="priority-items">${data.items.slice(0, 2).map(item => item.name).join(', ')}${data.items.length > 2 ? `, +${data.items.length - 2} еще...` : ''}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                case 2:
+                    const currentCategory = problemCategories[appState.newRequest.priority];
+                    content = `
+                        <h3>Выберите категорию проблемы</h3>
+                        <p>Тип: <span class="priority-${appState.newRequest.priority}">${currentCategory.name}</span></p>
+                        <div class="categories-accordion">
+                            ${currentCategory.items.map(item => `
+                                <div class="accordion-item">
+                                    <div class="accordion-header" data-category="${item.name}">
+                                        <i class="fas fa-${item.icon}"></i> ${item.name}
+                                        ${item.subItems ? `<span class="badge">${item.subItems.length} подзапросов</span>` : ''}
+                                    </div>
+                                    ${item.subItems ? `
+                                        <div class="accordion-content">
+                                            <div class="subitems-grid">
+                                                ${item.subItems.map(subItem => `
+                                                    <div class="subitem-card" 
+                                                        data-subitem="${subItem.name}"
+                                                        data-autotitle="${subItem.autoTitle || item.name + ': ' + subItem.name}"
+                                                        data-template="${subItem.templateDescription || ''}">
+                                                        <div class="subitem-name">${subItem.name}</div>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                case 3:
+                    const preview = `
+                        <div class="request-preview">
+                            <div class="preview-title">Предпросмотр запроса</div>
+                            <div class="preview-meta">
+                                <span class="system-${appState.newRequest.system}">${appState.newRequest.system === '1c' ? '1С' : 'МИС'}</span>
+                                <span class="priority-${appState.newRequest.priority}">${problemCategories[appState.newRequest.priority].name}</span>
+                                <span>${appState.newRequest.category}</span>
+                                ${appState.newRequest.subcategory ? `<span>${appState.newRequest.subcategory}</span>` : ''}
+                            </div>
+                            <div class="preview-title">${appState.newRequest.title}</div>
+                            <div class="preview-description">${appState.newRequest.description.substring(0, 200)}${appState.newRequest.description.length > 200 ? '...' : ''}</div>
+                        </div>
+                    `;
+                    
+                    content = `
+                        <h3>${isEditing ? 'Редактирование запроса' : 'Детали запроса'}</h3>
+                        ${preview}
+                        <div class="form-group">
+                            <label class="form-label">Заголовок запроса</label>
+                            <input type="text" class="form-input" id="request-title"
+                                   placeholder="Краткое описание проблемы" value="${appState.newRequest.title}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Подробное описание</label>
+                            <div class="editor-toolbar">
+                                <button class="editor-btn" data-template="Не работает принтер"><i class="fas fa-print"></i> Принтер</button>
+                                <button class="editor-btn" data-template="Нет доступа к базе"><i class="fas fa-database"></i> Доступ</button>
+                                <button class="editor-btn" data-template="Ошибка при проведении документа"><i class="fas fa-file-alt"></i> Документ</button>
+                            </div>
+                            <textarea class="text-editor" id="request-description" placeholder="Опишите проблему подробно, укажите шаги воспроизведения">${appState.newRequest.description}</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Прикрепить файлы (скриншоты, логи)</label>
+                            <div class="file-upload-area" id="file-upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Перетащите файлы сюда или нажмите для выбора</p>
+                                <input type="file" id="request-attachments" multiple style="display: none;">
+                            </div>
+                            <div class="attachments-preview" id="attachments-preview"></div>
+                        </div>
+                        <button class="form-button" id="submit-request">
+                            <i class="fas fa-paper-plane"></i> ${isEditing ? 'Сохранить изменения' : 'Отправить запрос'}
+                        </button>
+                    `;
+                    break;
+            }
+            
+            let backButton = '';
+            if (appState.newRequest.step > 0) {
+                backButton = `<button class="back-button" id="back-button"><i class="fas fa-arrow-left"></i> Назад</button>`;
+            }
+            
+            const navigation = `<div class="flow-navigation">${backButton}</div>`;
+            mainContent.innerHTML = `
+                <div class="section-title">
+                    <i class="fas fa-plus-circle"></i> ${isEditing ? 'Редактирование запроса' : 'Создание нового запроса'}
+                </div>
+                <div class="create-form">
+                    <div class="request-flow">
+                        ${breadcrumbs}
+                        ${content}
+                        </div>
+                        ${navigation}
+                    </div>
+                </div>
+            `;
+            
+            if (appState.newRequest.step === 0) {
+                document.querySelectorAll('.system-choice-card').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        appState.newRequest.system = btn.getAttribute('data-system');
+                        appState.newRequest.step = 1;
+                        renderCreateRequest();
+                    });
+                });
+            }
+            
+            if (appState.newRequest.step === 1) {
+                document.querySelectorAll('.priority-block').forEach(block => {
+                    block.addEventListener('click', function() {
+                        appState.newRequest.priority = this.getAttribute('data-priority');
+                        appState.newRequest.step = 2;
+                        renderCreateRequest();
+                    });
+                });
+            }
+            
+            if (appState.newRequest.step === 2) {
+                // Обработчики для аккордеона
+                document.querySelectorAll('.accordion-header').forEach(header => {
+                    header.addEventListener('click', function() {
+                        const content = this.nextElementSibling;
+                        if (!content) {
+                            appState.newRequest.category = this.getAttribute('data-category');
+                            appState.newRequest.subcategory = '';
+                            
+                            // Находим элемент для шаблона
+                            const categoryObj = problemCategories[appState.newRequest.priority].items.find(
+                                item => item.name === appState.newRequest.category
+                            );
+                            
+                            if (categoryObj && categoryObj.templateDescription) {
+                                appState.newRequest.description = categoryObj.templateDescription;
+                            }
+                            
+                            appState.newRequest.title = this.textContent.trim();
+                            appState.newRequest.step = 3;
+                            renderCreateRequest();
+                            return;
+                        }
+                        
+                        if (content.style.display === 'block') {
+                            content.style.display = 'none';
+                        } else {
+                            content.style.display = 'block';
+                        }
+                    });
+                });
+                
+                // Обработчики для подкатегорий
+                document.querySelectorAll('.subitem-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        const category = this.closest('.accordion-item').querySelector('.accordion-header').getAttribute('data-category');
+                        const subitem = this.getAttribute('data-subitem');
+                        const autotitle = this.getAttribute('data-autotitle');
+                        const template = this.getAttribute('data-template') || '';
+                        
+                        appState.newRequest.category = category;
+                        appState.newRequest.subcategory = subitem;
+                        appState.newRequest.title = autotitle;
+                        appState.newRequest.description = template;
+                        appState.newRequest.step = 3;
+                        renderCreateRequest();
+                    });
+                });
+            }
+            
+            if (appState.newRequest.step === 3) {
+                document.getElementById('request-title').addEventListener('input', function() {
+                    appState.newRequest.title = this.value;
+                });
+                
+                document.getElementById('request-description').addEventListener('input', function() {
+                    appState.newRequest.description = this.value;
+                });
+                
+                // Кнопки шаблонов
+                document.querySelectorAll('.editor-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const template = this.getAttribute('data-template');
+                        const textarea = document.getElementById('request-description');
+                        textarea.value += template + '\n';
+                    });
+                });
+                
+                // Обработка загрузки файлов
+                const fileInput = document.getElementById('request-attachments');
+                const uploadArea = document.getElementById('file-upload-area');
+                const previewArea = document.getElementById('attachments-preview');
+                
+                uploadArea.addEventListener('click', () => fileInput.click());
+                
+                fileInput.addEventListener('change', function() {
+                    previewArea.innerHTML = '';
+                    if (this.files.length > 0) {
+                        previewArea.innerHTML = '<p>Выбранные файлы:</p>';
+                        Array.from(this.files).forEach(file => {
+                            previewArea.innerHTML += `<div class="file-item"><i class="fas fa-file"></i> ${file.name}</div>`;
+                        });
+                        appState.newRequest.attachments = Array.from(this.files).map(f => f.name);
+                    }
+                });
+                
+                // Drag and drop
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('dragover');
+                });
+                
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.classList.remove('dragover');
+                });
+                
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('dragover');
+                    fileInput.files = e.dataTransfer.files;
+                    const event = new Event('change', { bubbles: true });
+                    fileInput.dispatchEvent(event);
+                });
+                
+                document.getElementById('submit-request').addEventListener('click', handleSubmitRequest);
+            }
+            
+            if (document.getElementById('back-button')) {
+                document.getElementById('back-button').addEventListener('click', () => {
+                    appState.newRequest.step--;
+                    renderCreateRequest();
+                });
+            }
+        }
+
+        function handleSubmitRequest() {
+            const title = document.getElementById('request-title').value.trim();
+            const description = document.getElementById('request-description').value.trim();
+            
+            if (!title) { 
+                alert('Пожалуйста, укажите заголовок запроса'); 
+                return; 
+            }
+            
+            if (appState.editingTicketId) {
+                // Редактирование существующего запроса
+                const updated = updateTicket(appState.editingTicketId, {
+                    title: title,
+                    description: description,
+                    attachments: appState.newRequest.attachments
+                });
+                
+                if (updated) {
+                    alert('Запрос успешно обновлен!');
+                    appState.editingTicketId = null;
+                    document.querySelector('[data-tab="my-requests"]').click();
+                }
+            } else {
+                // Создание нового запроса
+                const newTicket = {
+                    system: appState.newRequest.system,
+                    category: appState.newRequest.category,
+                    title: title,
+                    description: description,
+                    priority: appState.newRequest.priority || 'medium',
+                    subcategory: appState.newRequest.subcategory,
+                    attachments: appState.newRequest.attachments
+                };
+                
+                createNewRequest(newTicket);
+                alert('Запрос успешно создан!');
+            }
+            
+            // Сброс состояния
+            appState.newRequest = { 
+                step: 0, 
+                system: null, 
+                priority: null, 
+                category: null, 
+                subcategory: null, 
+                title: '', 
+                description: '', 
+                attachments: [] 
+            };
+            appState.editingTicketId = null;
+            
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-tab="my-requests"]').classList.add('active');
+            appState.currentTab = 'my-requests';
+            updateContent();
+        }
+
+        // --- HELP AND CONTACTS ---
+        function renderHelpAndContacts() {
+            const mainContent = document.querySelector('.main-content');
+            mainContent.innerHTML = `
+                <div class="help-section">
+                    <h2><i class="fas fa-question-circle"></i> Помощь и контакты</h2>
+                    
+                    <h3><i class="fas fa-info-circle"></i> О системе</h3>
+                    <p>Система поддержки 1С/МИС предназначена для управления запросами пользователей, связанными с работой программных продуктов 1С и МИС. Здесь вы можете создавать новые запросы, отслеживать их статус, получать помощь от специалистов поддержки.</p>
+                    
+                    <h3><i class="fas fa-phone-alt"></i> Контакты поддержки</h3>
+                    <div class="help-grid">
+                        <div class="help-card">
+                            <div class="help-card-title"><i class="fas fa-headset"></i> Техническая поддержка</div>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                    <div class="contact-details">
+                                        <div class="contact-label">Телефон</div>
+                                        <div class="contact-value">+7 (495) 123-45-67</div>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                                    <div class="contact-details">
+                                        <div class="contact-label">Email</div>
+                                        <div class="contact-value">support@mrtexpert.ru</div>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                                    <div class="contact-details">
+                                        <div class="contact-label">Часы работы</div>
+                                        <div class="contact-value">Пн-Пт: 9:00 - 18:00</div>
+                                        <div class="contact-value">Сб-Вс: выходной</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="help-card">
+                            <div class="help-card-title"><i class="fas fa-users"></i> Отдел разработки</div>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                    <div class="contact-details">
+                                        <div class="contact-label">Телефон</div>
+                                        <div class="contact-value">+7 (495) 765-43-21</div>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                                    <div class="contact-details">
+                                        <div class="contact-label">Email</div>
+                                        <div class="contact-value">dev@mrtexpert.ru</div>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                                    <div class="contact-details">
+                                        <div class="contact-label">Часы работы</div>
+                                        <div class="contact-value">Пн-Пт: 10:00 - 19:00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3><i class="fas fa-map-marker-alt"></i> Наш офис</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-building"></i></div>
+                        <div class="contact-details">
+                            <div class="contact-label">Адрес</div>
+                            <div class="contact-value">г. Москва, ул. Пушкина, д. 15, офис 305</div>
+                        </div>
+                    </div>
+                    
+                    <h3><i class="fas fa-question"></i> Часто задаваемые вопросы</h3>
+                    <div class="qa-item">
+                        <div class="qa-question"><i class="fas fa-question-circle"></i> Как создать новый запрос?</div>
+                        <div class="qa-answer">Перейдите на вкладку "Создать запрос", выберите систему, тип проблемы, категорию и заполните детали запроса.</div>
+                    </div>
+                    
+                    <div class="qa-item">
+                        <div class="qa-question"><i class="fas fa-question-circle"></i> Как отслеживать статус моего запроса?</div>
+                        <div class="qa-answer">Все ваши запросы отображаются на вкладке "Мои запросы". Там вы можете видеть текущий статус и обновления.</div>
+                    </div>
+                    
+                    <div class="qa-item">
+                        <div class="qa-question"><i class="fas fa-question-circle"></i> Что делать, если я забыл пароль?</div>
+                        <div class="qa-answer">Обратитесь к администратору вашей организации для сброса пароля.</div>
+                    </div>
+                    
+                    <div class="qa-item">
+                        <div class="qa-question"><i class="fas fa-question-circle"></i> Как прикрепить файлы к запросу?</div>
+                        <div class="qa-answer">На последнем шаге создания запроса используйте область "Прикрепить файлы".</div>
+                    </div>
+                </div>
+                
+                <div class="back-button" id="help-back-button">
+                    <i class="fas fa-arrow-left"></i> Назад к списку
+                </div>
+            `;
+            
+            document.getElementById('help-back-button').addEventListener('click', function() {
+                updateContent();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -4,7 +4,7 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
-      "@/types": ["types/index.d.ts"]
+      "@/types": ["types"]
     },
     "lib": [
       "dom",

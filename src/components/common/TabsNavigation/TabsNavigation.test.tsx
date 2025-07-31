@@ -6,7 +6,10 @@ import TabsNavigation from './TabsNavigation';
 test('renders all navigation tabs', () => {
   render(
     <MemoryRouter>
-      <TabsNavigation />
+      <TabsNavigation 
+        activeTab="my-requests" 
+        onTabChange={() => {}} 
+      />
     </MemoryRouter>
   );
   

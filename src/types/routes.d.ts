@@ -1,16 +1,16 @@
-import { UserRole } from './app';
+import { Role } from './app';
 
 export interface RouteConfig {
   path: string;
   component: React.ComponentType;
   exact?: boolean;
-  roles?: UserRole[];
+  roles?: Role[];
   isPrivate?: boolean;
   isGuestOnly?: boolean;
 }
 
 export interface PrivateRouteProps {
-  roles?: UserRole[];
+  roles?: Role[];
   children: React.ReactNode;
 }
 

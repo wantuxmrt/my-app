@@ -1,4 +1,4 @@
-import { User, Ticket, Stats, AppState } from './app';
+import { User, Ticket, Stats } from './app';
 
 // Auth Store
 export interface AuthState {

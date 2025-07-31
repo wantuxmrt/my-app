@@ -1,40 +1,45 @@
-import axios from 'axios';
-import type { 
-  AxiosInstance, 
-  AxiosRequestConfig, 
-  AxiosResponse, 
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
   AxiosError,
-  InternalAxiosRequestConfig 
+  InternalAxiosRequestConfig
 } from 'axios';
-
-// Создаем кастомный тип для ошибки Axios
-interface CustomAxiosError extends Error {
-  config: AxiosRequestConfig;
-  code?: string;
-  request?: any;
-  response?: AxiosResponse;
-  isAxiosError: boolean;
-}
+import { RootState } from '@/store';
+import { store } from '@/store';
+import { logout } from '@/store/authSlice';
 
 // Базовый URL для API
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
+// Интерфейс для кастомной ошибки
+export interface ApiError extends Error {
+  status?: number;
+  code?: string;
+  response?: AxiosResponse;
+  isAxiosError: boolean;
+}
+
 // Создаем экземпляр Axios
 const api: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 // Request interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('authToken');
+    const state: RootState = store.getState();
+    const token = state.auth.user?.token;
+    
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    
     return config;
   },
   (error: AxiosError) => Promise.reject(error)
@@ -44,12 +49,29 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError) => {
+    const apiError: ApiError = {
+      name: 'ApiError',
+      message: error.message,
+      isAxiosError: true,
+      response: error.response,
+      status: error.response?.status,
+      code: error.code,
+    };
+
+    // Обработка специфических ошибок
     if (error.response?.status === 401) {
-      // Обработка ошибки 401 (Unauthorized)
-      localStorage.removeItem('authToken');
-      window.location.href = '/login';
+      store.dispatch(logout());
     }
-    return Promise.reject(error);
+
+    if (error.response?.status === 403) {
+      apiError.message = 'Доступ запрещен';
+    }
+
+    if (error.response?.status === 429) {
+      apiError.message = 'Слишком много запросов. Попробуйте позже.';
+    }
+
+    return Promise.reject(apiError);
   }
 );
 

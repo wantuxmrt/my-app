@@ -57,3 +57,14 @@ export const formatRole = (role: string): string => {
       return role;
   }
 };
+
+/**
+ * Сокращает длинный текст, добавляя многоточие
+ * @param text - Исходный текст
+ * @param maxLength - Максимальная длина
+ * @returns Сокращенный текст
+ */
+export const truncateText = (text: string, maxLength: number): string => {
+  if (text.length <= maxLength) return text;
+  return `${text.substring(0, maxLength)}...`;
+};

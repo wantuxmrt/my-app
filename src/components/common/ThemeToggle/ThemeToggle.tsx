@@ -1,13 +1,17 @@
 import React from 'react';
-import { useTheme } from '../../../themes/ThemeProvider';
-import './ThemeToggle.css';
+import styles from './ThemeToggle.module.css';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const ThemeToggle: React.FC = () => {
   const { themeName, toggleTheme } = useTheme();
 
   return (
-    <button className="theme-toggle" onClick={toggleTheme} title="Переключить тему">
-      <i className={`fas fa-${themeName === 'light' ? 'moon' : 'sun'}`}></i>
+    <button 
+      className={styles.themeToggle}
+      onClick={toggleTheme}
+      aria-label="Toggle theme"
+    >
+      <i className={`fas fa-${themeName === 'light' ? 'moon' : 'sun'}`} />
     </button>
   );
 };

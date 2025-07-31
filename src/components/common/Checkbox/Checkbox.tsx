@@ -1,28 +1,25 @@
 import React from 'react';
 import styles from './Checkbox.module.css';
 
-// Add export to the interface
-export interface CheckboxProps {
+interface CheckboxProps {
   checked: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (checked: boolean) => void;
   label?: string;
-  className?: string;
   disabled?: boolean;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({
-  checked,
-  onChange,
-  label,
-  className = '',
-  disabled = false,
+const Checkbox: React.FC<CheckboxProps> = ({ 
+  checked, 
+  onChange, 
+  label, 
+  disabled = false 
 }) => {
   return (
-    <label className={`${styles.checkbox} ${className}`}>
+    <label className={styles.checkboxContainer}>
       <input
         type="checkbox"
         checked={checked}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.checked)}
         disabled={disabled}
         className={styles.input}
       />

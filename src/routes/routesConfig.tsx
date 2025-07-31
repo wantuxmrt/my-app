@@ -1,73 +1,56 @@
-// Типы для ролей пользователей
-export type UserRole = 'user' | 'support' | 'admin' | 'manager';
+import { lazy } from 'react';
+import { RouteConfig } from './routes.d';
 
-// Интерфейс конфигурации маршрута
-export interface RouteConfig {
-  path: string;
-  element: React.ReactElement;
-  isPrivate?: boolean;
-  allowedRoles?: UserRole[];
-  layout?: boolean;
-}
+// Ленивая загрузка страниц
+const LoginPage = lazy(() => import('@/sections/LoginPage'));
+const MainPage = lazy(() => import('@/sections/MainPage'));
+const ProfilePage = lazy(() => import('@/sections/ProfilePage'));
+const ModerationPage = lazy(() => import('@/sections/ModerationPage'));
+const AdminPage = lazy(() => import('@/sections/AdminPage'));
+const CreateRequestPage = lazy(() => import('@/sections/CreateRequestPage'));
+const NotFoundPage = lazy(() => import('@/sections/NotFoundPage'));
+const HelpPage = lazy(() => import('@/sections/HelpPage'));
 
-// Импорт страниц
-import MainPage from '../components/common/sections/MainPage/MainPage';
-import LoginPage from '../components/common/sections/LoginPage/LoginPage';
-import ProfilePage from '../pages/ProfilePage';
-import AdminPage from '../pages/AdminPage';
-import NotFoundPage from '../components/common/sections/NotFoundPage/NotFoundPage';
-
-// Создадим заглушки для недостающих страниц
-const ModerationPage = () => <div>Moderation Page</div>;
-const HelpPage = () => <div>Help Page</div>;
-
-// Конфигурация маршрутов
-const routesConfig: RouteConfig[] = [
-  {
-    path: '/',
-    element: <MainPage />,
-    isPrivate: true,
-    allowedRoles: ['user', 'support', 'admin', 'manager'],
-    layout: true,
-  },
+export const routesConfig: RouteConfig[] = [
   {
     path: '/login',
-    element: <LoginPage />,
-    layout: false,
+    component: LoginPage,
+    isGuestOnly: true,
+  },
+  {
+    path: '/',
+    component: MainPage,
+    exact: true,
+    isPrivate: true,
   },
   {
     path: '/profile',
-    element: <ProfilePage />,
+    component: ProfilePage,
     isPrivate: true,
-    allowedRoles: ['user', 'support', 'admin', 'manager'],
-    layout: true,
-  },
-  {
-    path: '/admin',
-    element: <AdminPage />,
-    isPrivate: true,
-    allowedRoles: ['admin'],
-    layout: true,
   },
   {
     path: '/moderation',
-    element: <ModerationPage />,
+    component: ModerationPage,
     isPrivate: true,
-    allowedRoles: ['manager'],
-    layout: true,
+    roles: ['manager'],
+  },
+  {
+    path: '/admin',
+    component: AdminPage,
+    isPrivate: true,
+    roles: ['admin'],
+  },
+  {
+    path: '/create-request',
+    component: CreateRequestPage,
+    isPrivate: true,
   },
   {
     path: '/help',
-    element: <HelpPage />,
-    isPrivate: true,
-    allowedRoles: ['user', 'support', 'admin', 'manager'],
-    layout: true,
+    component: HelpPage,
   },
   {
     path: '*',
-    element: <NotFoundPage />,
-    layout: false,
+    component: NotFoundPage,
   },
 ];
-
-export default routesConfig;

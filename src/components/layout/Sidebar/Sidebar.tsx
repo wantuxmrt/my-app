@@ -1,17 +1,29 @@
-// src/components/layout/Sidebar.tsx
-import React from 'react';
-import { useAppContext } from '@/contexts/AppContext';
+import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
+import { Stats, TicketSystem, TicketStatus, Priority } from '@/types/app';
 
-const Sidebar = () => {
-  const { tickets } = useAppContext();
-  
-  // Статистика
-  const stats = {
-    total: tickets.length,
-    open: tickets.filter(t => t.status !== 'resolved').length,
-    resolved: tickets.filter(t => t.status === 'resolved').length,
-    overdue: tickets.filter(t => t.status === 'reopened').length,
+interface SidebarProps {
+  stats: Stats;
+  onFilterChange: (filters: {
+    system: TicketSystem | 'all';
+    status: TicketStatus | 'all';
+    priority: Priority | 'all';
+    search: string;
+  }) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ stats, onFilterChange }) => {
+  const [filters, setFilters] = useState({
+    system: 'all' as TicketSystem | 'all',
+    status: 'all' as TicketStatus | 'all',
+    priority: 'all' as Priority | 'all',
+    search: ''
+  });
+
+  const handleFilterChange = (key: string, value: string) => {
+    const newFilters = { ...filters, [key]: value };
+    setFilters(newFilters);
+    onFilterChange(newFilters);
   };
 
   return (
@@ -23,7 +35,11 @@ const Sidebar = () => {
         
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Система</label>
-          <select className={styles.filterSelect}>
+          <select 
+            className={styles.filterSelect}
+            value={filters.system}
+            onChange={(e) => handleFilterChange('system', e.target.value)}
+          >
             <option value="all">Все системы</option>
             <option value="1c">1С</option>
             <option value="mis">МИС</option>
@@ -32,7 +48,11 @@ const Sidebar = () => {
         
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Статус</label>
-          <select className={styles.filterSelect}>
+          <select 
+            className={styles.filterSelect}
+            value={filters.status}
+            onChange={(e) => handleFilterChange('status', e.target.value)}
+          >
             <option value="all">Все статусы</option>
             <option value="new">Новый</option>
             <option value="in-progress">В работе</option>
@@ -43,7 +63,11 @@ const Sidebar = () => {
         
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Приоритет</label>
-          <select className={styles.filterSelect}>
+          <select 
+            className={styles.filterSelect}
+            value={filters.priority}
+            onChange={(e) => handleFilterChange('priority', e.target.value)}
+          >
             <option value="all">Все приоритеты</option>
             <option value="low">Низкий</option>
             <option value="medium">Средний</option>
@@ -58,21 +82,17 @@ const Sidebar = () => {
             type="text" 
             className={styles.searchInput} 
             placeholder="Поиск по запросам..." 
+            value={filters.search}
+            onChange={(e) => handleFilterChange('search', e.target.value)}
           />
         </div>
         
-        <button className={styles.filterButton}>
+        <button 
+          className={styles.filterButton}
+          onClick={() => onFilterChange(filters)}
+        >
           Применить фильтры
         </button>
-        
-        <div className={styles.viewToggle}>
-          <button className={`${styles.viewButton} ${styles.active}`}>
-            <i className="fas fa-th"></i>
-          </button>
-          <button className={styles.viewButton}>
-            <i className="fas fa-list"></i>
-          </button>
-        </div>
       </div>
       
       <div className={styles.filtersSection}>

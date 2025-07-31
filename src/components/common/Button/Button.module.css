@@ -3,94 +3,96 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
+  font-family: inherit;
+  gap: 8px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Variants */
-.variant-primary {
+.primary {
   background-color: var(--primary);
   color: white;
 }
 
-.variant-primary:hover {
+.primary:hover:not(:disabled) {
   background-color: var(--primary-dark);
 }
 
-.variant-secondary {
-  background-color: var(--secondary);
-  color: white;
+.secondary {
+  background-color: var(--secondary-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
-.variant-secondary:hover {
-  background-color: var(--secondary-dark);
+.secondary:hover:not(:disabled) {
+  background-color: var(--secondary-hover);
 }
 
-.variant-success {
+.success {
   background-color: var(--success);
   color: white;
 }
 
-.variant-success:hover {
+.success:hover:not(:disabled) {
   background-color: var(--success-dark);
 }
 
-.variant-warning {
+.warning {
   background-color: var(--warning);
-  color: black;
-}
-
-.variant-warning:hover {
-  background-color: var(--warning-dark);
-}
-
-.variant-error {
-  background-color: var(--error);
   color: white;
 }
 
-.variant-error:hover {
-  background-color: var(--error-dark);
+.warning:hover:not(:disabled) {
+  background-color: var(--warning-dark);
 }
 
-.variant-outline {
-  background-color: transparent;
-  border: 1px solid var(--primary);
-  color: var(--primary);
+.danger {
+  background-color: var(--danger);
+  color: white;
 }
 
-.variant-outline:hover {
-  background-color: var(--primary-light);
+.danger:hover:not(:disabled) {
+  background-color: var(--danger-dark);
+}
+
+.text {
+  background: none;
+  color: var(--text);
+  padding: 0;
+}
+
+.text:hover:not(:disabled) {
+  text-decoration: underline;
 }
 
 /* Sizes */
-.size-small {
+.small {
   padding: 6px 12px;
   font-size: 12px;
 }
 
-.size-medium {
+.medium {
   padding: 8px 16px;
   font-size: 14px;
 }
 
-.size-large {
+.large {
   padding: 12px 24px;
   font-size: 16px;
 }
 
-/* Disabled */
-.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.iconLeft {
+  margin-right: 4px;
 }
 
-/* Icon */
-.icon {
-  margin-right: 8px;
-  display: flex;
-  align-items: center;
+.iconRight {
+  margin-left: 4px;
 }

@@ -12,6 +12,12 @@ export default {
   )],
 };
 
-const Template = () => <TabsNavigation />;
+const Template = (args: any) => (
+  <TabsNavigation 
+    activeTab="my-requests" 
+    onTabChange={() => {}} 
+    {...args} 
+  />
+);
 
 export const Default = Template.bind({});

@@ -1,15 +1,33 @@
 import React from 'react';
-import Tab from '../Tab/Tab';
 import styles from './TabsNavigation.module.css';
+import Tab, { TabProps } from './Tab';
 
-const TabsNavigation: React.FC = () => {
+interface TabsNavigationProps {
+  tabs: TabProps[];
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+  className?: string;
+}
+
+const TabsNavigation: React.FC<TabsNavigationProps> = ({ 
+  tabs, 
+  activeTab, 
+  onTabChange,
+  className = ''
+}) => {
   return (
-    <nav className={styles.navigation}>
-      <Tab label="Главная" path="/" exact />
-      <Tab label="Запросы" path="/requests" />
-      <Tab label="Профиль" path="/profile" />
-      <Tab label="Помощь" path="/help" />
-    </nav>
+    <div className={`${styles.tabsContainer} ${className}`}>
+      {tabs.map((tab) => (
+        <Tab
+          key={tab.label}
+          label={tab.label}
+          icon={tab.icon}
+          active={activeTab === tab.label}
+          onClick={() => onTabChange(tab.label)}
+          disabled={tab.disabled}
+        />
+      ))}
+    </div>
   );
 };
 

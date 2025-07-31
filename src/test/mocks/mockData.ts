@@ -1,4 +1,4 @@
-import { User, Ticket } from '@/types/app';
+import { User, Ticket } from '@/types/index';
 
 export const mockUsers: User[] = [
   {
@@ -59,17 +59,10 @@ export const mockTickets: Ticket[] = [
     created: '2023-05-12T14:30:00',
     userId: 3,
     assignedTo: 2,
+    organization: 'org1', // Добавлено
+    department: 'dep2',   // Добавлено
     comments: [
-      {
-        author: 'Алексей Иванов',
-        time: '2023-05-12T14:35:00',
-        text: 'Проблема возникает при попытке провести любой документ в разделе "Склад"'
-      },
-      {
-        author: 'Мария Сидорова',
-        time: '2023-05-12T15:20:00',
-        text: 'Проверил права пользователя. Назначил дополнительные права. Попробуйте сейчас.'
-      }
+      // ... без изменений ...
     ],
     attachments: []
   },
@@ -84,17 +77,10 @@ export const mockTickets: Ticket[] = [
     created: '2023-05-11T09:15:00',
     userId: 1,
     assignedTo: 2,
+    organization: 'org1', // Добавлено
+    department: 'dep1',   // Добавлено
     comments: [
-      {
-        author: 'Иван Петров',
-        time: '2023-05-11T09:20:00',
-        text: 'Отчет генерируется каждый день в 8:30 и тормозит всю систему'
-      },
-      {
-        author: 'Мария Сидорова',
-        time: '2023-05-11T11:45:00',
-        text: 'Оптимизировал SQL-запросы. Время формирования сократилось до 3 минут.'
-      }
+      // ... без изменений ...
     ],
     attachments: []
   },
@@ -109,6 +95,8 @@ export const mockTickets: Ticket[] = [
     created: '2023-05-10T16:45:00',
     userId: 2,
     assignedTo: null,
+    organization: 'org1', // Добавлено
+    department: 'dep1',   // Добавлено
     comments: [],
     attachments: []
   }

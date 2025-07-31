@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../services/api/authAPI';
-import { User, Role } from '../types';
+import { authAPI } from '@/services/api';
+import { User, Role } from '@/types/app';
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -17,11 +17,11 @@ export const useAuth = () => {
       if (token) {
         try {
           setLoading(true);
-          // Исправлено: заменили verifyToken на getCurrentUser
           const userData = await authAPI.getCurrentUser();
           setUser(userData);
         } catch (err) {
           localStorage.removeItem('authToken');
+          console.error('Authentication check failed:', err);
         } finally {
           setLoading(false);
           setIsInitialized(true);
@@ -100,18 +100,22 @@ export const useAuth = () => {
     return user?.role === requiredRole;
   }, [user]);
 
+  const updateUserProfile = useCallback((updatedUser: Partial<User>) => {
+    if (user) {
+      setUser({ ...user, ...updatedUser });
+    }
+  }, [user]);
+
   return {
     isAuthenticated: !!user,
-    userRole: user?.role || null,
-    userName: user?.name || '',
-    userId: user?.id || 0,
-    login,
-    logout,
     user,
     loading: loading || !isInitialized,
     error,
+    login,
+    logout,
     register,
     checkPermission,
+    updateUserProfile,
     isInitialized
   };
 };

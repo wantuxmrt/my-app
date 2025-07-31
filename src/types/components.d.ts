@@ -1,4 +1,4 @@
-import { Role, TicketStatus, Priority, TicketSystem } from './app';
+import { Role, TicketStatus, Priority, TicketSystem, User, Ticket } from './app';
 
 // Common Props
 export interface ButtonProps {

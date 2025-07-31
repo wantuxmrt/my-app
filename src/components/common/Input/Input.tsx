@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './Input.module.css';
+import { IconName } from '@/types/icons';
 
-export interface InputProps {
-  type?: string;
+interface InputProps {
+  type?: 'text' | 'email' | 'password' | 'number' | 'search';
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   placeholder?: string;
-  className?: string;
+  icon?: IconName;
   disabled?: boolean;
-  icon?: React.ReactNode;
+  className?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,17 +17,17 @@ const Input: React.FC<InputProps> = ({
   value,
   onChange,
   placeholder = '',
-  className = '',
-  disabled = false,
   icon,
+  disabled = false,
+  className = ''
 }) => {
   return (
     <div className={`${styles.inputContainer} ${className}`}>
-      {icon && <span className={styles.icon}>{icon}</span>}
+      {icon && <i className={`fas fa-${icon} ${styles.icon}`} />}
       <input
         type={type}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
         className={styles.input}

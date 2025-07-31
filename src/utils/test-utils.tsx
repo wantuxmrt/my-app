@@ -27,3 +27,15 @@ const customRender = (
 export * from '@testing-library/react';
 // Экспорт кастомного рендера
 export { customRender as render };
+
+/**
+ * Генерирует моковые данные для тестирования
+ * @param count - Количество элементов
+ * @param generator - Функция-генератор
+ */
+export const generateTestData = <T,>(
+  count: number, 
+  generator: (index: number) => T
+): T[] => {
+  return Array.from({ length: count }, (_, i) => generator(i));
+};

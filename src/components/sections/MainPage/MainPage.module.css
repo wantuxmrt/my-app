@@ -1,0 +1,133 @@
+/* src/pages/MainPage.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text);
+}
+
+.tabsContainer {
+  display: flex;
+  background: var(--panel-bg);
+  border-radius: 12px;
+  padding: 5px;
+  margin: 15px;
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tab {
+  flex: 1;
+  min-width: 160px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 8px rgba(74, 140, 255, 0.3);
+}
+
+.tab:hover:not(.active) {
+  background: rgba(74, 140, 255, 0.2);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  padding: 0 15px 15px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.viewToggle {
+  display: flex;
+  gap: 5px;
+}
+
+.viewButton {
+  background: var(--search-bg);
+  border: 1px solid rgba(74, 140, 255, 0.4);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.viewButton.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.createButton {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.createButton:hover {
+  background: #3a7cff;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+.emptyState i {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: var(--primary-light);
+}
+
+.sectionPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+}
+
+.sectionPlaceholder i {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #adb5bd;
+}
+
+.sectionPlaceholder h3 {
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+.sectionPlaceholder p {
+  font-size: 1.1rem;
+}

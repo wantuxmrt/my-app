@@ -1,49 +1,52 @@
 import api from './axios';
-import { LoginFormData, RegistrationFormData, User } from '../types';
+import { 
+  LoginFormData, 
+  RegistrationFormData, 
+  User,
+  AuthResponse,
+  RefreshTokenResponse
+} from '@/types';
 
 export const authAPI = {
-  login: async (credentials: LoginFormData): Promise<{ user: User; token: string }> => {
-    try {
-      const response = await api.post('/auth/login', credentials);
-      return response.data;
-    } catch (error) {
-      throw new Error('Неверные учетные данные');
-    }
+  login: async (credentials: LoginFormData): Promise<AuthResponse> => {
+    const response = await api.post<AuthResponse>('/auth/login', credentials);
+    return response.data;
   },
 
-  register: async (userData: RegistrationFormData): Promise<User> => {
-    try {
-      const response = await api.post('/auth/register', userData);
-      return response.data;
-    } catch (error: any) {
-      const message = error.response?.data?.message || 'Ошибка регистрации';
-      throw new Error(message);
-    }
+  register: async (userData: RegistrationFormData): Promise<AuthResponse> => {
+    const response = await api.post<AuthResponse>('/auth/register', userData);
+    return response.data;
   },
 
   logout: async (): Promise<void> => {
-    try {
-      await api.post('/auth/logout');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+    await api.post('/auth/logout');
   },
 
-  refreshToken: async (): Promise<{ token: string }> => {
-    try {
-      const response = await api.post('/auth/refresh');
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка обновления токена');
-    }
+  refreshToken: async (): Promise<RefreshTokenResponse> => {
+    const response = await api.post<RefreshTokenResponse>('/auth/refresh');
+    return response.data;
   },
 
   getCurrentUser: async (): Promise<User> => {
-    try {
-      const response = await api.get('/auth/me');
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка получения данных пользователя');
-    }
+    const response = await api.get<User>('/auth/me');
+    return response.data;
+  },
+
+  verifyEmail: async (token: string): Promise<{ verified: boolean }> => {
+    const response = await api.post('/auth/verify-email', { token });
+    return response.data;
+  },
+
+  requestPasswordReset: async (email: string): Promise<void> => {
+    await api.post('/auth/request-password-reset', { email });
+  },
+
+  resetPassword: async (token: string, newPassword: string): Promise<void> => {
+    await api.post('/auth/reset-password', { token, newPassword });
+  },
+
+  updateProfile: async (userData: Partial<User>): Promise<User> => {
+    const response = await api.patch<User>('/auth/profile', userData);
+    return response.data;
   },
 };

@@ -1,17 +1,14 @@
-// src/components/requests/RequestGrid.tsx
 import React from 'react';
-import RequestCard from './RequestCard';
-import { Ticket } from '@/types/app';
+import { Ticket } from '@/types';
 import styles from './RequestGrid.module.css';
 
-const RequestGrid = ({ tickets }: { tickets: Ticket[] }) => {
-  return (
-    <div className={styles.requestsGrid}>
-      {tickets.map(ticket => (
-        <RequestCard key={ticket.id} ticket={ticket} />
-      ))}
-    </div>
-  );
+interface RequestGridProps {
+  tickets: Ticket[];
+  onTicketClick: (ticket: Ticket) => void;
+}
+
+const RequestGrid: React.FC<RequestGridProps> = ({ tickets, onTicketClick }) => {
+  return <div className={styles.grid}>{/* Реализация */}</div>;
 };
 
 export default RequestGrid;

@@ -1,47 +1,49 @@
 import React from 'react';
 import styles from './Button.module.css';
+import { IconName } from '@/types/icons';
 
-type ButtonVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'outline';
-type ButtonSize = 'small' | 'medium' | 'large';
-
-export interface ButtonProps {
+interface ButtonProps {
   children: React.ReactNode;
-  variant?: ButtonVariant;
-  size?: ButtonSize;
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'text';
+  size?: 'small' | 'medium' | 'large';
+  icon?: IconName;
+  iconPosition?: 'left' | 'right';
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   className?: string;
-  type?: 'button' | 'submit' | 'reset';
-  icon?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',
   size = 'medium',
-  onClick,
-  disabled = false,
-  className = '',
-  type = 'button',
   icon,
+  iconPosition = 'left',
+  onClick,
+  type = 'button',
+  disabled = false,
+  className = ''
 }) => {
-  const buttonClasses = [
-    styles.button,
-    styles[`variant-${variant}`],
-    styles[`size-${size}`],
-    disabled ? styles.disabled : '',
-    className,
-  ].join(' ');
+  const getIcon = () => {
+    if (!icon) return null;
+    return <i className={`fas fa-${icon}`} />;
+  };
 
   return (
     <button
       type={type}
-      className={buttonClasses}
+      className={`${styles.button} ${styles[variant]} ${styles[size]} ${className}`}
       onClick={onClick}
       disabled={disabled}
     >
-      {icon && <span className={styles.icon}>{icon}</span>}
-      {children}
+      {icon && iconPosition === 'left' && (
+        <span className={styles.iconLeft}>{getIcon()}</span>
+      )}
+      <span className={styles.label}>{children}</span>
+      {icon && iconPosition === 'right' && (
+        <span className={styles.iconRight}>{getIcon()}</span>
+      )}
     </button>
   );
 };

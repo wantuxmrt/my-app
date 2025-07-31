@@ -1,0 +1,53 @@
+.tableContainer {
+  overflow-x: auto;
+  margin-top: 15px;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  padding: 10px;
+  background: white;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Дополнительные стили для кастомных компонентов */
+.filterGroup .select-container {
+  width: 100%;
+}
+
+.searchBox .input-container {
+  width: 100%;
+}
+
+.formGroup .input-container,
+.formGroup .select-container {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.backButton {
+  margin-top: 20px;
+}
+
+/* Стили статусов */
+.status-new { color: #17a2b8; font-weight: 500; }
+.status-in-progress { color: #ffc107; font-weight: 500; }
+.status-resolved { color: #28a745; font-weight: 500; }
+.status-reopened { color: #dc3545; font-weight: 500; }
+
+.priority-low { color: #6c757d; font-weight: 500; }
+.priority-medium { color: #007bff; font-weight: 500; }
+.priority-high { color: #ffc107; font-weight: 500; }
+.priority-critical { color: #dc3545; font-weight: 500; }
+
+.userStatus.active { color: #28a745; }
+.userStatus.inactive { color: #dc3545; }

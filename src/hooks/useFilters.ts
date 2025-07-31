@@ -1,4 +1,3 @@
-// src/hooks/useFilters.ts
 import { useState, useCallback, useMemo } from 'react';
 
 export type FilterType = {
@@ -14,10 +13,7 @@ export const useFilters = (initialFilters: FilterType) => {
 
   const updateFilter = useCallback(
     (key: keyof FilterType, value: string) => {
-      setFilters(prev => ({
-        ...prev,
-        [key]: value,
-      }));
+      setFilters(prev => ({ ...prev, [key]: value }));
     },
     []
   );
@@ -26,14 +22,11 @@ export const useFilters = (initialFilters: FilterType) => {
     setFilters(initialFilters);
   }, [initialFilters]);
 
-  const hasActiveFilters = useMemo(
-    () =>
-      Object.entries(filters).some(
-        ([key, value]) =>
-          key !== 'search' && value !== initialFilters[key as keyof FilterType]
-      ),
-    [filters, initialFilters]
-  );
+  const hasActiveFilters = useMemo(() => {
+    return Object.keys(initialFilters).some(
+      key => filters[key as keyof FilterType] !== initialFilters[key as keyof FilterType]
+    );
+  }, [filters, initialFilters]);
 
   return {
     filters,

@@ -1,13 +1,60 @@
-// Добавляем экспорт для RequestFormData
+export type Role = 'admin' | 'support' | 'user' | 'manager';
+export type Priority = 'low' | 'medium' | 'high' | 'critical';
+export type TicketStatus = 'new' | 'in-progress' | 'resolved' | 'reopened' | 'closed';
+export type TicketSystem = '1c' | 'mis';
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: Role;
+  avatar: string;
+  password?: string;
+  active: boolean;
+  organization?: string;
+  department?: string;
+  position?: string;
+}
+
+export interface Ticket {
+  id: number;
+  system: TicketSystem;
+  category: string;
+  title: string;
+  description: string;
+  status: TicketStatus;
+  priority: Priority;
+  created: string;
+  userId: number;
+  assignedTo?: number | null;
+  comments: Comment[];
+  attachments: string[];
+  subcategory?: string;
+}
+
+export interface Comment {
+  id?: number;
+  author: string;
+  userId?: number;
+  text: string;
+  time: string;
+}
+
+export interface Stats {
+  total: number;
+  open: number;
+  resolved: number;
+  overdue: number;
+}
+
+// API типы
 export interface RequestFormData {
   title: string;
   description: string;
   attachments: string[];
-  // Добавляем опциональное поле для файлов
-  files?: File[]; 
+  files?: File[];
 }
 
-// Дополнительные типы для API
 export interface LoginFormData {
   email: string;
   password: string;
@@ -20,46 +67,4 @@ export interface RegistrationFormData {
   role: string;
   organization: string;
   department: string;
-}
-
-export interface Request {
-  id: number;
-  system: string;
-  category: string;
-  title: string;
-  description: string;
-  status: string;
-  priority: string;
-  created: string;
-  userId: number;
-  assignedTo?: number;
-  comments: Comment[];
-  attachments: Attachment[];
-}
-
-export interface Comment {
-  id: number;
-  userId: number;
-  text: string;
-  timestamp: string;
-}
-
-export interface Attachment {
-  id: number;
-  filename: string;
-  url: string;
-}
-
-type RequestStatus = 'new' | 'in_progress' | 'resolved' | 'closed' | 'reopened';
-type RequestPriority = 'low' | 'medium' | 'high' | 'critical';
-type RequestCategory = 'bug' | 'feature' | 'question' | 'other';
-
-export interface Organization {
-  id: number;
-  name: string;
-}
-
-export interface Department {
-  id: number;
-  name: string;
 }

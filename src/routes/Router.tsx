@@ -1,38 +1,36 @@
-// Файл: src/routes/Router.tsx
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import routesConfig from './routesConfig';
+import React, { Suspense } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { routesConfig } from './routesConfig';
 import PrivateRoute from './PrivateRoute';
 import GuestRoute from './GuestRoute';
-import AppLayout from '../components/layout/AppLayout';
-import EmptyLayout from '../components/layout/EmptyLayout';
+import Loader from '@/components/common/Loader/Loader';
 
 const Router: React.FC = () => {
-  return (
-    <Routes>
-      {routesConfig.map((route) => {
-        const Layout = route.layout ? AppLayout : EmptyLayout;
-        const RouteElement = route.isPrivate ? (
-          <PrivateRoute allowedRoles={route.allowedRoles}>
-            <Layout>{route.element}</Layout>
-          </PrivateRoute>
-        ) : route.path === '/login' ? (
-          <GuestRoute>
-            <Layout>{route.element}</Layout>
-          </GuestRoute>
-        ) : (
-          <Layout>{route.element}</Layout>
-        );
+  const location = useLocation();
 
-        return (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={RouteElement}
-          />
-        );
-      })}
-    </Routes>
+  return (
+    <Suspense fallback={<Loader />}>
+      <Routes location={location}>
+        {routesConfig.map((route, index) => {
+          let element = <route.component />;
+
+          if (route.isGuestOnly) {
+            element = <GuestRoute>{element}</GuestRoute>;
+          } else if (route.isPrivate) {
+            element = <PrivateRoute roles={route.roles}>{element}</PrivateRoute>;
+          }
+
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={element}
+              index={route.exact}
+            />
+          );
+        })}
+      </Routes>
+    </Suspense>
   );
 };
 

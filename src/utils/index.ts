@@ -3,3 +3,5 @@ export * from './formatters';
 export * from './validation';
 export * from './test-utils';
 export * from './domUtils';
+export * from './statsUtils';
+export * from './fileUtils';

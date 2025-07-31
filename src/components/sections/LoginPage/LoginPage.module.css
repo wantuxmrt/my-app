@@ -1,0 +1,99 @@
+.loginPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+.contentContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--content-bg);
+}
+
+.authContainer {
+  width: 100%;
+  max-width: 500px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  flex: 1;
+  padding: 0.8rem;
+  text-align: center;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.submitButton {
+  padding: 0.8rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.submitButton:hover {
+  background: var(--primary-dark);
+}
+
+.error {
+  padding: 0.8rem;
+  background: var(--error-bg);
+  color: var(--error);
+  border-radius: 6px;
+  text-align: center;
+}

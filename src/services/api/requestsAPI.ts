@@ -1,85 +1,91 @@
 import api from './axios';
-import { Request, RequestStatus, RequestPriority, RequestCategory } from '../types';
+import { 
+  Ticket, 
+  TicketStatus, 
+  Priority, 
+  Comment, 
+  ProblemCategory,
+  CreateTicketData,
+  UpdateTicketData
+} from '@/types';
 
 export const requestsAPI = {
-  getAllRequests: async (): Promise<Request[]> => {
-    try {
-      const response = await api.get('/requests');
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка загрузки запросов');
-    }
+  getAllTickets: async (params?: {
+    status?: TicketStatus | 'all';
+    priority?: Priority | 'all';
+    system?: '1c' | 'mis' | 'all';
+    search?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<{ tickets: Ticket[]; total: number }> => {
+    const response = await api.get<{ tickets: Ticket[]; total: number }>('/tickets', { params });
+    return response.data;
   },
 
-  getUserRequests: async (userId: number): Promise<Request[]> => {
-    try {
-      const response = await api.get(`/users/${userId}/requests`);
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка загрузки запросов пользователя');
-    }
+  getUserTickets: async (userId: number): Promise<Ticket[]> => {
+    const response = await api.get<Ticket[]>(`/users/${userId}/tickets`);
+    return response.data;
   },
 
-  getRequestById: async (id: number): Promise<Request> => {
-    try {
-      const response = await api.get(`/requests/${id}`);
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка загрузки запроса');
-    }
+  getTicketById: async (id: number): Promise<Ticket> => {
+    const response = await api.get<Ticket>(`/tickets/${id}`);
+    return response.data;
   },
 
-  createRequest: async (requestData: Omit<Request, 'id' | 'created' | 'status'>): Promise<Request> => {
-    try {
-      const response = await api.post('/requests', requestData);
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка создания запроса');
-    }
+  createTicket: async (ticketData: CreateTicketData): Promise<Ticket> => {
+    const response = await api.post<Ticket>('/tickets', ticketData);
+    return response.data;
   },
 
-  updateRequest: async (id: number, updates: Partial<Request>): Promise<Request> => {
-    try {
-      const response = await api.patch(`/requests/${id}`, updates);
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка обновления запроса');
-    }
+  updateTicket: async (id: number, updates: UpdateTicketData): Promise<Ticket> => {
+    const response = await api.patch<Ticket>(`/tickets/${id}`, updates);
+    return response.data;
   },
 
-  changeRequestStatus: async (id: number, status: RequestStatus): Promise<Request> => {
-    try {
-      const response = await api.patch(`/requests/${id}/status`, { status });
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка изменения статуса');
-    }
+  changeTicketStatus: async (id: number, status: TicketStatus): Promise<Ticket> => {
+    const response = await api.patch<Ticket>(`/tickets/${id}/status`, { status });
+    return response.data;
   },
 
-  assignRequest: async (id: number, assigneeId: number): Promise<Request> => {
-    try {
-      const response = await api.patch(`/requests/${id}/assign`, { assigneeId });
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка назначения исполнителя');
-    }
+  assignTicket: async (id: number, assigneeId: number): Promise<Ticket> => {
+    const response = await api.patch<Ticket>(`/tickets/${id}/assign`, { assigneeId });
+    return response.data;
   },
 
-  addComment: async (requestId: number, comment: string): Promise<Request> => {
-    try {
-      const response = await api.post(`/requests/${requestId}/comments`, { text: comment });
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка добавления комментария');
-    }
+  addComment: async (ticketId: number, comment: string): Promise<Comment> => {
+    const response = await api.post<Comment>(`/tickets/${ticketId}/comments`, { text: comment });
+    return response.data;
   },
 
-  getCategories: async (system: '1c' | 'mis'): Promise<RequestCategory[]> => {
-    try {
-      const response = await api.get(`/requests/categories?system=${system}`);
-      return response.data;
-    } catch (error) {
-      throw new Error('Ошибка загрузки категорий');
-    }
+  getCategories: async (system: '1c' | 'mis'): Promise<ProblemCategory[]> => {
+    const response = await api.get<ProblemCategory[]>(`/tickets/categories?system=${system}`);
+    return response.data;
+  },
+
+  getTicketStats: async (): Promise<{
+    total: number;
+    open: number;
+    resolved: number;
+    overdue: number;
+  }> => {
+    const response = await api.get('/tickets/stats');
+    return response.data;
+  },
+
+  uploadAttachment: async (ticketId: number, file: File): Promise<{ url: string }> => {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const response = await api.post<{ url: string }>(
+      `/tickets/${ticketId}/attachments`, 
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    );
+    
+    return response.data;
   },
 };

@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 
-export const useMediaQuery = (query: string) => {
+export const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia(query);
+    const mediaQuery = window.matchMedia(query);
     
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
+    const handleChange = () => {
+      setMatches(mediaQuery.matches);
+    };
     
-    const listener = () => setMatches(media.matches);
-    media.addEventListener('change', listener);
+    // Initial check
+    handleChange();
     
-    return () => media.removeEventListener('change', listener);
+    // Add listener
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
   }, [query]);
 
   return matches;
 };
-
-export {}; // Add empty export to fix module error
