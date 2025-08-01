@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Button.module.css';
-import { IconName } from '@/types/icons';
+import { IconName } from '@/types/zzzOLD_types/icons';
 
 interface ButtonProps {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ticket } from '@/types';
+import { Ticket } from '@/types/zzzOLD_types';
 import styles from './RequestTable.module.css';
 
 interface RequestTableProps {

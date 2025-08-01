@@ -4,13 +4,14 @@ import styles from './TicketModal.module.css';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Select from '../../common/Select/Select';
+import { Ticket, TicketSystem, Priority } from '@/types/zzzOLD_types';
 
 interface TicketModalProps {
   isOpen: boolean;
   mode: 'create' | 'edit' | 'view';
-  ticket: any;
+  ticket: Partial<Ticket> | null;
   onClose: () => void;
-  onSubmit: (ticket: any) => void;
+  onSubmit: (ticket: Partial<Ticket>) => void;
 }
 
 const TicketModal: React.FC<TicketModalProps> = ({ 
@@ -20,12 +21,14 @@ const TicketModal: React.FC<TicketModalProps> = ({
   onClose, 
   onSubmit 
 }) => {
-  const [ticket, setTicket] = useState(initialTicket || {
-    system: '1c',
-    priority: 'medium',
-    title: '',
-    description: ''
-  });
+  const [ticket, setTicket] = useState<Partial<Ticket>>(
+    initialTicket || {
+      system: '1c' as TicketSystem,
+      priority: 'medium' as Priority,
+      title: '',
+      description: ''
+    }
+  );
   
   if (!isOpen) return null;
 

@@ -1,11 +1,12 @@
-import api from './axios';
+// /my-app/src/services/api/authsAPI.ts
+import api from './api_old_test/axiosAPI';
 import { 
   LoginFormData, 
   RegistrationFormData, 
   User,
   AuthResponse,
   RefreshTokenResponse
-} from '@/types';
+} from '@/types/zzzOLD_types';
 
 export const authAPI = {
   login: async (credentials: LoginFormData): Promise<AuthResponse> => {

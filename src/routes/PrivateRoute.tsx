@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
-import { Role } from '@/types/app';
+import { Role } from '@/types/zzzOLD_types/app';
 
 const PrivateRoute: React.FC<{
   roles?: Role[];

@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Ticket, TicketStatus, Priority, Stats } from '@/types';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { Ticket, TicketStatus, Priority, Stats } from '@/types/zzzOLD_types';
+import type { RootState } from '@/store/index';
 
 interface RequestsState {
   tickets: Ticket[];
@@ -14,12 +15,7 @@ const initialState: RequestsState = {
   tickets: [],
   filteredTickets: [],
   currentTicket: null,
-  stats: {
-    total: 0,
-    open: 0,
-    resolved: 0,
-    overdue: 0
-  },
+  stats: { total: 0, open: 0, resolved: 0, overdue: 0 },
   loading: false,
   error: null,
 };
@@ -42,12 +38,15 @@ const requestsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    filterTickets: (state, action: PayloadAction<{
-      system: string;
-      status: TicketStatus | 'all';
-      priority: Priority | 'all';
-      search: string;
-    }>) => {
+    filterTickets: (
+      state,
+      action: PayloadAction<{
+        system: string;
+        status: TicketStatus | 'all';
+        priority: Priority | 'all';
+        search: string;
+      }>
+    ) => {
       const { system, status, priority, search } = action.payload;
       
       state.filteredTickets = state.tickets.filter(ticket => {
@@ -111,6 +110,19 @@ const requestsSlice = createSlice({
   },
 });
 
+// Селекторы
+export const selectFilteredTickets = (state: RootState) => 
+  state.requests.filteredTickets;
+
+export const selectStats = (state: RootState) => 
+  state.requests.stats;
+
+export const selectCurrentTicket = (state: RootState) => 
+  state.requests.currentTicket;
+
+export const selectLoading = (state: RootState) => 
+  state.requests.loading;
+
 export const {
   filterTickets,
   setCurrentTicket,
@@ -125,101 +137,5 @@ export const {
   updateTicketSuccess,
   updateTicketFailure,
 } = requestsSlice.actions;
-
-export const fetchTickets = () => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(fetchTicketsStart());
-    
-    // Заглушка - в реальном приложении здесь будет вызов API
-    const mockTickets: Ticket[] = [
-      {
-        id: 1,
-        system: '1c',
-        category: 'Ошибка',
-        title: 'Не работает печать документов',
-        description: 'При попытке печати возникает ошибка',
-        status: 'new',
-        priority: 'high',
-        created: '2023-05-12T14:30:00',
-        userId: 1,
-        organization: 'org1',
-        department: 'dep1',
-        comments: [],
-        attachments: [],
-        assignedTo: null
-      },
-      {
-        id: 2,
-        system: 'mis',
-        category: 'Вопрос',
-        title: 'Консультация по настройке',
-        description: 'Нужна помощь в настройке модуля',
-        status: 'in-progress',
-        priority: 'medium',
-        created: '2023-05-11T09:15:00',
-        userId: 2,
-        organization: 'org1',
-        department: 'dep2',
-        comments: [],
-        attachments: [],
-        assignedTo: null
-      }
-    ];
-    
-    // Имитация задержки сети
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    dispatch(fetchTicketsSuccess(mockTickets));
-    dispatch(calculateStats());
-  } catch (error: any) {
-    dispatch(fetchTicketsFailure(error.message));
-  }
-};
-
-export const createTicket = (ticket: Omit<Ticket, 'id'>) => 
-  async (dispatch: AppDispatch) => {
-    try {
-      dispatch(createTicketStart());
-      
-      const newTicket: Ticket = {
-        ...ticket,
-        id: Date.now(),
-        created: new Date().toISOString(),
-        status: 'new'
-      };
-      
-      // Имитация задержки сети
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      dispatch(createTicketSuccess(newTicket));
-      dispatch(calculateStats());
-    } catch (error: any) {
-      dispatch(createTicketFailure(error.message));
-    }
-  };
-
-export const updateTicket = (id: number, updates: Partial<Ticket>) => 
-  async (dispatch: AppDispatch, getState: () => RootState) => {
-    try {
-      dispatch(updateTicketStart());
-      
-      const state = getState();
-      const ticket = state.requests.tickets.find(t => t.id === id);
-      
-      if (!ticket) {
-        throw new Error('Ticket not found');
-      }
-      
-      const updatedTicket = { ...ticket, ...updates };
-      
-      // Имитация задержки сети
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      dispatch(updateTicketSuccess(updatedTicket));
-      dispatch(calculateStats());
-    } catch (error: any) {
-      dispatch(updateTicketFailure(error.message));
-    }
-  };
 
 export default requestsSlice.reducer;

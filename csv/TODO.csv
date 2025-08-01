@@ -1,0 +1,47 @@
+Пункт;Компонент;Что добавить;Описание;Зависимости;Интеграция с проектом;Особенности реализации
+1;apiClient;ErrorHandlerInterceptor;Интерцептор для централизованной обработки ошибок API;axios, http-status;src/services/api/axios.ts;Обрабатывает 401/403/500 ошибки, показывает уведомления
+1;apiClient;RequestLogger;Интерцептор для логирования запросов;debug;src/services/api/axios.ts;Активируется только в dev-режиме
+1;apiClient;AuthRefreshInterceptor;Механизм обновления токенов;axios, jwt-decode;src/services/api/axios.ts;Автоматическое обновление accessToken при истечении
+1;apiClient;CacheManager;Кэширование GET-запросов;lru-cache;src/services/api/axios.ts;Кэш на 100 записей с TTL 5 минут
+1;apiClient;RetryHandler;Механизм повтора запросов;axios-retry;src/services/api/axios.ts;3 попытки для сетевых ошибок
+2;ApiResponseModal;ResponseSchemaRenderer;Визуализация JSON-ответов;react-json-view;src/components/common/Modal;Подсветка синтаксиса, сворачивание блоков
+2;ApiResponseModal;ActionButtons;Кнопки действий для ответа;clipboard-copy;src/components/common/Modal;Копирование в буфер, экспорт JSON
+2;DataLoadingSkeleton;AdaptiveSkeleton;Адаптивные скелетоны;react-content-loader;src/components/common;Подстраивается под тип контента
+2;PaginationControls;PageSizeControl;Выбор размера страницы;;src/components/common;Динамическое изменение лимита
+3;Динамические маршруты;RouteDataLoader;Загрузка данных перед рендерингом;react-router, suspense;src/router;Предзагрузка данных для страниц
+3;Динамические маршруты;ParamValidator;Валидация параметров маршрута;zod;src/router;Проверка ID, типов параметров
+4;apiEndpoints.ts;TypesafeEndpoints;Типизированные эндпоинты;zod;src/config;Валидация параметров и ответов
+4;featureFlags.ts;RemoteConfigService;Удалённое управление флагами;axios;src/services;Загрузка конфига с сервера
+5;apiTypes.ts;ZodSchemas;Схемы валидации API;zod;src/types;Валидация входящих/исходящих данных
+5;apiTypes.ts;ErrorCatalog;Каталог ошибок API;;src/types;Коды ошибок и сообщения
+6;useWebSocket;ReconnectManager;Менеджер переподключений;;src/hooks;Экспоненциальная задержка
+6;useWebSocket;MessageSerializer;Сериализация сообщений;protobufjs;src/hooks;Бинарный формат для производительности
+7;apiSlice;CacheInvalidator;Инвалидация кэша;redux;src/store;Автоматическая очистка при мутациях
+7;realTimeSlice;NotificationCenter;Центр уведомлений;notistack;src/components;Визуализация real-time событий
+8;ticketService;AttachmentsService;Управление вложениями;axios;src/services;Загрузка/скачивание файлов
+8;ticketService;RevisionHistory;История изменений;;src/services;Отслеживание изменений тикетов
+9;websocketMiddleware;ConnectionMonitor;Мониторинг соединения;redux-saga;src/store;Пинг-понг для проверки связи
+9;websocketMiddleware;MessageQueue;Очередь сообщений;redis-like;src/store;Буферизация при разрыве связи
+10;MockAdapter;ScenarioManager;Менеджер сценариев;faker;src/services/mock;Динамические сценарии данных
+10;RateLimiter;PriorityQueue;Очередь с приоритетами;p-queue;src/services;Приоритизация критичных запросов
+11;ResponseNormalization;EntityAdapter;Адаптер сущностей;@reduxjs/toolkit;src/utils;Оптимизированное хранение
+11;DataDenormalization;ReselectSelectors;Мемоизированные селекторы;reselect;src/store;Оптимизация перерисовок
+12;CSRFProtection;CSRFService;Сервис работы с CSRF;axios;src/services;Автоматическое обновление токенов
+12;CSRFProtection;SecurityHeaders;HTTP-заголовки безопасности;helmet;src/server;Усиление защиты
+13;apiLogger;PerformanceTracker;Трекинг производительности;web-vitals;src/utils;Аналитика времени ответа
+13;apiLogger;SentryIntegration;Интеграция с Sentry;@sentry/react;src/utils;Мониторинг ошибок
+14;apiWorker;WorkerManager;Менеджер воркеров;comlink;src/utils;Упрощение взаимодействия
+14;apiWorker;DataProcessor;Обработчик тяжёлых данных;immer;src/workers;Оптимизированные преобразования
+1;queryBuilder;NestedParamsSupport;Поддержка вложенных объектов;qs;src/utils;Сериализация сложных структур
+2;ErrorBoundary;FallbackComponent;Кастомный компонент ошибок;react-error-boundary;src/components;Персонализированный UI
+3;RouteDataLoader;SkeletonFallback;Скелетоны для загрузки;react-loading-skeleton;src/router;Плавный UX при загрузке
+4;featureFlags;LocalOverride;Локальное переопределение;localStorage;src/config;Для разработки и тестирования
+6;useApiQuery;StaleWhileRevalidate;Фоновая валидация;swr;src/hooks;Актуальность данных при фокусе
+7;apiSlice;PersistedState;Сохранение состояния;redux-persist;src/store;Восстановление после перезагрузки
+8;ticketService;ExportService;Экспорт данных;file-saver;src/services;Выгрузка в Excel/CSV
+9;websocketMiddleware;Compression;Сжатие сообщений;pako;src/store;Уменьшение трафика
+10;MockAdapter;BehaviorConfig;Конфигурация поведения;src/config;Имитация задержек/ошибок
+11;EntityAdapter;BatchUpdates;Пакетное обновление;src/store;Оптимизация рендеринга
+12;Security;ContentPolicy;Политика контента;csp-headers;src/server;Защита от XSS
+13;PerformanceTracker;ThresholdAlerts;Оповещения о замедлениях;src/utils;Уведомления при деградации
+14;WorkerManager;SharedWorker;Разделяемые воркеры;shared-worker;src/utils;Для нескольких вкладок

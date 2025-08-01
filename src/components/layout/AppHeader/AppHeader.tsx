@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './AppHeader.module.css';
-import { User } from '@/types/app';
+import { User } from '@/types/zzzOLD_types/app';
 
 interface AppHeaderProps {
   user: User | null;

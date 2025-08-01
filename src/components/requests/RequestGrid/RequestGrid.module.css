@@ -1,6 +1,14 @@
-/* src/components/requests/RequestGrid/RequestGrid.module.css */
-.requestsGrid {
+/* src/components/requests/RequestGrid.module.css */
+.grid {
   display: grid;
+  gap: 16px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 15px;
+}
+
+.gridItem {
+  transition: transform 0.3s ease;
+}
+
+.gridItem:hover {
+  transform: translateY(-5px);
 }

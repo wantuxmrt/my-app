@@ -1,91 +1,170 @@
-import api from './axios';
-import { 
-  Ticket, 
-  TicketStatus, 
-  Priority, 
-  Comment, 
-  ProblemCategory,
-  CreateTicketData,
-  UpdateTicketData
-} from '@/types';
+// src/services/api/requestsAPI.ts
+import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from "axios";
+import type { RequestConfig, RequestInterceptors } from "./typesAPI";
+import { API_BASE_URL, API_TIMEOUT } from "./configsAPI";
 
-export const requestsAPI = {
-  getAllTickets: async (params?: {
-    status?: TicketStatus | 'all';
-    priority?: Priority | 'all';
-    system?: '1c' | 'mis' | 'all';
-    search?: string;
-    page?: number;
-    limit?: number;
-  }): Promise<{ tickets: Ticket[]; total: number }> => {
-    const response = await api.get<{ tickets: Ticket[]; total: number }>('/tickets', { params });
-    return response.data;
-  },
+class Request {
+  private instance: AxiosInstance;
+  private interceptors?: RequestInterceptors;
 
-  getUserTickets: async (userId: number): Promise<Ticket[]> => {
-    const response = await api.get<Ticket[]>(`/users/${userId}/tickets`);
-    return response.data;
-  },
+  constructor(config: RequestConfig) {
+    // Создаем базовый экземпляр Axios
+    this.instance = axios.create({
+      baseURL: API_BASE_URL,
+      timeout: API_TIMEOUT,
+      headers: {
+        'Content-Type': 'application/json',
+        ...config.headers
+      },
+      ...config
+    });
 
-  getTicketById: async (id: number): Promise<Ticket> => {
-    const response = await api.get<Ticket>(`/tickets/${id}`);
-    return response.data;
-  },
+    // Сохраняем перехватчики экземпляра
+    this.interceptors = config.interceptors;
 
-  createTicket: async (ticketData: CreateTicketData): Promise<Ticket> => {
-    const response = await api.post<Ticket>('/tickets', ticketData);
-    return response.data;
-  },
-
-  updateTicket: async (id: number, updates: UpdateTicketData): Promise<Ticket> => {
-    const response = await api.patch<Ticket>(`/tickets/${id}`, updates);
-    return response.data;
-  },
-
-  changeTicketStatus: async (id: number, status: TicketStatus): Promise<Ticket> => {
-    const response = await api.patch<Ticket>(`/tickets/${id}/status`, { status });
-    return response.data;
-  },
-
-  assignTicket: async (id: number, assigneeId: number): Promise<Ticket> => {
-    const response = await api.patch<Ticket>(`/tickets/${id}/assign`, { assigneeId });
-    return response.data;
-  },
-
-  addComment: async (ticketId: number, comment: string): Promise<Comment> => {
-    const response = await api.post<Comment>(`/tickets/${ticketId}/comments`, { text: comment });
-    return response.data;
-  },
-
-  getCategories: async (system: '1c' | 'mis'): Promise<ProblemCategory[]> => {
-    const response = await api.get<ProblemCategory[]>(`/tickets/categories?system=${system}`);
-    return response.data;
-  },
-
-  getTicketStats: async (): Promise<{
-    total: number;
-    open: number;
-    resolved: number;
-    overdue: number;
-  }> => {
-    const response = await api.get('/tickets/stats');
-    return response.data;
-  },
-
-  uploadAttachment: async (ticketId: number, file: File): Promise<{ url: string }> => {
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    const response = await api.post<{ url: string }>(
-      `/tickets/${ticketId}/attachments`, 
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }
+    // Применяем перехватчики экземпляра
+    this.instance.interceptors.request.use(
+      this.interceptors?.requestInterceptor,
+      this.interceptors?.requestInterceptorCatch
     );
     
-    return response.data;
-  },
-};
+    this.instance.interceptors.response.use(
+      this.interceptors?.responseInterceptor,
+      this.interceptors?.responseInterceptorCatch
+    );
+
+    // Применяем глобальные перехватчики
+    this.instance.interceptors.request.use(
+      (config) => {
+        // Добавляем токен авторизации в заголовки
+        const token = localStorage.getItem('authToken');
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+    
+    this.instance.interceptors.response.use(
+      (response) => {
+        // Стандартная обработка успешного ответа - возвращаем только данные
+        return response.data;
+      },
+      (error) => {
+        // Обработка ошибок
+        if (error.response?.status === 401) {
+          // Автоматический логаут при 401 Unauthorized
+          localStorage.removeItem('authToken');
+          // Генерируем событие для обработки в приложении
+          window.dispatchEvent(new Event('unauthorized'));
+        }
+        
+        // Форматируем ошибку в единый формат
+        const customError = {
+          message: error.response?.data?.message || error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+          code: error.code,
+          config: error.config
+        };
+        
+        return Promise.reject(customError);
+      }
+    );
+  }
+
+  /**
+   * Универсальный метод запроса
+   * @template T - Ожидаемый тип ответа
+   * @param {RequestConfig} config - Конфигурация запроса
+   * @returns {Promise<T>} Промис с данными ответа
+   */
+  request<T = any>(config: RequestConfig<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      // Применяем перехватчики запроса, если они есть
+      if (config.interceptors?.requestInterceptor) {
+        config = config.interceptors.requestInterceptor(
+          config as InternalAxiosRequestConfig
+        ) as RequestConfig<T>;
+      }
+
+      this.instance
+        .request<any, T>(config)
+        .then((response) => {
+          // Применяем перехватчики ответа, если они есть
+          if (config.interceptors?.responseInterceptor) {
+            response = config.interceptors.responseInterceptor(response);
+          }
+          resolve(response);
+        })
+        .catch((error) => {
+          // Применяем обработчики ошибок ответа, если они есть
+          if (config.interceptors?.responseInterceptorCatch) {
+            error = config.interceptors.responseInterceptorCatch(error);
+          }
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * GET запрос
+   * @template T - Ожидаемый тип ответа
+   * @param {string} url - URL endpoint
+   * @param {RequestConfig} [config] - Дополнительная конфигурация
+   * @returns {Promise<T>} Промис с данными ответа
+   */
+  get<T = any>(url: string, config?: RequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'GET' });
+  }
+
+  /**
+   * POST запрос
+   * @template T - Ожидаемый тип ответа
+   * @param {string} url - URL endpoint
+   * @param {any} [data] - Тело запроса
+   * @param {RequestConfig} [config] - Дополнительная конфигурация
+   * @returns {Promise<T>} Промис с данными ответа
+   */
+  post<T = any>(url: string, data?: any, config?: RequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, data, method: 'POST' });
+  }
+
+  /**
+   * PUT запрос
+   * @template T - Ожидаемый тип ответа
+   * @param {string} url - URL endpoint
+   * @param {any} [data] - Тело запроса
+   * @param {RequestConfig} [config] - Дополнительная конфигурация
+   * @returns {Promise<T>} Промис с данными ответа
+   */
+  put<T = any>(url: string, data?: any, config?: RequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, data, method: 'PUT' });
+  }
+
+  /**
+   * DELETE запрос
+   * @template T - Ожидаемый тип ответа
+   * @param {string} url - URL endpoint
+   * @param {RequestConfig} [config] - Дополнительная конфигурация
+   * @returns {Promise<T>} Промис с данными ответа
+   */
+  delete<T = any>(url: string, config?: RequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'DELETE' });
+  }
+
+  /**
+   * PATCH запрос
+   * @template T - Ожидаемый тип ответа
+   * @param {string} url - URL endpoint
+   * @param {any} [data] - Тело запроса
+   * @param {RequestConfig} [config] - Дополнительная конфигурация
+   * @returns {Promise<T>} Промис с данными ответа
+   */
+  patch<T = any>(url: string, data?: any, config?: RequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, data, method: 'PATCH' });
+  }
+}
+
+export default Request;

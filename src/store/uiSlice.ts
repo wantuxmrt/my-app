@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+type AuthModalType = 'login' | 'register';
+type TicketModalMode = 'create' | 'edit' | 'view';
+
 interface UIState {
   activeTab: string;
   isAuthModalOpen: boolean;
-  authModalType: 'login' | 'register';
+  authModalType: AuthModalType;
   isTicketModalOpen: boolean;
-  ticketModalMode: 'create' | 'edit' | 'view';
+  ticketModalMode: TicketModalMode;
   viewMode: 'grid' | 'list';
 }
 
@@ -25,14 +28,14 @@ const uiSlice = createSlice({
     setActiveTab: (state, action: PayloadAction<string>) => {
       state.activeTab = action.payload;
     },
-    openAuthModal: (state, action: PayloadAction<'login' | 'register'>) => {
+    openAuthModal: (state, action: PayloadAction<AuthModalType>) => {
       state.isAuthModalOpen = true;
       state.authModalType = action.payload;
     },
     closeAuthModal: (state) => {
       state.isAuthModalOpen = false;
     },
-    openTicketModal: (state, action: PayloadAction<'create' | 'edit'>) => {
+    openTicketModal: (state, action: PayloadAction<TicketModalMode>) => {
       state.isTicketModalOpen = true;
       state.ticketModalMode = action.payload;
     },
@@ -41,6 +44,10 @@ const uiSlice = createSlice({
     },
     setViewMode: (state, action: PayloadAction<'grid' | 'list'>) => {
       state.viewMode = action.payload;
+    },
+    // Добавлен экшен для смены типа модалки без открытия/закрытия
+    setAuthModalType: (state, action: PayloadAction<AuthModalType>) => {
+      state.authModalType = action.payload;
     },
   },
 });
@@ -52,6 +59,7 @@ export const {
   openTicketModal,
   closeTicketModal,
   setViewMode,
+  setAuthModalType, // Экспортируем новый экшен
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

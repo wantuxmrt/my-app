@@ -16,6 +16,16 @@ src/
 │       └── variables.css
 ├── components/
 │   ├── common/
+│   │   ├── Avatar/
+│   │   │   ├── Avatar.module.css
+│   │   │   ├── Avatar.stories.tsx
+│   │   │   ├── Avatar.test.tsx
+│   │   │   └── Avatar.tsx
+│   │   ├── Badge/
+│   │   │   ├── Badge.module.css
+│   │   │   ├── Badge.stories.tsx
+│   │   │   ├── Badge.test.tsx
+│   │   │   └── Badge.tsx
 │   │   ├── Button/
 │   │   │   ├── Button.module.css
 │   │   │   ├── Button.stories.tsx
@@ -31,11 +41,42 @@ src/
 │   │   │   ├── Checkbox.stories.tsx
 │   │   │   ├── Checkbox.test.tsx
 │   │   │   └── Checkbox.tsx
+│   │   ├── FileUploader/
+│   │   │   ├── FileUploader.module.css
+│   │   │   ├── FileUploader.stories.tsx
+│   │   │   ├── FileUploader.test.tsx
+│   │   │   └── FileUploader.tsx
+│   │   ├── Icon/
+│   │   │   ├── Icon.module.css
+│   │   │   ├── Icon.stories.tsx
+│   │   │   ├── Icon.test.tsx
+│   │   │   └── Icon.tsx
 │   │   ├── Input/
 │   │   │   ├── Input.module.css
 │   │   │   ├── Input.stories.tsx
 │   │   │   ├── Input.test.tsx
 │   │   │   └── Input.tsx
+│   │   ├── Modal/
+│   │   │   ├── Modal.module.css
+│   │   │   ├── Modal.stories.tsx
+│   │   │   ├── Modal.test.tsx
+│   │   │   └── Modal.tsx
+│   │   ├── ReportFields/
+│   │   │   ├── FieldRelationsTable/
+│   │   │   │   ├── FieldRelationsTable.module.css
+│   │   │   │   ├── FieldRelationsTable.stories.tsx
+│   │   │   │   ├── FieldRelationsTable.test.tsx
+│   │   │   │   └── FieldRelationsTable.tsx
+│   │   │   ├── FieldCreator/
+│   │   │   │   ├── FieldCreator.module.css
+│   │   │   │   ├── FieldCreator.stories.tsx
+│   │   │   │   ├── FieldCreator.test.tsx
+│   │   │   │   └── FieldCreator.tsx
+│   │   │   ├── FieldDependencyGraph/
+│   │   │   │   ├── FieldDependencyGraph.module.css
+│   │   │   │   ├── FieldDependencyGraph.stories.tsx
+│   │   │   │   ├── FieldDependencyGraph.test.tsx
+│   │   │   │   └── FieldDependencyGraph.tsx
 │   │   ├── Select/
 │   │   │   ├── Select.module.css
 │   │   │   ├── Select.stories.tsx
@@ -51,10 +92,36 @@ src/
 │   │   │   ├── TabsNavigation.stories.tsx
 │   │   │   ├── TabsNavigation.test.tsx
 │   │   │   └── TabsNavigation.tsx
+│   │   ├── TextEditor/
+│   │   │   ├── TextEditor.module.css
+│   │   │   ├── TextEditor.stories.tsx
+│   │   │   ├── TextEditor.test.tsx
+│   │   │   └── TextEditor.tsx
 │   │   ├── ThemeToggle/
 │   │   │   ├── ThemeToggle.module.css
+│   │   │   ├── ThemeToggle.stories.tsx
+│   │   │   ├── ThemeToggle.test.tsx
 │   │   │   └── ThemeToggle.tsx
-│   │   └── index.ts
+│   │   ├── CommentItem/
+│   │   │   ├── CommentItem.module.css
+│   │   │   ├── CommentItem.stories.tsx
+│   │   │   ├── CommentItem.test.tsx
+│   │   │   └── CommentItem.tsx
+│   │   ├── FileItem/
+│   │   │   ├── FileItem.module.css
+│   │   │   ├── FileItem.stories.tsx
+│   │   │   ├── FileItem.test.tsx
+│   │   │   └── FileItem.tsx
+│   │   ├── MetaItem/
+│   │   │   ├── MetaItem.module.css
+│   │   │   ├── MetaItem.stories.tsx
+│   │   │   ├── MetaItem.test.tsx
+│   │   │   └── MetaItem.tsx
+│   │   └── StatCard/
+│   │       ├── StatCard.module.css
+│   │   │   ├── StatCard.stories.tsx
+│   │   │   ├── StatCard.test.tsx
+│   │       └── StatCard.tsx
 │   ├── layout/
 │   │   ├── AppHeader/
 │   │   │   ├── AppHeader.module.css
@@ -64,156 +131,211 @@ src/
 │   │   ├── Footer/
 │   │   │   ├── Footer.module.css
 │   │   │   ├── Footer.stories.tsx
+│   │   │   ├── Footer.test.tsx
 │   │   │   └── Footer.tsx
 │   │   ├── MainContent/
 │   │   │   ├── MainContent.module.css
 │   │   │   ├── MainContent.stories.tsx
+│   │   │   ├── MainContent.test.tsx
 │   │   │   └── MainContent.tsx
-│   │   ├── Sidebar/
-│   │   │   ├── Sidebar.module.css
+│   │   └── Sidebar/
+│   │       ├── Sidebar.module.css
 │   │   │   ├── Sidebar.stories.tsx
-│   │   │   └── Sidebar.tsx
-│   │   ├── AppLayout.tsx
-│   │   └── EmptyLayout.tsx
+│   │   │   ├── Sidebar.test.tsx
+│   │       └── Sidebar.tsx
 │   ├── requests/
-│   │   ├── CreateRequest/
-│   │   │   ├── CreateRequest.module.css
-│   │   │   ├── CreateRequest.stories.tsx
-│   │   │   └── CreateRequest.tsx
+│   │   ├── CategoryAccordion/
+│   │   │   ├── CategoryAccordion.module.css
+│   │   │   ├── CategoryAccordion.stories.tsx
+│   │   │   ├── CategoryAccordion.test.tsx
+│   │   │   └── CategoryAccordion.tsx
+│   │   ├── PriorityBlock/
+│   │   │   ├── PriorityBlock.module.css
+│   │   │   ├── PriorityBlock.stories.tsx
+│   │   │   ├── PriorityBlock.test.tsx
+│   │   │   └── PriorityBlock.tsx
 │   │   ├── RequestCard/
 │   │   │   ├── RequestCard.module.css
 │   │   │   ├── RequestCard.stories.tsx
+│   │   │   ├── RequestCard.test.tsx
 │   │   │   └── RequestCard.tsx
 │   │   ├── RequestForm/
 │   │   │   ├── RequestForm.module.css
 │   │   │   ├── RequestForm.stories.tsx
+│   │   │   ├── RequestForm.test.tsx
 │   │   │   └── RequestForm.tsx
 │   │   ├── RequestGrid/
 │   │   │   ├── RequestGrid.module.css
 │   │   │   ├── RequestGrid.stories.tsx
+│   │   │   ├── RequestGrid.test.tsx
 │   │   │   └── RequestGrid.tsx
 │   │   ├── RequestTable/
 │   │   │   ├── RequestTable.module.css
 │   │   │   ├── RequestTable.stories.tsx
+│   │   │   ├── RequestTable.test.tsx
 │   │   │   └── RequestTable.tsx
-│   │   ├── TicketModal/
-│   │   │   ├── TicketModal.module.css
-│   │   │   ├── TicketModal.stories.tsx
-│   │   │   └── TicketModal.tsx
-│   │   └── index.ts
+│   │   ├── SystemChoiceCard/
+│   │   │   ├── SystemChoiceCard.module.css
+│   │   │   ├── SystemChoiceCard.stories.tsx
+│   │   │   ├── SystemChoiceCard.test.tsx
+│   │   │   └── SystemChoiceCard.tsx
+│   │   ├── TicketComments/
+│   │   │   ├── TicketComments.module.css
+│   │   │   ├── TicketComments.stories.tsx
+│   │   │   ├── TicketComments.test.tsx
+│   │   │   └── TicketComments.tsx
+│   │   ├── TicketDetails/
+│   │   │   ├── TicketDetails.module.css
+│   │   │   ├── TicketDetails.stories.tsx
+│   │   │   ├── TicketDetails.test.tsx
+│   │   │   └── TicketDetails.tsx
+│   │   └── ViewToggle/
+│   │       ├── ViewToggle.module.css
+│   │   │   ├── ViewToggle.stories.tsx
+│   │   │   ├── ViewToggle.test.tsx
+│   │       └── ViewToggle.tsx
 │   └── section/
-│       ├── AdminPage/
-│       │   ├── AdminPage.module.css
-│       │   ├── AdminPage.stories.tsx
-│       │   ├── AdminPage.test.tsx
-│       │   └── AdminPage.tsx
 │       ├── AdminPanel/
 │       │   ├── AdminPanel.module.css
-│       │   ├── AdminPanel.stories.tsx
-│       │   ├── AdminPanel.test.tsx
+│   │   │   ├── AdminPanel.stories.tsx
+│   │   │   ├── AdminPanel.test.tsx
 │       │   └── AdminPanel.tsx
-│       ├── CreateRequestPage/
-│       │   ├── CreateRequestPage.module.css
-│       │   ├── CreateRequestPage.stories.tsx
-│       │   ├── CreateRequestPage.test.tsx
-│       │   └── CreateRequestPage.tsx
-│       ├── HelpPage/
-│       │   ├── HelpPage.module.css
-│       │   ├── HelpPage.stories.tsx
-│       │   ├── HelpPage.test.tsx
-│       │   └── HelpPage.tsx
-│       ├── LoginPage/
-│       │   ├── LoginPage.module.css
-│       │   ├── LoginPage.stories.tsx
-│       │   ├── LoginPage.test.tsx
-│       │   └── LoginPage.tsx
-│       ├── MainPage/
-│       │   ├── MainPage.module.css
-│       │   ├── MainPage.stories.tsx
-│       │   ├── MainPage.test.tsx
-│       │   └── MainPage.tsx
-│       ├── ModerationPage/
-│       │   ├── ModerationPage.module.css
-│       │   ├── ModerationPage.stories.tsx
-│       │   ├── ModerationPage.test.tsx
-│       │   └── ModerationPage.tsx
-│       ├── NotFoundPage/
-│       │   ├── NotFoundPage.module.css
-│       │   ├── NotFoundPage.stories.tsx
-│       │   ├── NotFoundPage.test.tsx
-│       │   └── NotFoundPage.tsx
-│       ├── ProfilePage/
-│       │   ├── ProfilePage.module.css
-│       │   ├── ProfilePage.stories.tsx
-│       │   ├── ProfilePage.test.tsx
-│       │   └── ProfilePage.tsx
-│       └── index.ts
-├── contexts/
-│   ├── AppContext.tsx
-│   ├── AuthContext.tsx
-│   └── index.ts
+│       ├── HelpSection/
+│       │   ├── HelpSection.module.css
+│   │   │   ├── HelpSection.stories.tsx
+│   │   │   ├── HelpSection.test.tsx
+│       │   └── HelpSection.tsx
+│       ├── ModerationPanel/
+│       │   ├── ModerationPanel.module.css
+│   │   │   ├── ModerationPanel.stories.tsx
+│   │   │   ├── ModerationPanel.test.tsx
+│       │   └── ModerationPanel.tsx
+│       └── ProfileSection/
+│           ├── ProfileSection.module.css
+│   │   │   ├── ProfileSection.stories.tsx
+│   │   │   ├── ProfileSection.test.tsx
+│           └── ProfileSection.tsx
+│       └── ReportFieldsManagerPanel/
+│           ├── ReportFieldsManagerPanel.module.css
+│   │   │   ├── ReportFieldsManagerPanel.stories.tsx
+│   │   │   ├── ReportFieldsManagerPanel.test.tsx
+│           └── ReportFieldsManagerPanel.tsx
 ├── hooks/
-│   ├── useAuth.ts
 │   ├── useFilters.ts
 │   ├── useLocalStorage.ts
 │   ├── useMediaQuery.ts
 │   ├── usePagination.ts
-│   └── index.ts
-├── routes/
-│   ├── GuestRoute.tsx
-│   ├── PrivateRoute.tsx
-│   ├── Router.tsx
-│   ├── index.ts
-│   └── routesConfig.tsx
+│   ├── useApiQuery.ts
+│   ├── useWebSocket.ts
+│   └── useRealtimeUpdates.ts
+├── pages/
+│   ├── AdminPage/
+│   │   ├── AdminPage.module.css
+│   │   ├── AdminPage.stories.tsx
+│   │   ├── AdminPage.test.tsx
+│   │   └── AdminPage.tsx
+│   ├── AdminPanelPage/
+│   │   ├── AdminPanelPage.module.css
+│   │   ├── AdminPanelPage.stories.tsx
+│   │   ├── AdminPanelPage.test.tsx
+│   │   └── AdminPanelPage.tsx
+│   ├── CreateRequestPage/
+│   │   ├── CreateRequestPage.module.css
+│   │   ├── CreateRequestPage.stories.tsx
+│   │   ├── CreateRequestPage.test.tsx
+│   │   └── CreateRequestPage.tsx
+│   ├── HelpPage/
+│   │   ├── HelpPage.module.css
+│   │   ├── HelpPage.stories.tsx
+│   │   ├── HelpPage.test.tsx
+│   │   └── HelpPage.tsx
+│   ├── LoginPage/
+│   │   ├── LoginPage.module.css
+│   │   ├── LoginPage.stories.tsx
+│   │   ├── LoginPage.test.tsx
+│   │   └── LoginPage.tsx
+│   ├── MainPage/
+│   │   ├── MainPage.module.css
+│   │   ├── MainPage.stories.tsx
+│   │   ├── MainPage.test.tsx
+│   │   └── MainPage.tsx
+│   ├── ModerationPage/
+│   │   ├── ModerationPage.module.css
+│   │   ├── ModerationPage.stories.tsx
+│   │   ├── ModerationPage.test.tsx
+│   │   └── ModerationPage.tsx
+│   ├── NotFoundPage/
+│   │   ├── NotFoundPage.module.css
+│   │   ├── NotFoundPage.stories.tsx
+│   │   ├── NotFoundPage.test.tsx
+│   │   └── NotFoundPage.tsx
+│   ├── ProfilePage/
+│   │   ├── ProfilePage.module.css
+│   │   ├── ProfilePage.stories.tsx
+│   │   ├── ProfilePage.test.tsx
+│   │   └── ProfilePage.tsx
+│   └── RegisterPage/
+│   │   ├── RegisterPage.module.css
+│   │   ├── RegisterPage.stories.tsx
+│   │   ├── RegisterPage.test.tsx
+│   │   └── RegisterPage.tsx
+│   ├── ReportBuilderPage/
+│   │   ├── ReportBuilderPage.module.css
+│   │   ├── ReportBuilderPage.stories.tsx
+│   │   ├── ReportBuilderPage.test.tsx
+│       └── ReportBuilderPage.tsx
 ├── services/
 │   ├── api/
+│   │   ├── gateway.ts
 │   │   ├── authAPI.ts
-│   │   ├── axios.ts
-│   │   ├── index.ts
 │   │   ├── requestsAPI.ts
 │   │   └── usersAPI.ts
-│   ├── mock/
-│   │   ├── authMock.ts
-│   │   ├── requestsMock.ts
-│   │   └── usersMock.ts
-│   ├── storage/
-│   │   ├── localStorage.ts
-│   │   └── sessionStorage.ts
-│   └── index.ts
+│   ├── network/
+│   │   ├── websocket.ts
+│   │   ├── resilience.ts
+│   │   └── streamAdapter.ts
+│   ├── offline/
+│   │   ├── cache.ts
+│   │   └── sync.ts
+│   ├── analytics/
+│   │   └── tracker.ts
+│   └── error/
+│       └── handler.ts
 ├── store/
-│   ├── authStore.ts
-│   ├── hooks.ts
-│   ├── index.ts
-│   ├── requestsStore.ts
-│   ├── store.ts
-│   └── uiStore.ts
+│   ├── authSlice.ts
+│   ├── requestsSlice.ts
+│   ├── uiSlice.ts
+│   ├── usersSlice.ts
+│   └── realtimeSlice.ts
+├── test/
 ├── themes/
 │   ├── darkTheme.ts
 │   ├── lightTheme.ts
-│   ├── ThemeProvider.tsx
-│   └── themeTypes.ts
+│   └── ThemeProvider.tsx
 ├── types/
-│   ├── admin.ts
-│   ├── api.d.ts
-│   ├── app.d.ts
-│   ├── components.d.ts
-│   ├── icons.d.ts
-│   ├── index.ts
-│   ├── routes.d.ts
-│   ├── store.d.ts
-│   ├── styled.d.ts
-│   └── theme.d.ts
+│   ├── formTypes.ts
+│   ├── ticketTypes.ts
+│   ├── userTypes.ts
+│   ├── reportFieldTypes.ts
+│   └── themeTypes.ts
 ├── utils/
+│   ├── arrayUtils.ts
 │   ├── dateUtils.ts
 │   ├── domUtils.ts
+│   ├── fileUtils.ts
+│   ├── fieldUtils.ts
 │   ├── formatters.ts
 │   ├── statsUtils.ts
-│   ├── test-utils.tsx
 │   ├── validation.ts
-│   └── index.ts
+│   ├── ticketUtils.ts
+│   ├── userUtils.ts
+│   └── test-utils.tsx
+├── context/
+│   ├── AuthContext.tsx
+│   └── RealtimeContext.tsx
 ├── App.tsx
 ├── index.tsx
-└── react-app-env.d.ts
-├── reportWebVitals.ts
-└── reportWebVitals.js
+├── react-app-env.d.ts
+└── reportWebVitals.ts
+
 

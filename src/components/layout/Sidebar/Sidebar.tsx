@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
-import { Stats, TicketSystem, TicketStatus, Priority } from '@/types/app';
+import { Stats, TicketSystem, TicketStatus, Priority } from '@/types/zzzOLD_types/app';
 
 interface SidebarProps {
   stats: Stats;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Input.module.css';
-import { IconName } from '@/types/icons';
+import { IconName } from '@/types/zzzOLD_types/icons';
 
 interface InputProps {
   type?: 'text' | 'email' | 'password' | 'number' | 'search';

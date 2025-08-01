@@ -3,7 +3,7 @@ import AppHeader from './AppHeader/AppHeader';
 import Sidebar from './Sidebar/Sidebar';
 import TabsNavigation from '@/components/common/TabsNavigation/TabsNavigation';
 import { useLocation } from 'react-router-dom';
-import { Stats, Ticket, User } from '@/types/app';
+import { Stats, Ticket, User } from '@/types/zzzOLD_types/app';
 import { mockTickets, mockUsers } from '@/test/mocks/mockData';
 import { calculateStats } from '@/utils/statsUtils';
 

@@ -1,6 +1,6 @@
 // src/components/requests/RequestCard.tsx
 import React from 'react';
-import { Ticket, Priority, TicketSystem } from '@/types/app';
+import { Ticket, Priority, TicketSystem } from '@/types/zzzOLD_types/app';
 import styles from './RequestCard.module.css';
 
 const RequestCard = ({ ticket }: { ticket: Ticket }) => {

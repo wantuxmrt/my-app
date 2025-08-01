@@ -1,4 +1,4 @@
-import { User, Ticket } from '@/types/index';
+import { User, Ticket } from '@/types/zzzOLD_types/index';
 
 export const mockUsers: User[] = [
   {
