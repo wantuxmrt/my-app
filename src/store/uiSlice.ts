@@ -1,65 +1,94 @@
+// src/store/uiSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Theme } from '@/types/themeTypes';
 
-type AuthModalType = 'login' | 'register';
-type TicketModalMode = 'create' | 'edit' | 'view';
-
-interface UIState {
-  activeTab: string;
-  isAuthModalOpen: boolean;
-  authModalType: AuthModalType;
-  isTicketModalOpen: boolean;
-  ticketModalMode: TicketModalMode;
-  viewMode: 'grid' | 'list';
+interface Notification {
+  message: string;
+  type: 'success' | 'error' | 'info' | 'warning';
+  id?: string;
+  timeout?: number;
 }
 
+interface UIState {
+  theme: Theme;
+  isSidebarOpen: boolean;
+  notifications: Notification[];
+  modals: {
+    [key: string]: boolean;
+  };
+}
+
+// Попытка получить тему из localStorage
+const savedTheme = localStorage.getItem('theme') as Theme | null;
+
 const initialState: UIState = {
-  activeTab: 'my-requests',
-  isAuthModalOpen: false,
-  authModalType: 'login',
-  isTicketModalOpen: false,
-  ticketModalMode: 'create',
-  viewMode: 'grid',
+  theme: savedTheme || 'light',
+  isSidebarOpen: true,
+  notifications: [],
+  modals: {}
 };
 
 const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    setActiveTab: (state, action: PayloadAction<string>) => {
-      state.activeTab = action.payload;
+    toggleTheme(state) {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', state.theme);
     },
-    openAuthModal: (state, action: PayloadAction<AuthModalType>) => {
-      state.isAuthModalOpen = true;
-      state.authModalType = action.payload;
+    setTheme(state, action: PayloadAction<Theme>) {
+      state.theme = action.payload;
+      localStorage.setItem('theme', action.payload);
     },
-    closeAuthModal: (state) => {
-      state.isAuthModalOpen = false;
+    toggleSidebar(state) {
+      state.isSidebarOpen = !state.isSidebarOpen;
     },
-    openTicketModal: (state, action: PayloadAction<TicketModalMode>) => {
-      state.isTicketModalOpen = true;
-      state.ticketModalMode = action.payload;
+    showNotification(state, action: PayloadAction<Notification>) {
+      const notification = {
+        ...action.payload,
+        id: Date.now().toString(),
+        timeout: action.payload.timeout || 5000
+      };
+      state.notifications.push(notification);
     },
-    closeTicketModal: (state) => {
-      state.isTicketModalOpen = false;
+    hideNotification(state, action: PayloadAction<string>) {
+      state.notifications = state.notifications.filter(
+        n => n.id !== action.payload
+      );
     },
-    setViewMode: (state, action: PayloadAction<'grid' | 'list'>) => {
-      state.viewMode = action.payload;
+    openModal(state, action: PayloadAction<string>) {
+      state.modals[action.payload] = true;
     },
-    // Добавлен экшен для смены типа модалки без открытия/закрытия
-    setAuthModalType: (state, action: PayloadAction<AuthModalType>) => {
-      state.authModalType = action.payload;
+    closeModal(state, action: PayloadAction<string>) {
+      state.modals[action.payload] = false;
     },
-  },
+    toggleModal(state, action: PayloadAction<string>) {
+      state.modals[action.payload] = !state.modals[action.payload];
+    }
+  }
 });
 
-export const {
-  setActiveTab,
-  openAuthModal,
-  closeAuthModal,
-  openTicketModal,
-  closeTicketModal,
-  setViewMode,
-  setAuthModalType, // Экспортируем новый экшен
+export const { 
+  toggleTheme, 
+  setTheme, 
+  toggleSidebar, 
+  showNotification, 
+  hideNotification,
+  openModal,
+  closeModal,
+  toggleModal
 } = uiSlice.actions;
+
+// Экспортируем thunk для автоматического скрытия уведомлений
+export const showTimedNotification = (notification: Notification) => (dispatch: any) => {
+  const id = Date.now().toString();
+  dispatch(showNotification({ ...notification, id }));
+  
+  if (notification.timeout !== 0) {
+    setTimeout(() => {
+      dispatch(hideNotification(id));
+    }, notification.timeout || 5000);
+  }
+};
 
 export default uiSlice.reducer;

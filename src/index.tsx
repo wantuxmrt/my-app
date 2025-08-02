@@ -1,18 +1,13 @@
+// src/index.tsx
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from './store/index';
-import App from './App';
-import './assets/styles/global.css';
-import './assets/styles/AppLayout.css';
-import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from './themes/ThemeProvider';
-
-// Исправление ошибки типов для react-dom/client
-declare module 'react-dom/client' {
-  function createRoot(container: Element | DocumentFragment, options?: RootOptions): Root;
-}
+import { store } from '@/store';
+import App from '@/App';
+import '@/assets/styles/global.css';
+import reportWebVitals from '@/reportWebVitals';
+import { ThemeProvider } from '@/themes/ThemeProvider';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);

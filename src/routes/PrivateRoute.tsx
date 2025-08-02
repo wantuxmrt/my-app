@@ -1,13 +1,13 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthStore } from '@/store/authStore';
-import { Role } from '@/types/zzzOLD_types/app';
+import { useAppSelector } from '@/store';
+import { Role } from '@/types/appTypes';
 
 const PrivateRoute: React.FC<{
   roles?: Role[];
   children: React.ReactElement;
 }> = ({ children, roles }) => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user } = useAppSelector(state => state.auth);
   const location = useLocation();
 
   if (!isAuthenticated) {

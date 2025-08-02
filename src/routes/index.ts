@@ -1,3 +1,4 @@
+// index.ts
 export * from './routesConfig';
 export * from './Router';
 export * from './PrivateRoute';

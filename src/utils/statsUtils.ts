@@ -1,45 +1,32 @@
-// Определяем типы, так как нет доступа к '@/types/app'
-interface Ticket {
-  status: string;
-  priority: string;
-}
+// statsUtils.ts
+import { Ticket } from '@/types/ticketTypes';
 
-interface Stats {
-  total: number;
-  open: number;
-  resolved: number;
-  overdue: number;
-}
-
-export const calculateStats = (tickets: Ticket[]): Stats => {
+/**
+ * Рассчитывает статистику по тикетам
+ * @param tickets - Массив тикетов
+ * @returns Статистика
+ */
+export const calculateTicketStats = (tickets: Ticket[]) => {
   return {
     total: tickets.length,
-    open: tickets.filter(t => t.status !== 'resolved').length,
+    open: tickets.filter(t => t.status === 'open').length,
+    pending: tickets.filter(t => t.status === 'pending').length,
     resolved: tickets.filter(t => t.status === 'resolved').length,
-    overdue: tickets.filter(t => 
-      t.status === 'new' || t.status === 'in-progress'
-    ).length
+    closed: tickets.filter(t => t.status === 'closed').length,
+    highPriority: tickets.filter(t => t.priority === 'high').length,
+    criticalPriority: tickets.filter(t => t.priority === 'critical').length,
+    overdue: tickets.filter(t => {
+      if (!t.dueDate) return false;
+      const due = new Date(t.dueDate);
+      return due < new Date() && !['resolved', 'closed'].includes(t.status);
+    }).length
   };
 };
 
-// Для будущей интеграции с API
-export const fetchStats = async (): Promise<Stats> => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve({
-        total: 24,
-        open: 12,
-        resolved: 8,
-        overdue: 4
-      });
-    }, 500);
-  });
-};
-
 /**
- * Рассчитывает процент завершенных задач
- * @param total - Общее количество задач
- * @param completed - Количество завершенных задач
+ * Рассчитывает процент завершения
+ * @param total - Общее количество
+ * @param completed - Завершенное количество
  * @returns Процент завершения
  */
 export const calculateCompletionPercentage = (
@@ -48,4 +35,26 @@ export const calculateCompletionPercentage = (
 ): number => {
   if (total === 0) return 0;
   return Math.round((completed / total) * 100);
+};
+
+/**
+ * Рассчитывает среднее время решения
+ * @param tickets - Массив тикетов
+ * @returns Среднее время в часах
+ */
+export const calculateAverageResolutionTime = (tickets: Ticket[]): number => {
+  const resolvedTickets = tickets.filter(t => 
+    t.status === 'resolved' && t.createdAt && t.updatedAt
+  );
+  
+  if (resolvedTickets.length === 0) return 0;
+  
+  const totalHours = resolvedTickets.reduce((sum, ticket) => {
+    const created = new Date(ticket.createdAt);
+    const resolved = new Date(ticket.updatedAt);
+    const hours = (resolved.getTime() - created.getTime()) / (1000 * 60 * 60);
+    return sum + hours;
+  }, 0);
+  
+  return Math.round(totalHours / resolvedTickets.length);
 };

@@ -1,46 +1,31 @@
-#wrapper {
+/* AppLayout.css */
+.app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--bg-color);
-  color: var(--text);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: background-color 0.3s ease;
 }
 
-#main {
+.content-wrapper {
   display: flex;
   flex: 1;
-  padding: var(--spacing-md);
 }
 
-#left-column {
-  width: var(--sidebar-width);
-  padding-right: var(--spacing-md);
-}
-
-#content {
+.main-content {
   flex: 1;
-  padding: var(--spacing-md);
-  background-color: var(--panel-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-}
-
-#footer {
-  text-align: center;
-  padding: var(--spacing-md);
-  font-size: 0.85rem;
-  background: var(--panel-bg);
-  border-top: 1px solid var(--divider);
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  transition: padding 0.3s ease;
 }
 
 @media (max-width: 768px) {
-  #main {
+  .content-wrapper {
     flex-direction: column;
   }
-
-  #left-column {
-    width: 100%;
-    padding-right: 0;
-    margin-bottom: var(--spacing-md);
+  
+  .main-content {
+    padding: var(--spacing-md);
   }
 }

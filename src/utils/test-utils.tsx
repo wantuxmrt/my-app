@@ -1,37 +1,53 @@
+// test-utils.tsx
 import React, { ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { AppProvider } from '../contexts/AppContext';
-import { MemoryRouter } from 'react-router-dom';
-import { ThemeProvider } from '../themes/ThemeProvider';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@/themes/ThemeProvider';
+import { configureStore } from '@reduxjs/toolkit';
+import { storeReducer } from '@/store/store';
+import type { PreloadedState } from '@reduxjs/toolkit';
 
-// Обертка для тестов с провайдерами
-const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <ThemeProvider>
-      <AppProvider>
-        <MemoryRouter>
-          {children}
-        </MemoryRouter>
-      </AppProvider>
-    </ThemeProvider>
-  );
-};
+interface ExtendedRenderOptions extends RenderOptions {
+  preloadedState?: PreloadedState<RootState>;
+  store?: AppStore;
+}
 
-// Кастомный рендер для тестов
+// Создаем кастомный рендер для тестов
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>,
-) => render(ui, { wrapper: AllTheProviders, ...options });
+  {
+    preloadedState = {},
+    store = configureStore({
+      reducer: storeReducer,
+      preloadedState
+    }),
+    ...renderOptions
+  }: ExtendedRenderOptions = {}
+) => {
+  const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+    <Provider store={store}>
+      <ThemeProvider>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
+  );
 
-// Реэкспорт всех методов из testing-library/react
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+};
+
+// Реэкспорт всех методов
 export * from '@testing-library/react';
 // Экспорт кастомного рендера
 export { customRender as render };
 
 /**
- * Генерирует моковые данные для тестирования
+ * Генерирует тестовые данные
  * @param count - Количество элементов
- * @param generator - Функция-генератор
+ * @param generator - Функция генерации
+ * @returns Массив данных
  */
 export const generateTestData = <T,>(
   count: number, 

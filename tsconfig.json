@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"],
+      "@/*": ["src/*"],
       "@/types": ["types"]
     },
     "lib": [
@@ -27,5 +27,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/test/utils/.test copy.ts"  ]
 }

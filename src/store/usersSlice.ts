@@ -1,46 +1,40 @@
-// src/store/slices/usersSlice.ts
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import userAPI from '@/services/api/userAPI';
-import type { User, Role, UpdateUserPayload, Organization, Department } from '@/types/zzzOLD_types';
-import type { RootState } from '@/store/store';
+// src/store/usersSlice.ts
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { usersAPI } from '@/services/api/usersAPI';
+import { User, Role, UpdateUserPayload } from '@/types/userTypes';
+import { showTimedNotification } from './uiSlice';
 
 interface UsersState {
   users: User[];
-  currentUserDetail: User | null;
-  organizations: Organization[];
-  departments: Department[];
+  currentUser: User | null;
   loading: boolean;
   error: string | null;
-  filters: {
-    role: Role | 'all';
-    organization: string | 'all';
-    department: string | 'all';
-    search: string;
-  };
+  roles: Role[];
+  organizations: string[];
+  departments: string[];
 }
 
 const initialState: UsersState = {
   users: [],
-  currentUserDetail: null,
-  organizations: [],
-  departments: [],
+  currentUser: null,
   loading: false,
   error: null,
-  filters: {
-    role: 'all',
-    organization: 'all',
-    department: 'all',
-    search: '',
-  },
+  roles: ['admin', 'manager', 'user', 'guest'],
+  organizations: [],
+  departments: []
 };
 
-// Асинхронные действия
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
-      return await userAPI.getUsers();
+      const users = await usersAPI.getUsers();
+      return users;
     } catch (error: any) {
+      dispatch(showTimedNotification({
+        message: 'Ошибка загрузки пользователей',
+        type: 'error'
+      }));
       return rejectWithValue(error.message);
     }
   }
@@ -48,54 +42,15 @@ export const fetchUsers = createAsyncThunk(
 
 export const fetchUserById = createAsyncThunk(
   'users/fetchUserById',
-  async (userId: number, { rejectWithValue }) => {
+  async (userId: string, { rejectWithValue, dispatch }) => {
     try {
-      return await userAPI.getUserById(userId);
+      const user = await usersAPI.getUserById(userId);
+      return user;
     } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const fetchOrganizations = createAsyncThunk(
-  'users/fetchOrganizations',
-  async (_, { rejectWithValue }) => {
-    try {
-      return await userAPI.getOrganizations();
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const fetchDepartments = createAsyncThunk(
-  'users/fetchDepartments',
-  async (_, { rejectWithValue }) => {
-    try {
-      return await userAPI.getDepartments();
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const createNewOrganization = createAsyncThunk(
-  'users/createOrganization',
-  async (orgData: Omit<Organization, 'id'>, { rejectWithValue }) => {
-    try {
-      return await userAPI.createOrganization(orgData);
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const createNewDepartment = createAsyncThunk(
-  'users/createDepartment',
-  async (deptData: Omit<Department, 'id'>, { rejectWithValue }) => {
-    try {
-      return await userAPI.createDepartment(deptData);
-    } catch (error: any) {
+      dispatch(showTimedNotification({
+        message: 'Ошибка загрузки пользователя',
+        type: 'error'
+      }));
       return rejectWithValue(error.message);
     }
   }
@@ -103,10 +58,22 @@ export const createNewDepartment = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'users/updateUser',
-  async ({ userId, updates }: { userId: number; updates: UpdateUserPayload }, { rejectWithValue }) => {
+  async ({ userId, updates }: { 
+    userId: string; 
+    updates: UpdateUserPayload 
+  }, { rejectWithValue, dispatch }) => {
     try {
-      return await userAPI.updateUser(userId, updates);
+      const user = await usersAPI.updateUser(userId, updates);
+      dispatch(showTimedNotification({
+        message: 'Данные пользователя обновлены',
+        type: 'success'
+      }));
+      return user;
     } catch (error: any) {
+      dispatch(showTimedNotification({
+        message: 'Ошибка обновления пользователя',
+        type: 'error'
+      }));
       return rejectWithValue(error.message);
     }
   }
@@ -114,10 +81,22 @@ export const updateUser = createAsyncThunk(
 
 export const toggleUserStatus = createAsyncThunk(
   'users/toggleUserStatus',
-  async ({ userId, active }: { userId: number; active: boolean }, { rejectWithValue }) => {
+  async ({ userId, active }: { 
+    userId: string; 
+    active: boolean 
+  }, { rejectWithValue, dispatch }) => {
     try {
-      return await userAPI.toggleUserStatus(userId, active);
+      const user = await usersAPI.toggleUserStatus(userId, active);
+      dispatch(showTimedNotification({
+        message: `Пользователь ${active ? 'активирован' : 'деактивирован'}`,
+        type: 'success'
+      }));
+      return user;
     } catch (error: any) {
+      dispatch(showTimedNotification({
+        message: 'Ошибка изменения статуса',
+        type: 'error'
+      }));
       return rejectWithValue(error.message);
     }
   }
@@ -127,139 +106,87 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setUsersFilters: (state, action: PayloadAction<Partial<UsersState['filters']>>) => {
-      state.filters = {
-        ...state.filters,
-        ...action.payload,
-      };
-    },
-    resetUsersFilters: (state) => {
-      state.filters = initialState.filters;
-    },
-    setCurrentUserDetail: (state, action: PayloadAction<User | null>) => {
-      state.currentUserDetail = action.payload;
-    },
-    resetUsersState: () => initialState,
+    setCurrentUser(state, action: PayloadAction<User | null>) {
+      state.currentUser = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
-      // Обработка загрузки пользователей
       .addCase(fetchUsers.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.users = action.payload;
+      .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<User[]>) => {
         state.loading = false;
+        state.users = action.payload;
+        
+        // Extract unique organizations and departments
+        const orgs = new Set<string>();
+        const depts = new Set<string>();
+        
+        action.payload.forEach(user => {
+          if (user.organization) orgs.add(user.organization);
+          if (user.department) depts.add(user.department);
+        });
+        
+        state.organizations = Array.from(orgs);
+        state.departments = Array.from(depts);
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
       
-      // Обработка загрузки пользователя по ID
       .addCase(fetchUserById.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchUserById.fulfilled, (state, action) => {
-        state.currentUserDetail = action.payload;
+      .addCase(fetchUserById.fulfilled, (state, action: PayloadAction<User>) => {
         state.loading = false;
+        state.currentUser = action.payload;
       })
       .addCase(fetchUserById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
       
-      // Обработка загрузки организаций
-      .addCase(fetchOrganizations.fulfilled, (state, action) => {
-        state.organizations = action.payload;
-      })
-      
-      // Обработка загрузки отделов
-      .addCase(fetchDepartments.fulfilled, (state, action) => {
-        state.departments = action.payload;
-      })
-      
-      // Обработка создания организации
-      .addCase(createNewOrganization.fulfilled, (state, action) => {
-        state.organizations.push(action.payload);
-      })
-      
-      // Обработка создания отдела
-      .addCase(createNewDepartment.fulfilled, (state, action) => {
-        state.departments.push(action.payload);
-      })
-      
-      // Обработка обновления пользователя
       .addCase(updateUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex(u => u.id === action.payload.id);
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
-        if (state.currentUserDetail?.id === action.payload.id) {
-          state.currentUserDetail = action.payload;
-        }
+      .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loading = false;
+        state.users = state.users.map(user => 
+          user.id === action.payload.id ? action.payload : user
+        );
+        if (state.currentUser?.id === action.payload.id) {
+          state.currentUser = action.payload;
+        }
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
       
-      // Обработка изменения статуса пользователя
       .addCase(toggleUserStatus.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(toggleUserStatus.fulfilled, (state, action) => {
-        const index = state.users.findIndex(u => u.id === action.payload.id);
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
+      .addCase(toggleUserStatus.fulfilled, (state, action: PayloadAction<User>) => {
         state.loading = false;
+        state.users = state.users.map(user => 
+          user.id === action.payload.id ? action.payload : user
+        );
+        if (state.currentUser?.id === action.payload.id) {
+          state.currentUser = action.payload;
+        }
       })
       .addCase(toggleUserStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
-  },
+  }
 });
 
-// Селекторы
-export const selectAllUsers = (state: RootState) => state.users.users;
-export const selectFilteredUsers = (state: RootState) => {
-  const { role, organization, department, search } = state.users.filters;
-  
-  return state.users.users.filter(user => {
-    const matchesRole = role === 'all' || user.role === role;
-    const matchesOrg = organization === 'all' || user.organization === organization;
-    const matchesDept = department === 'all' || user.department === department;
-    
-    const searchLower = search.toLowerCase();
-    const matchesSearch = search === '' || 
-      user.name.toLowerCase().includes(searchLower) || 
-      user.email.toLowerCase().includes(searchLower);
-    
-    return matchesRole && matchesOrg && matchesDept && matchesSearch;
-  });
-};
-export const selectCurrentUserDetail = (state: RootState) => state.users.currentUserDetail;
-export const selectUsersLoading = (state: RootState) => state.users.loading;
-export const selectUsersError = (state: RootState) => state.users.error;
-export const selectUsersFilters = (state: RootState) => state.users.filters;
-export const selectOrganizations = (state: RootState) => state.users.organizations;
-export const selectDepartments = (state: RootState) => state.users.departments;
-
-export const { 
-  setUsersFilters, 
-  resetUsersFilters, 
-  setCurrentUserDetail,
-  resetUsersState
-} = usersSlice.actions;
-
+export const { setCurrentUser } = usersSlice.actions;
 export default usersSlice.reducer;

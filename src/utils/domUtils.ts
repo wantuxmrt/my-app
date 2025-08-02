@@ -1,5 +1,6 @@
+// domUtils.ts
 /**
- * Плавно прокручивает страницу к указанному элементу
+ * Плавно прокручивает страницу к элементу
  * @param elementId - ID элемента
  * @param offset - Смещение в пикселях
  */
@@ -30,7 +31,7 @@ export const isElementInViewport = (element: HTMLElement): boolean => {
 };
 
 /**
- * Устанавливает фокус на первый инвалидный инпут в форме
+ * Устанавливает фокус на первый невалидный инпут в форме
  * @param formId - ID формы
  */
 export const focusFirstInvalidInput = (formId: string): void => {
@@ -44,9 +45,9 @@ export const focusFirstInvalidInput = (formId: string): void => {
 };
 
 /**
- * Форматирует номер телефона в российский формат
- * @param phone - Номер телефона в произвольном формате
- * @returns Отформатированный номер (+7 XXX XXX-XX-XX)
+ * Форматирует номер телефона
+ * @param phone - Номер телефона
+ * @returns Отформатированный номер
  */
 export const formatPhoneNumber = (phone: string): string => {
   const cleaned = phone.replace(/\D/g, '');
@@ -57,4 +58,18 @@ export const formatPhoneNumber = (phone: string): string => {
   }
   
   return phone;
+};
+
+/**
+ * Копирует текст в буфер обмена
+ * @param text - Текст для копирования
+ */
+export const copyToClipboard = async (text: string): Promise<boolean> => {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+    return false;
+  }
 };

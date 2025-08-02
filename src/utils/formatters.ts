@@ -1,65 +1,58 @@
+// formatters.ts
 /**
- * Форматирует статус заявки в читаемый вид
+ * Форматирует статус заявки
  * @param status - Статус заявки
- * @returns Отформатированная строка статуса
+ * @returns Отформатированный статус
  */
 export const formatStatus = (status: string): string => {
-  switch (status) {
-    case 'new':
-      return 'Новый';
-    case 'in-progress':
-      return 'В работе';
-    case 'resolved':
-      return 'Решен';
-    case 'reopened':
-      return 'Возвращен';
-    default:
-      return status;
-  }
+  const statusMap: Record<string, string> = {
+    'open': 'Открыт',
+    'pending': 'В ожидании',
+    'resolved': 'Решен',
+    'closed': 'Закрыт',
+    'new': 'Новый',
+    'in-progress': 'В работе',
+    'reopened': 'Переоткрыт'
+  };
+  
+  return statusMap[status] || status;
 };
 
 /**
- * Форматирует приоритет заявки в читаемый вид
+ * Форматирует приоритет заявки
  * @param priority - Приоритет заявки
- * @returns Отформатированная строка приоритета
+ * @returns Отформатированный приоритет
  */
 export const formatPriority = (priority: string): string => {
-  switch (priority) {
-    case 'low':
-      return 'Низкий';
-    case 'medium':
-      return 'Средний';
-    case 'high':
-      return 'Высокий';
-    case 'critical':
-      return 'Критический';
-    default:
-      return priority;
-  }
+  const priorityMap: Record<string, string> = {
+    'low': 'Низкий',
+    'medium': 'Средний',
+    'high': 'Высокий',
+    'critical': 'Критический'
+  };
+  
+  return priorityMap[priority] || priority;
 };
 
 /**
- * Форматирует роль пользователя в читаемый вид
+ * Форматирует роль пользователя
  * @param role - Роль пользователя
- * @returns Отформатированная строка роли
+ * @returns Отформатированная роль
  */
 export const formatRole = (role: string): string => {
-  switch (role) {
-    case 'admin':
-      return 'Администратор';
-    case 'support':
-      return 'Поддержка';
-    case 'manager':
-      return 'Менеджер';
-    case 'user':
-      return 'Пользователь';
-    default:
-      return role;
-  }
+  const roleMap: Record<string, string> = {
+    'admin': 'Администратор',
+    'manager': 'Менеджер',
+    'user': 'Пользователь',
+    'support': 'Поддержка',
+    'guest': 'Гость'
+  };
+  
+  return roleMap[role] || role;
 };
 
 /**
- * Сокращает длинный текст, добавляя многоточие
+ * Сокращает длинный текст
  * @param text - Исходный текст
  * @param maxLength - Максимальная длина
  * @returns Сокращенный текст
@@ -67,4 +60,13 @@ export const formatRole = (role: string): string => {
 export const truncateText = (text: string, maxLength: number): string => {
   if (text.length <= maxLength) return text;
   return `${text.substring(0, maxLength)}...`;
+};
+
+/**
+ * Форматирует число как строку с разделителями
+ * @param num - Число
+ * @returns Отформатированная строка
+ */
+export const formatNumber = (num: number): string => {
+  return num.toLocaleString('ru-RU');
 };

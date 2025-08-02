@@ -1,26 +1,22 @@
-/* src/assets/styles/themeMixins.css */
-:root {
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
+/* themeMixins.css */
+.light-theme {
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-border: #e2e8f0;
 }
 
-[data-theme='light'] {
-  --color-primary: #4361ee;
-  --color-background: #f8f9fa;
-  --color-text: #212529;
-  /* ... остальные цвета light темы */
+.dark-theme {
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
+  --color-border: #334155;
 }
 
-[data-theme='dark'] {
-  --color-primary: #4895ef;
-  --color-background: #121212;
-  --color-text: #e9ecef;
-  /* ... остальные цвета dark темы */
+.theme-transition * {
+  transition: background-color var(--transition-duration) var(--transition-timing),
+              color var(--transition-duration) var(--transition-timing),
+              border-color var(--transition-duration) var(--transition-timing);
 }

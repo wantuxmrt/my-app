@@ -1,16 +1,12 @@
+// setupTests.ts
 import '@testing-library/jest-dom';
+import { configure } from '@testing-library/react';
 import { server } from './mocks/server';
 
-// Установка сервера MSW перед всеми тестами
-beforeAll(() => server.listen());
+// Настройка времени ожидания для тестов
+configure({ asyncUtilTimeout: 5000 });
 
-// Сброс обработчиков после каждого теста
-afterEach(() => server.resetHandlers());
-
-// Очистка сервера после завершения всех тестов
-afterAll(() => server.close());
-
-// Моки для window.matchMedia
+// Настройка моков для matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
@@ -25,11 +21,35 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// Моки для ResizeObserver
-class ResizeObserverMock {
-  observe = jest.fn();
-  unobserve = jest.fn();
-  disconnect = jest.fn();
-}
+// Настройка моков для localStorage
+const localStorageMock = (() => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: (key: string) => store[key] || null,
+    setItem: (key: string, value: string) => {
+      store[key] = value.toString();
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
+  };
+})();
 
-window.ResizeObserver = ResizeObserverMock;
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+});
+
+// Запуск сервера для моков API
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+
+// Сброс обработчиков после каждого теста
+afterEach(() => {
+  server.resetHandlers();
+  localStorageMock.clear();
+});
+
+// Остановка сервера после завершения всех тестов
+afterAll(() => server.close());

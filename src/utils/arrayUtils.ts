@@ -1,3 +1,4 @@
+// arrayUtils.ts
 /**
  * Группирует массив объектов по ключу
  * @param array - Исходный массив
@@ -9,7 +10,7 @@ export const groupBy = <T, K extends keyof T>(
   key: K
 ): Record<string, T[]> => {
   return array.reduce((acc, item) => {
-    const group = item[key] as unknown as string;
+    const group = String(item[key]);
     if (!acc[group]) {
       acc[group] = [];
     }
@@ -56,4 +57,18 @@ export const sortByDate = <T>(
     const dateB = new Date(b[dateKey] as unknown as string).getTime();
     return ascending ? dateA - dateB : dateB - dateA;
   });
+};
+
+/**
+ * Разделяет массив на чанки
+ * @param array - Исходный массив
+ * @param size - Размер чанка
+ * @returns Массив чанков
+ */
+export const chunkArray = <T>(array: T[], size: number): T[][] => {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
 };

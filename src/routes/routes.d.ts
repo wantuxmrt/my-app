@@ -1,4 +1,5 @@
-import { Role } from '@/types/zzzOLD_types/app';
+// routes.d.ts
+import { Role } from '@/types/appTypes';
 
 export interface RouteConfig {
   path: string;

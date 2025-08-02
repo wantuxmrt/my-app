@@ -1,7 +1,8 @@
+// fileUtils.ts
 /**
- * Форматирует размер файла в читаемый вид
+ * Форматирует размер файла
  * @param bytes - Размер файла в байтах
- * @returns Отформатированная строка (KB, MB, GB)
+ * @returns Отформатированная строка
  */
 export const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 Bytes';
@@ -14,7 +15,7 @@ export const formatFileSize = (bytes: number): string => {
 };
 
 /**
- * Извлекает расширение файла из имени
+ * Извлекает расширение файла
  * @param filename - Имя файла
  * @returns Расширение файла
  */
@@ -28,7 +29,7 @@ export const getFileExtension = (filename: string): string => {
  * @returns true, если файл изображение
  */
 export const isImageFile = (filename: string): boolean => {
-  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
   const ext = getFileExtension(filename);
   return imageExtensions.includes(ext);
 };
@@ -43,4 +44,18 @@ export const generateUniqueFilename = (filename: string): string => {
   const randomString = Math.random().toString(36).substring(2, 8);
   const ext = getFileExtension(filename);
   return `${timestamp}_${randomString}.${ext}`;
+};
+
+/**
+ * Читает файл как Data URL
+ * @param file - Файл
+ * @returns Promise с Data URL
+ */
+export const readFileAsDataURL = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 };

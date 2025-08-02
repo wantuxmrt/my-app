@@ -1,16 +1,13 @@
+// dateUtils.ts
 /**
  * Форматирует дату в строку в формате "дд.мм.гггг чч:мм"
  * @param date - Дата в формате строки или объекта Date
  * @returns Отформатированная строка с датой
  */
-export const formatDate = (date: string | Date): string => {
+export const formatDateTime = (date: string | Date): string => {
   const d = new Date(date);
+  if (isNaN(d.getTime())) return '';
   
-  // Проверка на валидность даты
-  if (isNaN(d.getTime())) {
-    return '';
-  }
-
   const day = d.getDate().toString().padStart(2, '0');
   const month = (d.getMonth() + 1).toString().padStart(2, '0');
   const year = d.getFullYear();
@@ -21,9 +18,25 @@ export const formatDate = (date: string | Date): string => {
 };
 
 /**
- * Вычисляет время, прошедшее с момента создания заявки
- * @param createdAt - Дата создания в формате строки или Date
- * @returns Строка с описанием времени, прошедшего с момента создания
+ * Форматирует дату в короткий формат "дд.мм.гггг"
+ * @param date - Дата в формате строки или объекта Date
+ * @returns Отформатированная строка с датой
+ */
+export const formatDateShort = (date: string | Date): string => {
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return '';
+  
+  const day = d.getDate().toString().padStart(2, '0');
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const year = d.getFullYear();
+
+  return `${day}.${month}.${year}`;
+};
+
+/**
+ * Вычисляет время, прошедшее с момента создания
+ * @param createdAt - Дата создания
+ * @returns Строка с описанием времени
  */
 export const getTimeAgo = (createdAt: string | Date): string => {
   const now = new Date();
@@ -46,4 +59,15 @@ export const getTimeAgo = (createdAt: string | Date): string => {
 
   const diffInDays = Math.floor(diffInHours / 24);
   return `${diffInDays} дней назад`;
+};
+
+/**
+ * Проверяет, просрочена ли задача
+ * @param dueDate - Дата выполнения
+ * @returns true, если задача просрочена
+ */
+export const isOverdue = (dueDate: string | Date): boolean => {
+  const now = new Date();
+  const due = new Date(dueDate);
+  return now > due;
 };

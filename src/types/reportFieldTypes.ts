@@ -1,3 +1,4 @@
+// types/reportFieldTypes.ts
 export type FieldType = 
   | 'string' 
   | 'number' 

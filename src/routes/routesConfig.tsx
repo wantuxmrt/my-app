@@ -1,15 +1,17 @@
 import { lazy } from 'react';
 import { RouteConfig } from './routes.d';
 
-// Ленивая загрузка страниц
-const LoginPage = lazy(() => import('@/sections/LoginPage'));
-const MainPage = lazy(() => import('@/sections/MainPage'));
-const ProfilePage = lazy(() => import('@/sections/ProfilePage'));
-const ModerationPage = lazy(() => import('@/sections/ModerationPage'));
-const AdminPage = lazy(() => import('@/sections/AdminPage'));
-const CreateRequestPage = lazy(() => import('@/sections/CreateRequestPage'));
-const NotFoundPage = lazy(() => import('@/sections/NotFoundPage'));
-const HelpPage = lazy(() => import('@/sections/HelpPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const RegisterPage = lazy(() => import('@/pages/RegisterPage'));
+const MainPage = lazy(() => import('@/pages/MainPage'));
+const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
+const ModerationPage = lazy(() => import('@/pages/ModerationPage'));
+const AdminPage = lazy(() => import('@/pages/AdminPage'));
+const AdminPanelPage = lazy(() => import('@/pages/AdminPanelPage'));
+const CreateRequestPage = lazy(() => import('@/pages/CreateRequestPage'));
+const HelpPage = lazy(() => import('@/pages/HelpPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const ReportBuilderPage = lazy(() => import('@/pages/ReportBuilderPage'));
 
 export const routesConfig: RouteConfig[] = [
   {
@@ -18,9 +20,13 @@ export const routesConfig: RouteConfig[] = [
     isGuestOnly: true,
   },
   {
+    path: '/register',
+    component: RegisterPage,
+    isGuestOnly: true,
+  },
+  {
     path: '/',
     component: MainPage,
-    exact: true,
     isPrivate: true,
   },
   {
@@ -41,6 +47,12 @@ export const routesConfig: RouteConfig[] = [
     roles: ['admin'],
   },
   {
+    path: '/admin-panel',
+    component: AdminPanelPage,
+    isPrivate: true,
+    roles: ['admin'],
+  },
+  {
     path: '/create-request',
     component: CreateRequestPage,
     isPrivate: true,
@@ -48,6 +60,12 @@ export const routesConfig: RouteConfig[] = [
   {
     path: '/help',
     component: HelpPage,
+  },
+  {
+    path: '/report-builder',
+    component: ReportBuilderPage,
+    isPrivate: true,
+    roles: ['admin', 'manager'],
   },
   {
     path: '*',

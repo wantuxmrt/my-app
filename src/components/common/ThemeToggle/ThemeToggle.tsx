@@ -1,17 +1,23 @@
+// src/components/common/ThemeToggle/ThemeToggle.tsx
 import React from 'react';
-import styles from './ThemeToggle.module.css';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { toggleTheme } from '@/store/uiSlice';
 
 const ThemeToggle: React.FC = () => {
-  const { themeName, toggleTheme } = useTheme();
+  const dispatch = useAppDispatch();
+  const theme = useAppSelector(state => state.ui.theme);
+
+  const handleToggle = () => {
+    dispatch(toggleTheme());
+  };
 
   return (
     <button 
-      className={styles.themeToggle}
-      onClick={toggleTheme}
-      aria-label="Toggle theme"
+      onClick={handleToggle}
+      className="theme-toggle"
+      aria-label="Переключить тему"
     >
-      <i className={`fas fa-${themeName === 'light' ? 'moon' : 'sun'}`} />
+      {theme === 'light' ? '🌙' : '☀️'}
     </button>
   );
 };

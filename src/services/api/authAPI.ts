@@ -1,53 +1,41 @@
-// /my-app/src/services/api/authsAPI.ts
-import api from './api_old_test/axiosAPI';
-import { 
-  LoginFormData, 
-  RegistrationFormData, 
-  User,
-  AuthResponse,
-  RefreshTokenResponse
-} from '@/types/zzzOLD_types';
+// authAPI.ts
+import api from './gateway';
+import { LoginFormData, RegistrationFormData, User, AuthResponse } from '@/types/userTypes';
 
 export const authAPI = {
-  login: async (credentials: LoginFormData): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/login', credentials);
-    return response.data;
+  login: (credentials: LoginFormData): Promise<AuthResponse> => {
+    return api.post('/auth/login', credentials);
   },
 
-  register: async (userData: RegistrationFormData): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/register', userData);
-    return response.data;
+  register: (userData: RegistrationFormData): Promise<AuthResponse> => {
+    return api.post('/auth/register', userData);
   },
 
-  logout: async (): Promise<void> => {
-    await api.post('/auth/logout');
+  logout: (): Promise<void> => {
+    return api.post('/auth/logout');
   },
 
-  refreshToken: async (): Promise<RefreshTokenResponse> => {
-    const response = await api.post<RefreshTokenResponse>('/auth/refresh');
-    return response.data;
+  refreshToken: (): Promise<{ accessToken: string }> => {
+    return api.post('/auth/refresh');
   },
 
-  getCurrentUser: async (): Promise<User> => {
-    const response = await api.get<User>('/auth/me');
-    return response.data;
+  getCurrentUser: (): Promise<User> => {
+    return api.get('/auth/me');
   },
 
-  verifyEmail: async (token: string): Promise<{ verified: boolean }> => {
-    const response = await api.post('/auth/verify-email', { token });
-    return response.data;
+  verifyEmail: (token: string): Promise<void> => {
+    return api.post('/auth/verify-email', { token });
   },
 
-  requestPasswordReset: async (email: string): Promise<void> => {
-    await api.post('/auth/request-password-reset', { email });
+  requestPasswordReset: (email: string): Promise<void> => {
+    return api.post('/auth/forgot-password', { email });
   },
 
-  resetPassword: async (token: string, newPassword: string): Promise<void> => {
-    await api.post('/auth/reset-password', { token, newPassword });
+  resetPassword: (token: string, newPassword: string): Promise<void> => {
+    return api.post('/auth/reset-password', { token, newPassword });
   },
 
-  updateProfile: async (userData: Partial<User>): Promise<User> => {
-    const response = await api.patch<User>('/auth/profile', userData);
-    return response.data;
-  },
+  updateProfile: (userData: Partial<User>): Promise<User> => {
+    return api.patch('/auth/profile', userData);
+  }
 };

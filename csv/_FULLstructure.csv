@@ -56,6 +56,11 @@ src/
 │   │   │   ├── Input.stories.tsx
 │   │   │   ├── Input.test.tsx
 │   │   │   └── Input.tsx
+│   │   ├── Loader/
+│   │   │   ├── Loader.module.css
+│   │   │   ├── Loader.stories.tsx
+│   │   │   ├── Loader.test.tsx
+│   │   │   └── Loader.tsx
 │   │   ├── Modal/
 │   │   │   ├── Modal.module.css
 │   │   │   ├── Modal.stories.tsx
@@ -284,9 +289,21 @@ src/
 │   │   ├── ReportBuilderPage.stories.tsx
 │   │   ├── ReportBuilderPage.test.tsx
 │       └── ReportBuilderPage.tsx
+├── routes/
+│   ├── GuestRoute.tsx
+│   ├── index.ts
+│   ├── PrivateRoute.tsx
+│   ├── Router.tsx
+│   ├── routes.d.ts
+│   └── routesConfig.tsx
 ├── services/
 │   ├── api/
 │   │   ├── gateway.ts
+│   │   ├── axios.ts
+│   │   ├── config.ts
+│   │   ├── index.ts
+│   │   ├── request.ts
+│   │   ├── type.ts
 │   │   ├── authAPI.ts
 │   │   ├── requestsAPI.ts
 │   │   └── usersAPI.ts

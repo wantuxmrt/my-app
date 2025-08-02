@@ -9,9 +9,9 @@ const Router: React.FC = () => {
   const location = useLocation();
 
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<Loader fullScreen />}>
       <Routes location={location}>
-        {routesConfig.map((route, index) => {
+        {routesConfig.map((route) => {
           let element = <route.component />;
 
           if (route.isGuestOnly) {
@@ -22,10 +22,9 @@ const Router: React.FC = () => {
 
           return (
             <Route
-              key={index}
+              key={route.path}
               path={route.path}
               element={element}
-              index={route.exact}
             />
           );
         })}
