@@ -19,115 +19,197 @@ src/components/,Директория,Компоненты,,UI компонент
 src/components/common/,Директория,Базовые,,Переиспользуемые компоненты,Активно,Критический,,Frontend,2023-01-22,2024-05-25,v1.0,-
 src/components/common/Avatar/,Директория,Атом,,Аватар пользователя,Активно,Высокий,,Frontend,2023-02-05,2024-05-10,v1.2,-
 src/components/common/Avatar/Avatar.module.css,Файл,Стили,,Стили аватара,Активно,Высокий,,Frontend,2023-02-05,2024-04-20,v1.1,Низкая
+src/components/common/Avatar/Avatar.stories.tsx,Файл,Тесты,"storybook",Сторибук для аватара,Активно,Высокий,95%,QA,2023-02-10,2024-05-15,v1.5,Средняя
+src/components/common/Avatar/Avatar.test.tsx,Файл,Тесты,"jest, react-testing-library",Тесты компонента аватара,Активно,Высокий,95%,QA,2023-02-08,2024-05-12,v1.8,Средняя
 src/components/common/Avatar/Avatar.tsx,Файл,Компонент,"userTypes",Компонент аватара,Активно,Высокий,95%,Frontend,2023-02-05,2024-05-15,v2.0,Средняя
 src/components/common/Badge/,Директория,Атом,,Бейдж статуса,Активно,Высокий,,Frontend,2023-02-08,2024-05-12,v1.1,-
 src/components/common/Badge/Badge.module.css,Файл,Стили,"priorityStyles.css, statusStyles.css",Стили бейджа,Активно,Высокий,,Frontend,2023-02-08,2024-03-18,v1.0,Низкая
+src/components/common/Badge/Badge.stories.tsx,Файл,Тесты,"storybook",Сторибук для бейджа,Активно,Высокий,92%,QA,2023-02-12,2024-05-10,v1.4,Средняя
+src/components/common/Badge/Badge.test.tsx,Файл,Тесты,"jest",Тесты компонента бейджа,Активно,Высокий,92%,QA,2023-02-10,2024-05-08,v1.6,Средняя
 src/components/common/Badge/Badge.tsx,Файл,Компонент,"ticketTypes",Компонент бейджа,Активно,Высокий,92%,Frontend,2023-02-08,2024-05-10,v1.5,Средняя
 src/components/common/Button/,Директория,Атом,,Кнопка,Активно,Критический,,Frontend,2023-01-25,2024-05-20,v1.0,-
 src/components/common/Button/Button.module.css,Файл,Стили,"themeMixins.css",Стили кнопки,Активно,Критический,,Frontend,2023-01-25,2024-04-15,v1.8,Средняя
+src/components/common/Button/Button.stories.tsx,Файл,Тесты,"storybook",Сторибук для кнопки,Активно,Критический,98%,QA,2023-01-28,2024-05-22,v2.2,Средняя
+src/components/common/Button/Button.test.tsx,Файл,Тесты,"jest",Тесты компонента кнопки,Активно,Критический,98%,QA,2023-01-26,2024-05-18,v2.0,Средняя
 src/components/common/Button/Button.tsx,Файл,Компонент,,Базовый компонент кнопки,Активно,Критический,98%,Frontend,2023-01-25,2024-05-22,v2.5,Средняя
 src/components/common/Card/,Директория,Атом,,Карточка,Активно,Высокий,,Frontend,2023-02-10,2024-05-18,v1.0,-
 src/components/common/Card/Card.module.css,Файл,Стили,"variables.css",Стили карточки,Активно,Высокий,,Frontend,2023-02-10,2024-02-28,v1.2,Низкая
+src/components/common/Card/Card.stories.tsx,Файл,Тесты,"storybook",Сторибук для карточки,Активно,Высокий,96%,QA,2023-02-15,2024-05-15,v1.6,Средняя
+src/components/common/Card/Card.test.tsx,Файл,Тесты,"jest",Тесты компонента карточки,Активно,Высокий,96%,QA,2023-02-12,2024-05-10,v1.8,Средняя
 src/components/common/Card/Card.tsx,Файл,Компонент,,Компонент карточки,Активно,Высокий,96%,Frontend,2023-02-10,2024-05-15,v1.7,Средняя
 src/components/common/Checkbox/,Директория,Атом,,Чекбокс,Активно,Средний,,Frontend,2023-03-05,2024-05-10,v1.1,-
 src/components/common/Checkbox/Checkbox.module.css,Файл,Стили,,Стили чекбокса,Активно,Средний,,Frontend,2023-03-05,2023-11-20,v1.0,Низкая
+src/components/common/Checkbox/Checkbox.stories.tsx,Файл,Тесты,"storybook",Сторибук для чекбокса,Активно,Средний,90%,QA,2023-03-08,2024-04-25,v1.3,Средняя
+src/components/common/Checkbox/Checkbox.test.tsx,Файл,Тесты,"jest",Тесты компонента чекбокса,Активно,Средний,90%,QA,2023-03-07,2024-04-20,v1.4,Средняя
 src/components/common/Checkbox/Checkbox.tsx,Файл,Компонент,,Компонент чекбокса,Активно,Средний,90%,Frontend,2023-03-05,2024-04-25,v1.4,Средняя
 src/components/common/FileUploader/,Директория,Атом,,Загрузчик файлов,Активно,Высокий,,Frontend,2023-03-15,2024-05-22,v1.2,-
 src/components/common/FileUploader/FileUploader.module.css,Файл,Стили,,Стили загрузчика,Активно,Высокий,,Frontend,2023-03-15,2024-01-10,v1.1,Низкая
+src/components/common/FileUploader/FileUploader.stories.tsx,Файл,Тесты,"storybook",Сторибук для загрузчика,Активно,Высокий,88%,QA,2023-03-18,2024-05-18,v1.7,Средняя
+src/components/common/FileUploader/FileUploader.test.tsx,Файл,Тесты,"jest",Тесты компонента загрузчика,Активно,Высокий,88%,QA,2023-03-17,2024-05-15,v1.8,Средняя
 src/components/common/FileUploader/FileUploader.tsx,Файл,Компонент,"fileUtils",Компонент загрузки файлов,Активно,Высокий,88%,Frontend,2023-03-15,2024-05-18,v1.9,Высокая
 src/components/common/Icon/,Директория,Атом,,Иконка,Активно,Высокий,,Frontend,2023-02-18,2024-05-15,v1.0,-
 src/components/common/Icon/Icon.module.css,Файл,Стили,"fonts.css",Стили иконки,Активно,Высокий,,Frontend,2023-02-18,2023-12-05,v1.0,Низкая
+src/components/common/Icon/Icon.stories.tsx,Файл,Тесты,"storybook",Сторибук для иконки,Активно,Высокий,94%,QA,2023-02-22,2024-05-10,v2.0,Средняя
+src/components/common/Icon/Icon.test.tsx,Файл,Тесты,"jest",Тесты компонента иконки,Активно,Высокий,94%,QA,2023-02-20,2024-05-08,v1.9,Средняя
 src/components/common/Icon/Icon.tsx,Файл,Компонент,,Компонент иконки,Активно,Высокий,94%,Frontend,2023-02-18,2024-05-10,v2.2,Средняя
 src/components/common/Input/,Директория,Атом,,Поле ввода,Активно,Критический,,Frontend,2023-01-28,2024-05-25,v1.0,-
 src/components/common/Input/Input.module.css,Файл,Стили,,Стили поля ввода,Активно,Критический,,Frontend,2023-01-28,2024-03-15,v1.5,Низкая
+src/components/common/Input/Input.stories.tsx,Файл,Тесты,"storybook",Сторибук для поля ввода,Активно,Критический,97%,QA,2023-02-02,2024-05-20,v2.8,Средняя
+src/components/common/Input/Input.test.tsx,Файл,Тесты,"jest",Тесты компонента поля ввода,Активно,Критический,97%,QA,2023-01-30,2024-05-18,v2.5,Средняя
 src/components/common/Input/Input.tsx,Файл,Компонент,"validation",Компонент поля ввода,Активно,Критический,97%,Frontend,2023-01-28,2024-05-20,v3.1,Высокая
+src/components/common/Loader/,Директория,Атом,,Лоадер,Активно,Средний,,Frontend,2024-01-10,2024-05-30,v1.0,-
+src/components/common/Loader/Loader.module.css,Файл,Стили,,Стили лоадера,Активно,Средний,,Frontend,2024-01-10,2024-04-05,v1.1,Низкая
+src/components/common/Loader/Loader.stories.tsx,Файл,Тесты,"storybook",Сторибук для лоадера,Активно,Средний,90%,QA,2024-01-15,2024-05-25,v1.3,Средняя
+src/components/common/Loader/Loader.test.tsx,Файл,Тесты,"jest",Тесты компонента лоадера,Активно,Средний,90%,QA,2024-01-12,2024-05-20,v1.4,Средняя
+src/components/common/Loader/Loader.tsx,Файл,Компонент,,Компонент лоадера,Активно,Средний,90%,Frontend,2024-01-10,2024-05-28,v1.5,Средняя
 src/components/common/Modal/,Директория,Атом,,Модальное окно,Активно,Высокий,,Frontend,2023-03-10,2024-05-18,v1.1,-
 src/components/common/Modal/Modal.module.css,Файл,Стили,,Стили модалки,Активно,Высокий,,Frontend,2023-03-10,2024-02-20,v1.2,Средняя
+src/components/common/Modal/Modal.stories.tsx,Файл,Тесты,"storybook",Сторибук для модалки,Активно,Высокий,93%,QA,2023-03-15,2024-05-15,v1.7,Средняя
+src/components/common/Modal/Modal.test.tsx,Файл,Тесты,"jest",Тесты компонента модалки,Активно,Высокий,93%,QA,2023-03-12,2024-05-10,v1.8,Средняя
 src/components/common/Modal/Modal.tsx,Файл,Компонент,"domUtils",Компонент модального окна,Активно,Высокий,93%,Frontend,2023-03-10,2024-05-15,v2.0,Высокая
 src/components/common/Select/,Директория,Атом,,Выпадающий список,Активно,Высокий,,Frontend,2023-02-15,2024-05-20,v1.0,-
 src/components/common/Select/Select.module.css,Файл,Стили,,Стили селекта,Активно,Высокий,,Frontend,2023-02-15,2024-01-25,v1.1,Низкая
+src/components/common/Select/Select.stories.tsx,Файл,Тесты,"storybook",Сторибук для селекта,Активно,Высокий,91%,QA,2023-02-20,2024-05-18,v1.6,Средняя
+src/components/common/Select/Select.test.tsx,Файл,Тесты,"jest",Тесты компонента селекта,Активно,Высокий,91%,QA,2023-02-18,2024-05-15,v1.7,Средняя
 src/components/common/Select/Select.tsx,Файл,Компонент,"arrayUtils",Компонент выпадающего списка,Активно,Высокий,91%,Frontend,2023-02-15,2024-05-18,v1.8,Высокая
 src/components/common/Tab/,Директория,Атом,,Таб,Активно,Средний,,Frontend,2023-04-05,2024-05-10,v1.0,-
 src/components/common/Tab/Tab.module.css,Файл,Стили,,Стили таба,Активно,Средний,,Frontend,2023-04-05,2023-10-15,v1.0,Низкая
+src/components/common/Tab/Tab.stories.tsx,Файл,Тесты,"storybook",Сторибук для таба,Активно,Средний,89%,QA,2023-04-10,2024-04-28,v1.2,Средняя
+src/components/common/Tab/Tab.test.tsx,Файл,Тесты,"jest",Тесты компонента таба,Активно,Средний,89%,QA,2023-04-08,2024-04-25,v1.3,Средняя
 src/components/common/Tab/Tab.tsx,Файл,Компонент,,Компонент таба,Активно,Средний,89%,Frontend,2023-04-05,2024-04-28,v1.3,Средняя
 src/components/common/TabsNavigation/,Директория,Молекула,,Навигация табами,Активно,Высокий,,Frontend,2023-04-10,2024-05-15,v1.1,-
 src/components/common/TabsNavigation/TabsNavigation.module.css,Файл,Стили,,Стили навигации,Активно,Высокий,,Frontend,2023-04-10,2024-03-05,v1.0,Низкая
+src/components/common/TabsNavigation/TabsNavigation.stories.tsx,Файл,Тесты,"storybook",Сторибук для навигации,Активно,Высокий,95%,QA,2023-04-15,2024-05-12,v1.5,Средняя
+src/components/common/TabsNavigation/TabsNavigation.test.tsx,Файл,Тесты,"jest",Тесты компонента навигации,Активно,Высокий,95%,QA,2023-04-12,2024-05-10,v1.6,Средняя
 src/components/common/TabsNavigation/TabsNavigation.tsx,Файл,Компонент,"Tab",Компонент навигации табами,Активно,Высокий,95%,Frontend,2023-04-10,2024-05-12,v1.7,Средняя
 src/components/common/TextEditor/,Директория,Молекула,,Текстовый редактор,Активно,Высокий,,Frontend,2023-03-20,2024-05-22,v1.2,-
 src/components/common/TextEditor/TextEditor.module.css,Файл,Стили,,Стили редактора,Активно,Высокий,,Frontend,2023-03-20,2024-02-10,v1.1,Средняя
+src/components/common/TextEditor/TextEditor.stories.tsx,Файл,Тесты,"storybook",Сторибук для редактора,Активно,Высокий,90%,QA,2023-03-25,2024-05-18,v2.1,Средняя
+src/components/common/TextEditor/TextEditor.test.tsx,Файл,Тесты,"jest",Тесты компонента редактора,Активно,Высокий,90%,QA,2023-03-22,2024-05-15,v2.0,Средняя
 src/components/common/TextEditor/TextEditor.tsx,Файл,Компонент,"domUtils",WYSIWYG редактор,Активно,Высокий,90%,Frontend,2023-03-20,2024-05-18,v2.3,Высокая
 src/components/common/ThemeToggle/,Директория,Молекула,,Переключатель тем,Активно,Средний,,Frontend,2023-04-01,2024-05-10,v1.0,-
 src/components/common/ThemeToggle/ThemeToggle.module.css,Файл,Стили,,Стили переключателя,Активно,Средний,,Frontend,2023-04-01,2023-09-15,v1.0,Низкая
+src/components/common/ThemeToggle/ThemeToggle.stories.tsx,Файл,Тесты,"storybook",Сторибук для переключателя,Активно,Средний,87%,QA,2023-04-05,2024-04-20,v1.3,Средняя
+src/components/common/ThemeToggle/ThemeToggle.test.tsx,Файл,Тесты,"jest",Тесты компонента переключателя,Активно,Средний,87%,QA,2023-04-03,2024-04-15,v1.4,Средняя
 src/components/common/ThemeToggle/ThemeToggle.tsx,Файл,Компонент,"ThemeProvider",Компонент переключения тем,Активно,Средний,87%,Frontend,2023-04-01,2024-04-20,v1.5,Средняя
 src/components/common/CommentItem/,Директория,Молекула,,Элемент комментария,Активно,Средний,,Frontend,2023-05-10,2024-05-12,v1.0,-
 src/components/common/CommentItem/CommentItem.module.css,Файл,Стили,,Стили комментария,Активно,Средний,,Frontend,2023-05-10,2024-01-20,v1.0,Низкая
+src/components/common/CommentItem/CommentItem.stories.tsx,Файл,Тесты,"storybook",Сторибук для комментария,Активно,Средний,92%,QA,2023-05-15,2024-05-08,v1.3,Средняя
+src/components/common/CommentItem/CommentItem.test.tsx,Файл,Тесты,"jest",Тесты компонента комментария,Активно,Средний,92%,QA,2023-05-12,2024-05-05,v1.4,Средняя
 src/components/common/CommentItem/CommentItem.tsx,Файл,Компонент,"Avatar, dateUtils",Компонент комментария,Активно,Средний,92%,Frontend,2023-05-10,2024-05-08,v1.4,Средняя
 src/components/common/FileItem/,Директория,Молекула,,Элемент файла,Активно,Средний,,Frontend,2023-05-15,2024-05-10,v1.1,-
 src/components/common/FileItem/FileItem.module.css,Файл,Стили,,Стили файла,Активно,Средний,,Frontend,2023-05-15,2023-12-10,v1.0,Низкая
+src/components/common/FileItem/FileItem.stories.tsx,Файл,Тесты,"storybook",Сторибук для файла,Активно,Средний,88%,QA,2023-05-20,2024-04-25,v1.2,Средняя
+src/components/common/FileItem/FileItem.test.tsx,Файл,Тесты,"jest",Тесты компонента файла,Активно,Средний,88%,QA,2023-05-18,2024-04-20,v1.3,Средняя
 src/components/common/FileItem/FileItem.tsx,Файл,Компонент,"Icon, fileUtils",Компонент прикрепленного файла,Активно,Средний,88%,Frontend,2023-05-15,2024-04-25,v1.3,Средняя
 src/components/common/MetaItem/,Директория,Молекула,,Мета-информация,Активно,Средний,,Frontend,2023-05-05,2024-05-08,v1.0,-
 src/components/common/MetaItem/MetaItem.module.css,Файл,Стили,,Стили мета-данных,Активно,Средний,,Frontend,2023-05-05,2023-11-15,v1.0,Низкая
+src/components/common/MetaItem/MetaItem.stories.tsx,Файл,Тесты,"storybook",Сторибук для мета-данных,Активно,Средний,90%,QA,2023-05-08,2024-05-05,v1.5,Средняя
+src/components/common/MetaItem/MetaItem.test.tsx,Файл,Тесты,"jest",Тесты компонента мета-данных,Активно,Средний,90%,QA,2023-05-07,2024-05-01,v1.6,Средняя
 src/components/common/MetaItem/MetaItem.tsx,Файл,Компонент,"ticketTypes, formatters",Компонент мета-информации,Активно,Средний,90%,Frontend,2023-05-05,2024-05-05,v1.6,Средняя
 src/components/common/StatCard/,Директория,Молекула,,Карточка статистики,Активно,Средний,,Frontend,2023-04-15,2024-05-15,v1.0,-
 src/components/common/StatCard/StatCard.module.css,Файл,Стили,,Стили статистики,Активно,Средний,,Frontend,2023-04-15,2024-02-05,v1.1,Низкая
+src/components/common/StatCard/StatCard.stories.tsx,Файл,Тесты,"storybook",Сторибук для статистики,Активно,Средний,93%,QA,2023-04-20,2024-05-10,v1.6,Средняя
+src/components/common/StatCard/StatCard.test.tsx,Файл,Тесты,"jest",Тесты компонента статистики,Активно,Средний,93%,QA,2023-04-18,2024-05-05,v1.7,Средняя
 src/components/common/StatCard/StatCard.tsx,Файл,Компонент,"ticketTypes, statsUtils",Компонент статистической карточки,Активно,Средний,93%,Frontend,2023-04-15,2024-05-10,v1.8,Средняя
 src/components/layout/,Директория,Лейаут,,Компоненты макета,Активно,Критический,,Frontend,2023-01-30,2024-05-28,v1.0,-
 src/components/layout/AppHeader/,Директория,Организм,,Шапка приложения,Активно,Критический,,Frontend,2023-02-01,2024-05-25,v1.0,-
 src/components/layout/AppHeader/AppHeader.module.css,Файл,Стили,,Стили шапки,Активно,Критический,,Frontend,2023-02-01,2024-04-20,v1.5,Средняя
+src/components/layout/AppHeader/AppHeader.stories.tsx,Файл,Тесты,"storybook",Сторибук для шапки,Активно,Критический,96%,QA,2023-02-05,2024-05-22,v2.5,Средняя
+src/components/layout/AppHeader/AppHeader.test.tsx,Файл,Тесты,"jest",Тесты компонента шапки,Активно,Критический,96%,QA,2023-02-03,2024-05-18,v2.3,Средняя
 src/components/layout/AppHeader/AppHeader.tsx,Файл,Компонент,"Avatar, Button, TabsNavigation, AuthContext",Компонент шапки приложения,Активно,Критический,96%,Frontend,2023-02-01,2024-05-22,v2.7,Высокая
 src/components/layout/Footer/,Директория,Организм,,Подвал приложения,Активно,Средний,,Frontend,2023-02-05,2024-05-18,v1.0,-
 src/components/layout/Footer/Footer.module.css,Файл,Стили,,Стили подвала,Активно,Средний,,Frontend,2023-02-05,2024-03-10,v1.2,Низкая
+src/components/layout/Footer/Footer.stories.tsx,Файл,Тесты,"storybook",Сторибук для подвала,Активно,Средний,85%,QA,2023-02-10,2024-05-15,v1.8,Средняя
+src/components/layout/Footer/Footer.test.tsx,Файл,Тесты,"jest",Тесты компонента подвала,Активно,Средний,85%,QA,2023-02-08,2024-05-10,v1.7,Средняя
 src/components/layout/Footer/Footer.tsx,Файл,Компонент,,Компонент подвала,Активно,Средний,85%,Frontend,2023-02-05,2024-05-15,v1.9,Средняя
-src/components/layout/MainContentLayout/,Директория,Организм,,Основной контент,Активно,Критический,,Frontend,2023-02-10,2024-05-22,v1.0,-
-src/components/layout/MainContentLayout/MainContentLayout.module.css,Файл,Стили,,Стили контента,Активно,Критический,,Frontend,2023-02-10,2024-04-15,v1.4,Средняя
-src/components/layout/MainContentLayout/MainContentLayout.tsx,Файл,Компонент,"Sidebar",Лейаут основного контента,Активно,Критический,97%,Frontend,2023-02-10,2024-05-20,v2.2,Средняя
+src/components/layout/MainContent/,Директория,Организм,,Основной контент,Активно,Критический,,Frontend,2023-02-10,2024-05-22,v1.0,-
+src/components/layout/MainContent/MainContent.module.css,Файл,Стили,,Стили контента,Активно,Критический,,Frontend,2023-02-10,2024-04-15,v1.4,Средняя
+src/components/layout/MainContent/MainContent.stories.tsx,Файл,Тесты,"storybook",Сторибук для контента,Активно,Критический,97%,QA,2023-02-15,2024-05-20,v2.0,Средняя
+src/components/layout/MainContent/MainContent.test.tsx,Файл,Тесты,"jest",Тесты компонента контента,Активно,Критический,97%,QA,2023-02-12,2024-05-15,v1.9,Средняя
+src/components/layout/MainContent/MainContent.tsx,Файл,Компонент,"Sidebar",Лейаут основного контента,Активно,Критический,97%,Frontend,2023-02-10,2024-05-20,v2.2,Средняя
 src/components/layout/Sidebar/,Директория,Организм,,Боковая панель,Активно,Высокий,,Frontend,2023-02-12,2024-05-18,v1.0,-
 src/components/layout/Sidebar/Sidebar.module.css,Файл,Стили,,Стили сайдбара,Активно,Высокий,,Frontend,2023-02-12,2024-03-18,v1.3,Средняя
+src/components/layout/Sidebar/Sidebar.stories.tsx,Файл,Тесты,"storybook",Сторибук для сайдбара,Активно,Высокий,94%,QA,2023-02-18,2024-05-15,v1.6,Средняя
+src/components/layout/Sidebar/Sidebar.test.tsx,Файл,Тесты,"jest",Тесты компонента сайдбара,Активно,Высокий,94%,QA,2023-02-15,2024-05-10,v1.7,Средняя
 src/components/layout/Sidebar/Sidebar.tsx,Файл,Компонент,"FiltersPanel, StatsPanel",Компонент боковой панели,Активно,Высокий,94%,Frontend,2023-02-12,2024-05-15,v1.8,Высокая
 src/components/requests/,Директория,Заявки,,Компоненты заявок,Активно,Критический,,Frontend,2023-03-01,2024-05-28,v1.0,-
 src/components/requests/CategoryAccordion/,Директория,Организм,,Аккордеон категорий,Активно,Высокий,,Frontend,2023-03-05,2024-05-20,v1.1,-
 src/components/requests/CategoryAccordion/CategoryAccordion.module.css,Файл,Стили,,Стили аккордеона,Активно,Высокий,,Frontend,2023-03-05,2024-02-15,v1.0,Средняя
+src/components/requests/CategoryAccordion/CategoryAccordion.stories.tsx,Файл,Тесты,"storybook",Сторибук для аккордеона,Активно,Высокий,93%,QA,2023-03-10,2024-05-18,v1.6,Средняя
+src/components/requests/CategoryAccordion/CategoryAccordion.test.tsx,Файл,Тесты,"jest",Тесты компонента аккордеона,Активно,Высокий,93%,QA,2023-03-08,2024-05-15,v1.7,Средняя
 src/components/requests/CategoryAccordion/CategoryAccordion.tsx,Файл,Компонент,"problemCategories, formatters",Компонент аккордеона категорий,Активно,Высокий,93%,Frontend,2023-03-05,2024-05-18,v1.7,Высокая
 src/components/requests/PriorityBlock/,Директория,Организм,,Блок приоритетов,Активно,Высокий,,Frontend,2023-03-10,2024-05-15,v1.0,-
 src/components/requests/PriorityBlock/PriorityBlock.module.css,Файл,Стили,,Стили блока приоритетов,Активно,Высокий,,Frontend,2023-03-10,2024-01-20,v1.1,Низкая
+src/components/requests/PriorityBlock/PriorityBlock.stories.tsx,Файл,Тесты,"storybook",Сторибук для блока приоритетов,Активно,Высокий,91%,QA,2023-03-15,2024-05-10,v1.5,Средняя
+src/components/requests/PriorityBlock/PriorityBlock.test.tsx,Файл,Тесты,"jest",Тесты компонента блока приоритетов,Активно,Высокий,91%,QA,2023-03-12,2024-05-05,v1.6,Средняя
 src/components/requests/PriorityBlock/PriorityBlock.tsx,Файл,Компонент,"PriorityIndicator, problemCategories",Компонент блока приоритетов,Активно,Высокий,91%,Frontend,2023-03-10,2024-05-10,v1.6,Средняя
 src/components/requests/RequestCard/,Директория,Организм,,Карточка заявки,Активно,Критический,,Frontend,2023-03-01,2024-05-25,v1.0,-
 src/components/requests/RequestCard/RequestCard.module.css,Файл,Стили,,Стили карточки заявки,Активно,Критический,,Frontend,2023-03-01,2024-04-10,v1.4,Средняя
+src/components/requests/RequestCard/RequestCard.stories.tsx,Файл,Тесты,"storybook",Сторибук для карточки заявки,Активно,Критический,98%,QA,2023-03-05,2024-05-22,v2.3,Средняя
+src/components/requests/RequestCard/RequestCard.test.tsx,Файл,Тесты,"jest",Тесты компонента карточки заявки,Активно,Критический,98%,QA,2023-03-03,2024-05-18,v2.1,Средняя
 src/components/requests/RequestCard/RequestCard.tsx,Файл,Компонент,"SystemTag, PriorityIndicator, StatusIndicator, dateUtils",Компонент карточки заявки,Активно,Критический,98%,Frontend,2023-03-01,2024-05-22,v2.5,Высокая
 src/components/requests/RequestForm/,Директория,Организм,,Форма заявки,Активно,Критический,,Frontend,2023-03-15,2024-05-28,v1.0,-
 src/components/requests/RequestForm/RequestForm.module.css,Файл,Стили,,Стили формы,Активно,Критический,,Frontend,2023-03-15,2024-03-20,v1.3,Средняя
+src/components/requests/RequestForm/RequestForm.stories.tsx,Файл,Тесты,"storybook",Сторибук для формы,Активно,Критический,95%,QA,2023-03-20,2024-05-25,v2.8,Средняя
+src/components/requests/RequestForm/RequestForm.test.tsx,Файл,Тесты,"jest",Тесты компонента формы,Активно,Критический,95%,QA,2023-03-18,2024-05-22,v2.5,Средняя
 src/components/requests/RequestForm/RequestForm.tsx,Файл,Компонент,"TextEditor, FileUploader, Select, Input",Форма создания/редактирования заявки,Активно,Критический,95%,Frontend,2023-03-15,2024-05-25,v3.0,Высокая
 src/components/requests/RequestGrid/,Директория,Организм,,Сетка заявок,Активно,Критический,,Frontend,2023-04-01,2024-05-22,v1.0,-
 src/components/requests/RequestGrid/RequestGrid.module.css,Файл,Стили,,Стили сетки,Активно,Критический,,Frontend,2023-04-01,2024-02-28,v1.2,Средняя
+src/components/requests/RequestGrid/RequestGrid.stories.tsx,Файл,Тесты,"storybook",Сторибук для сетки,Активно,Критический,96%,QA,2023-04-05,2024-05-20,v1.8,Средняя
+src/components/requests/RequestGrid/RequestGrid.test.tsx,Файл,Тесты,"jest",Тесты компонента сетки,Активно,Критический,96%,QA,2023-04-03,2024-05-15,v1.7,Средняя
 src/components/requests/RequestGrid/RequestGrid.tsx,Файл,Компонент,"RequestCard, useFilters",Компонент сетки заявок,Активно,Критический,96%,Frontend,2023-04-01,2024-05-20,v1.9,Высокая
 src/components/requests/RequestTable/,Директория,Организм,,Таблица заявок,Активно,Критический,,Frontend,2023-04-05,2024-05-25,v1.0,-
 src/components/requests/RequestTable/RequestTable.module.css,Файл,Стили,,Стили таблицы,Активно,Критический,,Frontend,2023-04-05,2024-03-15,v1.3,Средняя
+src/components/requests/RequestTable/RequestTable.stories.tsx,Файл,Тесты,"storybook",Сторибук для таблицы,Активно,Критический,97%,QA,2023-04-10,2024-05-18,v2.0,Средняя
+src/components/requests/RequestTable/RequestTable.test.tsx,Файл,Тесты,"jest",Тесты компонента таблицы,Активно,Критический,97%,QA,2023-04-08,2024-05-15,v1.9,Средняя
 src/components/requests/RequestTable/RequestTable.tsx,Файл,Компонент,"RequestCard, useFilters, usePagination",Табличное представление заявок,Активно,Критический,97%,Frontend,2023-04-05,2024-05-18,v2.1,Высокая
 src/components/requests/SystemChoiceCard/,Директория,Организм,,Карточка выбора системы,Активно,Высокий,,Frontend,2023-04-10,2024-05-15,v1.0,-
 src/components/requests/SystemChoiceCard/SystemChoiceCard.module.css,Файл,Стили,,Стили карточки системы,Активно,Высокий,,Frontend,2023-04-10,2024-01-30,v1.1,Низкая
+src/components/requests/SystemChoiceCard/SystemChoiceCard.stories.tsx,Файл,Тесты,"storybook",Сторибук для выбора системы,Активно,Высокий,92%,QA,2023-04-15,2024-05-10,v1.4,Средняя
+src/components/requests/SystemChoiceCard/SystemChoiceCard.test.tsx,Файл,Тесты,"jest",Тесты компонента выбора системы,Активно,Высокий,92%,QA,2023-04-12,2024-05-05,v1.5,Средняя
 src/components/requests/SystemChoiceCard/SystemChoiceCard.tsx,Файл,Компонент,"Icon, variables.css",Компонент выбора системы,Активно,Высокий,92%,Frontend,2023-04-10,2024-05-10,v1.5,Средняя
 src/components/requests/TicketComments/,Директория,Организм,,Комментарии тикета,Активно,Высокий,,Frontend,2023-05-01,2024-05-20,v1.0,-
 src/components/requests/TicketComments/TicketComments.module.css,Файл,Стили,,Стили комментариев,Активно,Высокий,,Frontend,2023-05-01,2024-02-25,v1.2,Средняя
+src/components/requests/TicketComments/TicketComments.stories.tsx,Файл,Тесты,"storybook",Сторибук для комментариев,Активно,Высокий,94%,QA,2023-05-05,2024-05-15,v1.7,Средняя
+src/components/requests/TicketComments/TicketComments.test.tsx,Файл,Тесты,"jest",Тесты компонента комментариев,Активно,Высокий,94%,QA,2023-05-03,2024-05-10,v1.8,Средняя
 src/components/requests/TicketComments/TicketComments.tsx,Файл,Компонент,"CommentItem, Input, Button",Компонент комментариев к тикету,Активно,Высокий,94%,Frontend,2023-05-01,2024-05-15,v1.8,Высокая
 src/components/requests/TicketDetails/,Директория,Организм,,Детали тикета,Активно,Критический,,Frontend,2023-05-05,2024-05-25,v1.0,-
 src/components/requests/TicketDetails/TicketDetails.module.css,Файл,Стили,,Стили деталей,Активно,Критический,,Frontend,2023-05-05,2024-03-28,v1.3,Средняя
+src/components/requests/TicketDetails/TicketDetails.stories.tsx,Файл,Тесты,"storybook",Сторибук для деталей,Активно,Критический,96%,QA,2023-05-10,2024-05-22,v1.9,Средняя
+src/components/requests/TicketDetails/TicketDetails.test.tsx,Файл,Тесты,"jest",Тесты компонента деталей,Активно,Критический,96%,QA,2023-05-08,2024-05-18,v1.8,Средняя
 src/components/requests/TicketDetails/TicketDetails.tsx,Файл,Компонент,"MetaItem, TicketHeader, TextEditor",Компонент деталей тикета,Активно,Критический,96%,Frontend,2023-05-05,2024-05-22,v2.0,Высокая
 src/components/requests/ViewToggle/,Директория,Организм,,Переключатель вида,Активно,Средний,,Frontend,2023-05-10,2024-05-18,v1.0,-
 src/components/requests/ViewToggle/ViewToggle.module.css,Файл,Стили,,Стили переключателя,Активно,Средний,,Frontend,2023-05-10,2024-01-15,v1.1,Низкая
+src/components/requests/ViewToggle/ViewToggle.stories.tsx,Файл,Тесты,"storybook",Сторибук для переключателя,Активно,Средний,89%,QA,2023-05-15,2024-05-10,v1.3,Средняя
+src/components/requests/ViewToggle/ViewToggle.test.tsx,Файл,Тесты,"jest",Тесты компонента переключателя,Активно,Средний,89%,QA,2023-05-12,2024-05-05,v1.4,Средняя
 src/components/requests/ViewToggle/ViewToggle.tsx,Файл,Компонент,"Button, useMediaQuery",Компонент переключения вида,Активно,Средний,89%,Frontend,2023-05-10,2024-05-10,v1.4,Средняя
 src/components/section/,Директория,Секции,,Комплексные секции,Активно,Критический,,Frontend,2023-01-25,2024-05-28,v1.0,-
 src/components/section/AdminPanel/,Директория,Шаблон,,Панель администратора,Активно,Высокий,,Frontend,2023-06-01,2024-05-25,v1.0,-
 src/components/section/AdminPanel/AdminPanel.module.css,Файл,Стили,,Стили админ-панели,Активно,Высокий,,Frontend,2023-06-01,2024-02-20,v1.2,Средняя
+src/components/section/AdminPanel/AdminPanel.stories.tsx,Файл,Тесты,"storybook",Сторибук для админ-панели,Активно,Высокий,93%,QA,2023-06-05,2024-05-22,v1.6,Средняя
+src/components/section/AdminPanel/AdminPanel.test.tsx,Файл,Тесты,"jest",Тесты компонента админ-панели,Активно,Высокий,93%,QA,2023-06-03,2024-05-18,v1.7,Средняя
 src/components/section/AdminPanel/AdminPanel.tsx,Файл,Компонент,"UserTable, UserEditForm, usersAPI",Панель администратора,Активно,Высокий,93%,Frontend,2023-06-01,2024-05-22,v1.7,Высокая
 src/components/section/HelpSection/,Директория,Шаблон,,Секция помощи,Активно,Средний,,Frontend,2023-06-05,2024-05-18,v1.0,-
 src/components/section/HelpSection/HelpSection.module.css,Файл,Стили,,Стили помощи,Активно,Средний,,Frontend,2023-06-05,2024-01-25,v1.1,Низкая
+src/components/section/HelpSection/HelpSection.stories.tsx,Файл,Тесты,"storybook",Сторибук для помощи,Активно,Средний,87%,QA,2023-06-10,2024-05-15,v1.4,Средняя
+src/components/section/HelpSection/HelpSection.test.tsx,Файл,Тесты,"jest",Тесты компонента помощи,Активно,Средний,87%,QA,2023-06-08,2024-05-10,v1.5,Средняя
 src/components/section/HelpSection/HelpSection.tsx,Файл,Компонент,"ContactItem, QAItem, Icon",Секция помощи,Активно,Средний,87%,Frontend,2023-06-05,2024-05-15,v1.5,Средняя
 src/components/section/ModerationPanel/,Директория,Шаблон,,Панель модерации,Активно,Высокий,,Frontend,2023-06-10,2024-05-22,v1.0,-
 src/components/section/ModerationPanel/ModerationPanel.module.css,Файл,Стили,,Стили модерации,Активно,Высокий,,Frontend,2023-06-10,2024-03-10,v1.3,Средняя
+src/components/section/ModerationPanel/ModerationPanel.stories.tsx,Файл,Тесты,"storybook",Сторибук для модерации,Активно,Высокий,95%,QA,2023-06-15,2024-05-20,v1.7,Средняя
+src/components/section/ModerationPanel/ModerationPanel.test.tsx,Файл,Тесты,"jest",Тесты компонента модерации,Активно,Высокий,95%,QA,2023-06-12,2024-05-15,v1.8,Средняя
 src/components/section/ModerationPanel/ModerationPanel.tsx,Файл,Компонент,"RequestTable, useFilters",Панель модерации заявок,Активно,Высокий,95%,Frontend,2023-06-10,2024-05-20,v1.8,Высокая
 src/components/section/ProfileSection/,Директория,Шаблон,,Секция профиля,Активно,Высокий,,Frontend,2023-06-15,2024-05-25,v1.0,-
 src/components/section/ProfileSection/ProfileSection.module.css,Файл,Стили,,Стили профиля,Активно,Высокий,,Frontend,2023-06-15,2024-02-15,v1.2,Средняя
+src/components/section/ProfileSection/ProfileSection.stories.tsx,Файл,Тесты,"storybook",Сторибук для профиля,Активно,Высокий,94%,QA,2023-06-20,2024-05-18,v1.5,Средняя
+src/components/section/ProfileSection/ProfileSection.test.tsx,Файл,Тесты,"jest",Тесты компонента профиля,Активно,Высокий,94%,QA,2023-06-18,2024-05-15,v1.6,Средняя
 src/components/section/ProfileSection/ProfileSection.tsx,Файл,Компонент,"StatCard, Form, userUtils",Секция профиля пользователя,Активно,Высокий,94%,Frontend,2023-06-15,2024-05-18,v1.6,Высокая
+src/components/section/ReportFieldsManagerPanel/,Директория,Шаблон,,Управление полями отчетов,Активно,Высокий,,Frontend,2024-02-10,2024-05-28,v1.0,-
+src/components/section/ReportFieldsManagerPanel/ReportFieldsManagerPanel.module.css,Файл,Стили,,Стили управления полями,Активно,Высокий,,Frontend,2024-02-10,2024-04-15,v1.2,Средняя
+src/components/section/ReportFieldsManagerPanel/ReportFieldsManagerPanel.stories.tsx,Файл,Тесты,"storybook",Сторибук для управления полями,Активно,Высокий,90%,QA,2024-02-15,2024-05-25,v1.5,Средняя
+src/components/section/ReportFieldsManagerPanel/ReportFieldsManagerPanel.test.tsx,Файл,Тесты,"jest",Тесты компонента управления полями,Активно,Высокий,90%,QA,2024-02-12,2024-05-20,v1.6,Средняя
+src/components/section/ReportFieldsManagerPanel/ReportFieldsManagerPanel.tsx,Файл,Компонент,"FieldCreator, FieldDependencyGraph",Панель управления полями отчетов,Активно,Высокий,90%,Frontend,2024-02-10,2024-05-25,v1.4,Высокая
 src/hooks/,Директория,Хуки,,Кастомные хуки,Активно,Высокий,,Frontend,2023-02-20,2024-05-28,v1.0,-
 src/hooks/useFilters.ts,Файл,Хук,"arrayUtils, dateUtils",Хук фильтрации данных,Активно,Высокий,96%,Frontend,2023-02-20,2024-05-20,v1.8,Средняя
 src/hooks/useLocalStorage.ts,Файл,Хук,"localStorage",Хук работы с localStorage,Активно,Высокий,98%,Frontend,2023-02-20,2024-05-15,v2.1,Средняя
@@ -139,34 +221,74 @@ src/hooks/useRealtimeUpdates.ts,Файл,Хук,"realtimeSlice",Хук real-time
 src/pages/,Директория,Страницы,,Страницы приложения,Активно,Критический,,Frontend,2023-01-30,2024-05-28,v1.0,-
 src/pages/AdminPage/,Директория,Страница,,Страница администратора,Активно,Высокий,,Frontend,2023-08-01,2024-05-25,v1.0,-
 src/pages/AdminPage/AdminPage.module.css,Файл,Стили,,Стили страницы,Активно,Высокий,,Frontend,2023-08-01,2024-03-20,v1.2,Средняя
+src/pages/AdminPage/AdminPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для админ-страницы,Активно,Высокий,94%,QA,2023-08-05,2024-05-22,v1.6,Средняя
+src/pages/AdminPage/AdminPage.test.tsx,Файл,Тесты,"jest",Тесты страницы администратора,Активно,Высокий,94%,QA,2023-08-03,2024-05-18,v1.7,Средняя
 src/pages/AdminPage/AdminPage.tsx,Файл,Страница,"AdminPanel, PrivateRoute, authSlice",Страница администрирования,Активно,Высокий,94%,Frontend,2023-08-01,2024-05-22,v1.7,Высокая
+src/pages/AdminPanelPage/,Директория,Страница,,Панель администратора,Активно,Высокий,,Frontend,2023-08-05,2024-05-22,v1.0,-
+src/pages/AdminPanelPage/AdminPanelPage.module.css,Файл,Стили,,Стили панели,Активно,Высокий,,Frontend,2023-08-05,2024-02-25,v1.2,Средняя
+src/pages/AdminPanelPage/AdminPanelPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для панели,Активно,Высокий,93%,QA,2023-08-10,2024-05-20,v1.6,Средняя
+src/pages/AdminPanelPage/AdminPanelPage.test.tsx,Файл,Тесты,"jest",Тесты страницы панели,Активно,Высокий,93%,QA,2023-08-08,2024-05-15,v1.7,Средняя
+src/pages/AdminPanelPage/AdminPanelPage.tsx,Файл,Страница,"AdminPanel, PrivateRoute",Страница административной панели,Активно,Высокий,93%,Frontend,2023-08-05,2024-05-20,v1.6,Высокая
 src/pages/CreateRequestPage/,Директория,Страница,,Создание заявки,Активно,Критический,,Frontend,2023-07-10,2024-05-22,v1.0,-
 src/pages/CreateRequestPage/CreateRequestPage.module.css,Файл,Стили,,Стили страницы,Активно,Критический,,Frontend,2023-07-10,2024-04-15,v1.4,Средняя
+src/pages/CreateRequestPage/CreateRequestPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для создания заявок,Активно,Критический,96%,QA,2023-07-15,2024-05-20,v2.1,Средняя
+src/pages/CreateRequestPage/CreateRequestPage.test.tsx,Файл,Тесты,"jest",Тесты страницы создания заявки,Активно,Критический,96%,QA,2023-07-12,2024-05-15,v2.0,Средняя
 src/pages/CreateRequestPage/CreateRequestPage.tsx,Файл,Страница,"RequestFlow, SystemSelector, PrioritySelector",Страница создания заявки,Активно,Критический,96%,Frontend,2023-07-10,2024-05-20,v2.2,Высокая
 src/pages/HelpPage/,Директория,Страница,,Страница помощи,Активно,Средний,,Frontend,2023-07-15,2024-05-18,v1.0,-
 src/pages/HelpPage/HelpPage.module.css,Файл,Стили,,Стили помощи,Активно,Средний,,Frontend,2023-07-15,2024-01-30,v1.1,Низкая
+src/pages/HelpPage/HelpPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для помощи,Активно,Средний,88%,QA,2023-07-20,2024-05-15,v1.4,Средняя
+src/pages/HelpPage/HelpPage.test.tsx,Файл,Тесты,"jest",Тесты страницы помощи,Активно,Средний,88%,QA,2023-07-18,2024-05-10,v1.5,Средняя
 src/pages/HelpPage/HelpPage.tsx,Файл,Страница,"HelpSection, AppLayout",Страница помощи и поддержки,Активно,Средний,88%,Frontend,2023-07-15,2024-05-15,v1.5,Средняя
 src/pages/LoginPage/,Директория,Страница,,Страница входа,Активно,Критический,,Frontend,2023-06-01,2024-05-25,v1.0,-
 src/pages/LoginPage/LoginPage.module.css,Файл,Стили,,Стили входа,Активно,Критический,,Frontend,2023-06-01,2024-03-28,v1.3,Средняя
+src/pages/LoginPage/LoginPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для входа,Активно,Критический,97%,QA,2023-06-05,2024-05-22,v2.4,Средняя
+src/pages/LoginPage/LoginPage.test.tsx,Файл,Тесты,"jest",Тесты страницы входа,Активно,Критический,97%,QA,2023-06-03,2024-05-18,v2.2,Средняя
 src/pages/LoginPage/LoginPage.tsx,Файл,Страница,"AuthForm, GuestRoute, AuthContext",Страница авторизации,Активно,Критический,97%,Frontend,2023-06-01,2024-05-22,v2.5,Высокая
-src/pages/MainPage/,Директория,Страница,,Главная страница,Активно,Критический,,Frontend,2023-06-05,2024-05-28,v1.0,-
+src/pages/MainPage/,Директория,Страция,,Главная страница,Активно,Критический,,Frontend,2023-06-05,2024-05-28,v1.0,-
 src/pages/MainPage/MainPage.module.css,Файл,Стили,,Стили главной,Активно,Критический,,Frontend,2023-06-05,2024-04-20,v1.5,Средняя
+src/pages/MainPage/MainPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для главной,Активно,Критический,98%,QA,2023-06-10,2024-05-25,v2.8,Средняя
+src/pages/MainPage/MainPage.test.tsx,Файл,Тесты,"jest",Тесты главной страницы,Активно,Критический,98%,QA,2023-06-08,2024-05-22,v2.5,Средняя
 src/pages/MainPage/MainPage.tsx,Файл,Страница,"RequestGrid/RequestTable, FiltersPanel, StatsPanel, requestsSlice",Главная страница системы,Активно,Критический,98%,Frontend,2023-06-05,2024-05-25,v3.0,Высокая
 src/pages/ModerationPage/,Директория,Страница,,Модерация,Активно,Высокий,,Frontend,2023-08-05,2024-05-22,v1.0,-
 src/pages/ModerationPage/ModerationPage.module.css,Файл,Стили,,Стили модерации,Активно,Высокий,,Frontend,2023-08-05,2024-02-25,v1.2,Средняя
+src/pages/ModerationPage/ModerationPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для модерации,Активно,Высокий,95%,QA,2023-08-10,2024-05-20,v1.7,Средняя
+src/pages/ModerationPage/ModerationPage.test.tsx,Файл,Тесты,"jest",Тесты страницы модерации,Активно,Высокий,95%,QA,2023-08-08,2024-05-15,v1.8,Средняя
 src/pages/ModerationPage/ModerationPage.tsx,Файл,Страница,"ModerationPanel, PrivateRoute",Страница модерации заявок,Активно,Высокий,95%,Frontend,2023-08-05,2024-05-20,v1.8,Высокая
 src/pages/NotFoundPage/,Директория,Страница,,Страница 404,Активно,Средний,,Frontend,2023-06-10,2024-05-18,v1.0,-
 src/pages/NotFoundPage/NotFoundPage.module.css,Файл,Стили,,Стили 404,Активно,Средний,,Frontend,2023-06-10,2024-01-15,v1.1,Низкая
+src/pages/NotFoundPage/NotFoundPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для 404,Активно,Средний,85%,QA,2023-06-15,2024-05-10,v1.3,Средняя
+src/pages/NotFoundPage/NotFoundPage.test.tsx,Файл,Тесты,"jest",Тесты страницы 404,Активно,Средний,85%,QA,2023-06-12,2024-05-05,v1.4,Средняя
 src/pages/NotFoundPage/NotFoundPage.tsx,Файл,Страница,"EmptyLayout",Страница "Не найдено",Активно,Средний,85%,Frontend,2023-06-10,2024-05-10,v1.4,Средняя
 src/pages/ProfilePage/,Директория,Страница,,Профиль пользователя,Активно,Высокий,,Frontend,2023-07-20,2024-05-25,v1.0,-
 src/pages/ProfilePage/ProfilePage.module.css,Файл,Стили,,Стили профиля,Активно,Высокий,,Frontend,2023-07-20,2024-03-15,v1.3,Средняя
+src/pages/ProfilePage/ProfilePage.stories.tsx,Файл,Тесты,"storybook",Сторибук для профиля,Активно,Высокий,94%,QA,2023-07-25,2024-05-22,v1.6,Средняя
+src/pages/ProfilePage/ProfilePage.test.tsx,Файл,Тесты,"jest",Тесты страницы профиля,Активно,Высокий,94%,QA,2023-07-22,2024-05-18,v1.7,Средняя
 src/pages/ProfilePage/ProfilePage.tsx,Файл,Страница,"ProfileSection, PrivateRoute",Страница профиля пользователя,Активно,Высокий,94%,Frontend,2023-07-20,2024-05-22,v1.7,Высокая
 src/pages/RegisterPage/,Директория,Страница,,Регистрация,Активно,Высокий,,Frontend,2023-06-15,2024-05-18,v1.0,-
 src/pages/RegisterPage/RegisterPage.module.css,Файл,Стили,,Стили регистрации,Активно,Высокий,,Frontend,2023-06-15,2024-02-10,v1.2,Средняя
-src/pages/RegisterPage/RegisterPage.tsx,Файл,Страница,"AuthForm, GuestRoute",Страница регистрации,Активно,Высокий,93%,Frontend,2023-06-15,2024-05-15,v1.9,Высокая
+src/pages/RegisterPage/RegisterPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для регистрации,Активно,Высокий,93%,QA,2023-06-20,2024-05-15,v1.8,Средняя
+src/pages/RegisterPage/RegisterPage.test.tsx,Файл,Тесты,"jest",Тесты страницы регистрации,Активно,Высокий,93%,QA,2023-06-18,2024-05-10,v1.9,Средняя
+src/pages/RegisterPage/RegisterPage.tsx,Файл,Страция,"AuthForm, GuestRoute",Страница регистрации,Активно,Высокий,93%,Frontend,2023-06-15,2024-05-15,v1.9,Высокая
+src/pages/ReportBuilderPage/,Директория,Страница,,Конструктор отчетов,Активно,Высокий,,Frontend,2024-03-10,2024-05-28,v1.0,-
+src/pages/ReportBuilderPage/ReportBuilderPage.module.css,Файл,Стили,,Стили конструктора,Активно,Высокий,,Frontend,2024-03-10,2024-04-20,v1.3,Средняя
+src/pages/ReportBuilderPage/ReportBuilderPage.stories.tsx,Файл,Тесты,"storybook",Сторибук для конструктора,Активно,Высокий,92%,QA,2024-03-15,2024-05-25,v1.5,Средняя
+src/pages/ReportBuilderPage/ReportBuilderPage.test.tsx,Файл,Тесты,"jest",Тесты страницы конструктора,Активно,Высокий,92%,QA,2024-03-12,2024-05-20,v1.6,Средняя
+src/pages/ReportBuilderPage/ReportBuilderPage.tsx,Файл,Страница,"ReportFieldsManagerPanel",Страница конструктора отчетов,Активно,Высокий,92%,Frontend,2024-03-10,2024-05-25,v1.4,Высокая
+src/routes/,Директория,Роутинг,,Маршрутизация,Активно,Критический,,Frontend,2023-04-15,2024-05-25,v1.0,-
+src/routes/GuestRoute.tsx,Файл,Компонент,"AuthContext, Navigate",Роут для гостей,Активно,Критический,95%,Frontend,2023-04-15,2024-05-22,v1.8,Средняя
+src/routes/index.ts,Файл,Утилита,,Экспорт роутов,Активно,Критический,100%,Frontend,2023-04-15,2023-10-10,v1.0,Низкая
+src/routes/PrivateRoute.tsx,Файл,Компонент,"AuthContext, Navigate",Защищенный роут,Активно,Критический,96%,Frontend,2023-04-15,2024-05-20,v1.9,Средняя
+src/routes/Router.tsx,Файл,Компонент,"BrowserRouter, Routes, Route",Основной роутер,Активно,Критический,97%,Frontend,2023-04-15,2024-05-18,v2.0,Средняя
+src/routes/routes.d.ts,Файл,Типы,,Типы для роутов,Активно,Высокий,,Frontend,2023-04-15,2023-12-15,v1.2,Низкая
+src/routes/routesConfig.tsx,Файл,Конфиг,"lazy, Suspense",Конфигурация маршрутов,Активно,Критический,98%,Frontend,2023-04-15,2024-05-15,v2.1,Средняя
 src/services/,Директория,Сервисы,,Бизнес-логика и API,Активно,Критический,,Backend,2023-03-10,2024-05-28,v1.0,-
 src/services/api/,Директория,API,,Работа с API,Активно,Критический,,Backend,2023-03-15,2024-05-25,v1.0,-
+src/services/api/axios.ts,Файл,Утилита,"axios",Конфигурация Axios,Активно,Критический,95%,Backend,2023-09-01,2024-05-22,v1.6,Средняя
+src/services/api/config.ts,Файл,Конфиг,,Настройки API,Активно,Критический,,Backend,2023-03-15,2023-12-10,v1.0,Низкая
 src/services/api/gateway.ts,Файл,Сервис,"axios",API Gateway,Активно,Критический,95%,Backend,2023-09-01,2024-05-22,v1.6,Высокая
+src/services/api/index.ts,Файл,Утилита,,Экспорт API,Активно,Критический,100%,Backend,2023-03-15,2023-10-20,v1.0,Низкая
+src/services/api/request.ts,Файл,Утилита,"axios",Обертка запросов,Активно,Критический,96%,Backend,2023-03-15,2024-05-20,v2.0,Средняя
+src/services/api/type.ts,Файл,Типы,,Типы API,Активно,Высокий,,Backend,2023-03-15,2024-02-15,v1.3,Низкая
 src/services/api/authAPI.ts,Файл,Сервис,"axios, authMock, localStorage, userTypes",API аутентификации,Активно,Критический,98%,Backend,2023-03-15,2024-05-20,v2.8,Высокая
 src/services/api/requestsAPI.ts,Файл,Сервис,"axios, requestsMock, ticketUtils, ticketTypes",API работы с заявками,Активно,Критический,97%,Backend,2023-03-15,2024-05-18,v2.5,Высокая
 src/services/api/usersAPI.ts,Файл,Сервис,"axios, usersMock, userTypes",API работы с пользователями,Активно,Высокий,96%,Backend,2023-03-15,2024-05-15,v2.3,Высокая
@@ -187,6 +309,7 @@ src/store/requestsSlice.ts,Файл,Store,"requestsAPI, ticketTypes",Слайс 
 src/store/uiSlice.ts,Файл,Store,"ThemeProvider, themeTypes",Слайс UI состояния,Активно,Высокий,97%,Frontend,2023-02-25,2024-05-20,v2.2,Высокая
 src/store/usersSlice.ts,Файл,Store,"usersAPI, userTypes",Слайс пользователей,Активно,Высокий,96%,Frontend,2023-02-25,2024-05-18,v2.0,Высокая
 src/store/realtimeSlice.ts,Файл,Store,"WebSocketService",Слайс real-time данных,Активно,Критический,95%,Frontend,2023-08-10,2024-05-15,v1.5,Высокая
+src/test/,Директория,Тесты,,Тестовые утилиты,Активно,Высокий,,QA,2023-02-01,2024-05-18,v1.0,-
 src/themes/,Директория,Темы,,Система тем,Активно,Высокий,,Frontend,2023-03-01,2024-05-22,v1.0,-
 src/themes/darkTheme.ts,Файл,Тема,"variables.css",Тёмная тема,Активно,Высокий,,Frontend,2023-03-01,2024-04-10,v1.4,Средняя
 src/themes/lightTheme.ts,Файл,Тема,"variables.css",Светлая тема,Активно,Высокий,,Frontend,2023-03-01,2024-04-15,v1.5,Средняя
@@ -195,12 +318,14 @@ src/types/,Директория,Типы,,Типы данных,Активно,�
 src/types/formTypes.ts,Файл,Типы,,Типы для форм,Активно,Высокий,,Frontend,2023-01-15,2024-04-20,v1.3,Низкая
 src/types/ticketTypes.ts,Файл,Типы,,Типы заявок,Активно,Высокий,,Frontend,2023-01-15,2024-05-10,v2.0,Низкая
 src/types/userTypes.ts,Файл,Типы,,Типы пользователей,Активно,Высокий,,Frontend,2023-01-15,2024-05-15,v2.1,Низкая
+src/types/reportFieldTypes.ts,Файл,Типы,,Типы полей отчетов,Активно,Высокий,,Frontend,2024-01-20,2024-05-10,v1.2,Низкая
 src/types/themeTypes.ts,Файл,Типы,,Типы тем оформления,Активно,Средний,,Frontend,2023-03-05,2024-02-28,v1.2,Низкая
 src/utils/,Директория,Утилиты,,Вспомогательные функции,Активно,Высокий,,Frontend,2023-01-20,2024-05-25,v1.0,-
 src/utils/arrayUtils.ts,Файл,Утилита,,Утилиты для массивов,Активно,Высокий,99%,Frontend,2023-01-20,2024-05-22,v2.5,Низкая
 src/utils/dateUtils.ts,Файл,Утилита,"formatters",Утилиты для дат,Активно,Высокий,98%,Frontend,2023-01-20,2024-05-20,v2.2,Средняя
 src/utils/domUtils.ts,Файл,Утилита,"document, window",Утилиты для DOM,Активно,Высокий,97%,Frontend,2023-01-20,2024-05-18,v2.0,Средняя
 src/utils/fileUtils.ts,Файл,Утилита,"File, Blob",Утилиты для файлов,Активно,Высокий,96%,Frontend,2023-01-20,2024-05-15,v1.9,Средняя
+src/utils/fieldUtils.ts,Файл,Утилита,"reportFieldTypes",Утилиты для полей отчетов,Активно,Высокий,94%,Frontend,2024-02-01,2024-05-20,v1.3,Средняя
 src/utils/formatters.ts,Файл,Утилита,"Intl.DateTimeFormat",Форматировщики данных,Активно,Высокий,98%,Frontend,2023-01-20,2024-05-10,v2.3,Средняя
 src/utils/statsUtils.ts,Файл,Утилита,"arrayUtils",Утилиты для статистики,Активно,Высокий,95%,Frontend,2023-01-20,2024-05-08,v1.7,Средняя
 src/utils/validation.ts,Файл,Утилита,"regex patterns",Валидаторы данных,Активно,Высокий,97%,Frontend,2023-01-20,2024-05-05,v2.0,Средняя
@@ -214,159 +339,3 @@ src/App.tsx,Файл,Компонент,"Router, ThemeProvider, Provider (Redux)
 src/index.tsx,Файл,Entry,"ReactDOM, App, reportWebVitals",Точка входа,Активно,Критический,100%,Архитектор,2023-01-10,2024-05-25,v2.0,Средняя
 src/react-app-env.d.ts,Файл,Типы,"react-scripts",Декларации типов,Активно,Высокий,,Архитектор,2023-01-10,2023-06-15,v1.0,Низкая
 src/reportWebVitals.ts,Файл,Утилита,"web-vitals",Измерение производительности,Активно,Низкий,90%,QA,2023-01-15,2024-01-20,v1.2,Низкая
-
-Путь,Тип,Зависимости,Описание
-
-Глобальные стили и ресурсы
-
-src/assets/fonts/fonts.css,Глобальный стиль,"@font-face определения",Файл с объявлениями кастомных шрифтов для всего приложения
-src/assets/images/icons/app-icon.svg,Ресурс,-,SVG-иконка приложения, используемая как favicon или в интерфейсе
-src/assets/images/illustrations/empty-state.svg,Ресурс,-,Иллюстрация для отображения пустых состояний (когда данные отсутствуют)
-src/assets/images/README.md,Документация,-,Инструкции по использованию графических ресурсов проекта
-src/assets/styles/AppLayout.css,Стиль компонента,variables.css,Кастомные стили для основного лейаута приложения
-src/assets/styles/global.css,Глобальный стиль,reset.css, variables.css,Базовые глобальные стили, объединяющие сброс стилей и CSS-переменные
-src/assets/styles/reset.css,Глобальный стиль,-,Полный сброс стандартных стилей браузера для кроссбраузерной согласованности
-src/assets/styles/themeMixins.css,Глобальный стиль,variables.css,Миксины и вспомогательные функции для работы с темами оформления
-src/assets/styles/variables.css,Глобальный стиль,-,Централизованный файл CSS-переменных (цвета, отступы, тени и др.)
-
-Атомарные компоненты (UI элементы)
-
-src/components/common/Avatar/Avatar.tsx,Атом,userTypes, Avatar.module.css,Компонент отображения аватара пользователя (фото/инициалы) с настройкой размера
-src/components/common/Badge/Badge.tsx,Атом,ticketTypes, priorityStyles.css, statusStyles.css,Индикатор статуса с цветовой кодировкой для тикетов/заявок
-src/components/common/Button/Button.tsx,Атом,Button.module.css, themeMixins.css,Переиспользуемый кнопочный компонент с вариантами размеров, цветов и состояний
-src/components/common/Card/Card.tsx,Атом,Card.module.css, variables.css,Контейнер-карточка с тенями, скруглениями и внутренними отступами
-src/components/common/Checkbox/Checkbox.tsx,Атом,Checkbox.module.css,Контрол выбора с кастомным дизайном и поддержкой состояний
-src/components/common/FileUploader/FileUploader.tsx,Атом,FileUploader.module.css, fileUtils,Компонент для загрузки файлов через кнопку или drag-and-drop
-src/components/common/Icon/Icon.tsx,Атом,Icon.module.css, fonts.css,Система иконок на основе SVG-спрайта или иконочного шрифта
-src/components/common/Input/Input.tsx,Атом,Input.module.css, validation,Поле ввода текста с поддержкой валидации, ошибок и плейсхолдеров
-src/components/common/Modal/Modal.tsx,Атом,Modal.module.css, domUtils,Модальное окно с управлением фокусом, анимацией и оверлеем
-src/components/common/Select/Select.tsx,Атом,Select.module.css, arrayUtils,Выпадающий список с опциями поиска, мультивыбором и кастомным рендерингом
-src/components/common/Tab/Tab.tsx,Атом,Tab.module.css,Отдельный элемент таба в навигационной системе
-src/components/common/PriorityIndicator/PriorityIndicator.tsx,Атом,ticketTypes, priorityStyles.css,Визуальный индикатор приоритета заявки (цвет + иконка)
-src/components/common/StatusIndicator/StatusIndicator.tsx,Атом,ticketTypes, statusStyles.css,Индикатор текущего статуса обработки заявки
-src/components/common/SystemTag/SystemTag.tsx,Атом,ticketTypes, systemStyles.css,Тег для отображения связанной системы/сервиса
-
-Молекулы (Группы атомов)
-
-src/components/common/TabsNavigation/TabsNavigation.tsx,Молекула,Tab, TabsNavigation.module.css,Горизонтальная навигационная панель с переключаемыми вкладками
-src/components/common/TextEditor/TextEditor.tsx,Молекула,TextEditor.module.css, domUtils,WYSIWYG-редактор текста с базовым форматированием и тулбаром
-src/components/common/ThemeToggle/ThemeToggle.tsx,Молекула,ThemeToggle.module.css, ThemeProvider,Переключатель между светлой и тёмной темами оформления
-src/components/common/CommentItem/CommentItem.tsx,Молекула,Avatar, dateUtils, formatters,Компонент отображения отдельного комментария с метаданными
-src/components/common/FileItem/FileItem.tsx,Молекула,Icon, fileUtils,Элемент прикрепленного файла с иконкой типа и кнопкой скачивания
-src/components/common/MetaItem/MetaItem.tsx,Молекула,ticketTypes, formatters,Элемент мета-информации (ключ-значение) для детализации данных
-src/components/common/StatCard/StatCard.tsx,Молекула,ticketTypes, statsUtils,Карточка для отображения статистических показателей с иконкой
-
-Организмы (Комплексные компоненты)
-
-src/components/layout/AppHeader/AppHeader.tsx,Организм,Avatar, Button, TabsNavigation, AuthContext,Шапка приложения с лого, навигацией и пользовательским меню
-src/components/layout/Footer/Footer.tsx,Организм,Footer.module.css,Подвал приложения с ссылками, копирайтом и доп. информацией
-src/components/layout/MainContentLayout/MainContentLayout.tsx,Организм,MainContentLayout.module.css, Sidebar,Адаптивный лейаут основного контента с сайдбаром
-src/components/layout/Sidebar/Sidebar.tsx,Организм,Sidebar.module.css, FiltersPanel, StatsPanel,Боковая панель с фильтрами, статистикой и быстрыми действиями
-src/components/requests/CategoryAccordion/CategoryAccordion.tsx,Организм,CategoryAccordion.module.css, problemCategories, formatters,Аккордеон для категоризации заявок по тематическим группам
-src/components/requests/PriorityBlock/PriorityBlock.tsx,Организм,PriorityBlock.module.css, PriorityIndicator, problemCategories,Блок индикаторов приоритета с пояснениями для системы заявок
-src/components/requests/RequestCard/RequestCard.tsx,Организм,RequestCard.module.css, SystemTag, PriorityIndicator, StatusIndicator, dateUtils,Карточка заявки с основной информацией, статусом и действиями
-src/components/requests/RequestForm/RequestForm.tsx,Организм,RequestForm.module.css, TextEditor, FileUploader, Select, Input,Комплексная форма создания/редактирования заявки с полями ввода
-src/components/requests/RequestGrid/RequestGrid.tsx,Организм,RequestGrid.module.css, RequestCard, useFilters,Сетка карточек заявок с поддержкой фильтрации и адаптивным рендерингом
-src/components/requests/RequestTable/RequestTable.tsx,Организм,RequestTable.module.css, RequestCard, useFilters, usePagination,Табличное представление заявок с сортировкой и пагинацией
-src/components/requests/SystemChoiceCard/SystemChoiceCard.tsx,Организм,SystemChoiceCard.module.css, Icon, variables.css,Интерактивная карточка выбора целевой системы для заявки
-src/components/requests/TicketComments/TicketComments.tsx,Организм,TicketComments.module.css, CommentItem, Input, Button,Блок комментариев к заявке с формой добавления новых
-src/components/requests/TicketDetails/TicketDetails.tsx,Организм,TicketDetails.module.css, MetaItem, TicketHeader, TextEditor,Детализированная информация о заявке с историей изменений
-src/components/requests/ViewToggle/ViewToggle.tsx,Организм,ViewToggle.module.css, Button, useMediaQuery,Переключатель между режимами отображения (сетка/таблица/карты)
-
-Шаблоны (Комплексные макеты)
-
-src/components/section/FiltersPanel/FiltersPanel.tsx,Шаблон,Select, SearchBox, Button, useFilters,Панель фильтрации данных с динамическими контролами
-src/components/section/StatsPanel/StatsPanel.tsx,Шаблон,StatCard, statsUtils, statsUtils,Панель статистических показателей с визуализацией
-src/components/section/AdminPanel/AdminPanel.tsx,Шаблон,AdminPanel.module.css, UserTable, UserEditForm, usersAPI,Административная панель для управления пользователями
-src/components/section/HelpSection/HelpSection.tsx,Шаблон,HelpSection.module.css, ContactItem, QAItem, Icon,Раздел помощи с FAQ и контактной информацией
-src/components/section/ModerationPanel/ModerationPanel.tsx,Шаблон,ModerationPanel.module.css, RequestTable, useFilters,Панель модератора для проверки и обработки заявок
-src/components/section/ProfileSection/ProfileSection.tsx,Шаблон,ProfileSection.module.css, StatCard, Form, userUtils,Секция профиля пользователя с настройками и статистикой
-
-Страницы
-
-src/pages/AdminPage/AdminPage.tsx,Страница,AdminPanel, PrivateRoute, authSlice,Страница администратора с инструментами управления
-src/pages/CreateRequestPage/CreateRequestPage.tsx,Страница,RequestFlow, SystemSelector, PrioritySelector, CategoryAccordion,Страница создания новой заявки с пошаговым процессом
-src/pages/HelpPage/HelpPage.tsx,Страница,HelpSection, AppLayout, HelpPage.module.css,Страница справочной информации и поддержки
-src/pages/LoginPage/LoginPage.tsx,Страница,AuthForm, GuestRoute, AuthContext,Страница авторизации пользователя
-src/pages/MainPage/MainPage.tsx,Страница,RequestGrid/RequestTable, FiltersPanel, StatsPanel, requestsSlice,Главная страница системы с заявками
-src/pages/ModerationPage/ModerationPage.tsx,Страница,ModerationPanel, PrivateRoute,Страница модерации входящих заявок
-src/pages/NotFoundPage/NotFoundPage.tsx,Страница,NotFoundPage.module.css, EmptyLayout,Страница 404 (контент не найден)
-src/pages/ProfilePage/ProfilePage.tsx,Страница,ProfileSection, PrivateRoute,Страница личного профиля пользователя
-src/pages/RegisterPage/RegisterPage.tsx,Страница,AuthForm, GuestRoute,Страница регистрации нового пользователя
-
-Сервисы и API
-
-src/services/api/authAPI.ts,Сервис,axios, authMock, localStorage, userTypes,REST API клиент для операций аутентификации
-src/services/api/requestsAPI.ts,Сервис,axios, requestsMock, ticketUtils, ticketTypes,API для работы с заявками (CRUD операции)
-src/services/api/usersAPI.ts,Сервис,axios, usersMock, userTypes,API для управления пользовательскими данными
-src/services/mock/authMock.ts,Сервис,userTypes, localStorage,Mock-реализация сервиса аутентификации для разработки
-src/services/mock/requestsMock.ts,Сервис,ticketTypes, dateUtils,Mock-реализация сервиса заявок с тестовыми данными
-src/services/mock/usersMock.ts,Сервис,userTypes,Mock-реализация сервиса пользователей
-src/services/storage/localStorage.ts,Сервис,window.localStorage,Абстракция для работы с localStorage
-src/services/storage/sessionStorage.ts,Сервис,window.sessionStorage,Абстракция для работы с sessionStorage
-
-Хуки
-
-src/hooks/useFilters.ts,Хук,arrayUtils, dateUtils,Хук для управления фильтрацией данных (состояние + логика)
-src/hooks/useLocalStorage.ts,Хук,localStorage,Хук синхронизации состояния с localStorage
-src/hooks/useMediaQuery.ts,Хук,window.matchMedia,Хук отслеживания медиа-запросов (адаптивность)
-src/hooks/usePagination.ts,Хук,arrayUtils,Хук управления пагинацией (страницы, лимиты)
-src/hooks/useTicketActions.ts,Хук,requestsAPI, ticketUtils,Хук с бизнес-логикой для операций с заявками
-
-Store (Redux)
-
-src/store/authSlice.ts,Store,userTypes, authAPI,Слайс для управления состоянием аутентификации
-src/store/requestsSlice.ts,Store,ticketTypes, requestsAPI,Слайс для управления состоянием заявок
-src/store/uiSlice.ts,Store,themeTypes, ThemeProvider,Слайс для управления UI-состоянием (темы, модалки)
-src/store/usersSlice.ts,Store,userTypes, usersAPI,Слайс для управления пользовательскими данными
-
-Утилиты
-
-src/utils/arrayUtils.ts,Утилита,-,Функции для работы с массивами (фильтрация, группировка)
-src/utils/dateUtils.ts,Утилита,formatters,Утилиты работы с датами (форматирование, интервалы)
-src/utils/domUtils.ts,Утилита,document, window,Вспомогательные функции для работы с DOM
-src/utils/fileUtils.ts,Утилита,File, Blob,Утилиты обработки файлов (размеры, типы, превью)
-src/utils/formatters.ts,Утилита,Intl.DateTimeFormat,Форматировщики данных (даты, числа, строки)
-src/utils/statsUtils.ts,Утилита,arrayUtils,Функции для статистических расчетов
-src/utils/validation.ts,Утилита,regex patterns,Валидаторы для форм (email, пароли, поля)
-src/utils/ticketUtils.ts,Утилита,ticketTypes, dateUtils,Специфичные утилиты для работы с заявками
-src/utils/userUtils.ts,Утилита,userTypes,Утилиты для работы с пользовательскими данными
-src/utils/test-utils.tsx,Утилита,React, render, Router, Provider,Тестовые утилиты для Jest/RTL
-
-Типы
-
-src/types/formTypes.ts,Тип,-,Типизация для форм и полей ввода
-src/types/ticketTypes.ts,Тип,-,Интерфейсы и типы данных заявок/тикетов
-src/types/userTypes.ts,Тип,-,Типизация пользовательских данных и ролей
-src/types/themeTypes.ts,Тип,-,Типы для системы тем оформления
-
-Темы
-
-src/themes/darkTheme.ts,Тема,variables.css,Конфигурация темной темы оформления
-src/themes/lightTheme.ts,Тема,variables.css,Конфигурация светлой темы оформления
-src/themes/ThemeProvider.tsx,Провайдер,darkTheme, lightTheme, useLocalStorage,Провайдер контекста для управления темами
-
-Провайдеры и контекст
-
-src/context/AuthProvider.tsx,Провайдер,AuthContext, authAPI, useLocalStorage,Провайдер контекста аутентификации
-src/context/AuthContext.tsx,Контекст,React.createContext, userTypes,Контекст для данных пользователя и авторизации
-
-Системные компоненты
-
-src/App.tsx,Компонент,Router, ThemeProvider, Provider (Redux),Корневой компонент приложения
-src/index.tsx,Entry,ReactDOM, App, reportWebVitals,Точка входа в приложение
-src/reportWebVitals.ts,Утилита,web-vitals библиотека,Измерение производительности приложения
-src/react-app-env.d.ts,Тип,react-scripts типы,Декларации типов для Create React App
-
-Роутинг
-
-src/router/PrivateRoute.tsx,Route,AuthContext, Navigate, Location,Защищенный маршрут для авторизованных пользователей
-src/router/GuestRoute.tsx,Route,AuthContext, Navigate, Location,Маршрут только для гостей (неавторизованных)
-src/router/Router.tsx,Route,BrowserRouter, Routes, Route, routesConfig,Конфигурация основной маршрутизации
-src/router/routesConfig.ts,Конфиг,lazy, Suspense, AuthContext,Централизованная конфигурация маршрутов
-
-Конфигурации
-
-src/config/problemCategories.ts,Конфиг,ticketTypes,Категории проблем для системы заявок
-src/config/organizationConfig.ts,Конфиг,-,Настройки организации (название, контакты)
-src/config/roleConfig.ts,Конфиг,-,Конфигурация ролей пользователей и прав доступа
